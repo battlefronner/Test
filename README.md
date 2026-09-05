@@ -412,8 +412,14 @@ Die Texte folgen drei Regeln, die beim Bearbeiten gelten sollten:
    was der Besucher davon hat — nicht, welche Vorschrift dahintersteht.
    „Zugelassen und im Register geführt“ statt „Erlaubnis nach § 34d Abs. 1 GewO“.
    Die Belege stehen kompakt in der Nachweisleiste am Seitenende.
-3. **Sagen, was passiert.** „Was kostet mich das?“ — „Nichts.“ Nicht:
-   „Die Vergütung erfolgt über die Versicherungsunternehmen.“
+3. **Klar, aber nicht salopp.** Die Seite verkauft eine Finanzdienstleistung —
+   der Ton bleibt ruhig und sachlich. „Sie zahlen uns kein Honorar. Unsere
+   Vergütung kommt vom Versicherer.“ Nicht: „Was kostet Sie das? Nichts.“
+   Verkürzungen, die sachlich nicht ganz stimmen, kosten mehr Vertrauen,
+   als sie an Lockerheit gewinnen.
+4. **Nur sagen, was wir tun.** Keine Aufzählung dessen, was nicht angeboten
+   wird. Abgrenzungen des Tätigkeitsbereichs gehören in die Erstinformation,
+   nicht auf die Leistungsseite.
 
 ## Verkaufspsychologie — bewusst gesetzte Grenze
 
