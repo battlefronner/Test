@@ -298,12 +298,20 @@
       var wIn      = ease((intro - 0.55) / 0.45);
 
       // Das Schild pendelt um die Frontalansicht, statt voll durchzudrehen —
-      // sonst steht das W regelmäßig auf der Kante und ist unlesbar.
+      // sonst steht das W auf der Kante und verschwindet.
       // Der Ring dreht weiter voll; der Gegensatz erzeugt die Tiefe.
+      //
+      // Wichtig: Pendeln und Zeigereinfluss addieren sich. Ohne die Klemme
+      // unten summierten sie sich auf über 60 Grad — und genau dann kippt das
+      // W weg. Der Gesamtwinkel bleibt deshalb hart begrenzt.
+      var MAX_TURN = 0.46;                    // rund 26 Grad
       var spin = reduced.matches ? 0.45 : t * 0.24;
-      var sway = reduced.matches ? 0.45 : Math.sin(t * 0.42) * 0.60 + (1 - ease(intro)) * 1.2;
-      var ry = sway + cur.x;
-      var rx = -0.16 + cur.y;
+      var sway = reduced.matches ? 0.30 : Math.sin(t * 0.42) * 0.30;
+      var turn = sway + cur.x * 0.34;
+      if (turn >  MAX_TURN) turn =  MAX_TURN;
+      if (turn < -MAX_TURN) turn = -MAX_TURN;
+      var ry = turn + (1 - ease(intro)) * 1.1;   // Anschwung nur während der Eröffnung
+      var rx = -0.14 + Math.max(-0.20, Math.min(0.20, cur.y * 0.5));
       scale *= 0.86 + 0.14 * ease(intro);
 
       // Ring liegt quer und dreht gegenläufig

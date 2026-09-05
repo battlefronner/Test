@@ -710,7 +710,12 @@ a:hover { color: var(--gold-100); }
 .prio__rank  { font-family: var(--f-mono); font-size: 12px; fill: var(--gold-600); }
 .prio__label { font-size: 13.5px; fill: var(--ink-2); }
 .prio__label.is-top { fill: var(--ink); font-weight: 600; }
-.prio__track { fill: var(--line); }
+/* Die Spur zeigt den Bezugsrahmen des Balkens — bei kurzen Werten ist sie
+   das Einzige, woran man die Skala erkennt. Deshalb auf UI-Kontrast gebracht
+   (--line-field: 3,75:1 auf der Karte). */
+/* Warmes Grau statt des bläulichen Feldrahmens — es steht neben Gold,
+   nicht neben einem Formularfeld. 3,3:1 auf der Karte. */
+.prio__track { fill: #726C62; }
 .prio__bar   { fill: var(--gold-400); }
 .prio__value { font-family: var(--f-mono); font-size: 12px; fill: var(--ink-2); }
 
