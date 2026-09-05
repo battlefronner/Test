@@ -1,0 +1,12 @@
+# Finanzwächter — robots.txt
+# Domain vor dem Livegang anpassen.
+
+User-agent: *
+Allow: /
+
+# Technische Endpunkte und Statusseiten gehören nicht in den Index
+Disallow: /api/
+Disallow: /kontakt-danke.html
+Disallow: /kontakt-fehler.html
+
+Sitemap: https://www.finanzwaechter.de/sitemap.xml

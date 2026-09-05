@@ -1,0 +1,107 @@
+# =============================================================================
+# Finanzwächter — nginx-Beispielkonfiguration
+#
+# Alternative zur .htaccess für Hoster mit nginx. Die Sicherheits-Header
+# entsprechen inhaltlich der Apache-Variante.
+#
+# Vor der Übernahme anpassen:  server_name, root, Zertifikatspfade,
+# PHP-Socket und den CSP-Hash (siehe tools/csp-hash.sh).
+# =============================================================================
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name finanzwaechter.de www.finanzwaechter.de;
+    return 301 https://www.finanzwaechter.de$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+
+    server_name www.finanzwaechter.de;
+    root /var/www/finanzwaechter;
+    index index.html;
+
+    charset utf-8;
+
+    # --- TLS ----------------------------------------------------------------
+    ssl_certificate     /etc/letsencrypt/live/finanzwaechter.de/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/finanzwaechter.de/privkey.pem;
+
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_ciphers         ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 1d;
+    ssl_session_tickets off;
+    ssl_stapling        on;
+    ssl_stapling_verify on;
+
+    # --- Sicherheits-Header -------------------------------------------------
+    # Der Hash gilt für den JSON-LD-Block in index.html. Nach jeder Änderung
+    # dort mit tools/csp-hash.sh neu berechnen.
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Rvi7Q7lPzWWczrOWuDqYZGA6wW9wfZDafchk4bqW2M8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), interest-cohort=()" always;
+    add_header Cross-Origin-Opener-Policy "same-origin" always;
+    add_header Cross-Origin-Resource-Policy "same-origin" always;
+    add_header Cross-Origin-Embedder-Policy "require-corp" always;
+
+    # HSTS erst aktivieren, wenn HTTPS dauerhaft steht.
+    # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+
+    server_tokens off;
+
+    # --- Zugriffsschutz -----------------------------------------------------
+    location ~ ^/api/(lib|storage)/   { deny all; return 404; }
+    location = /api/bootstrap.php     { deny all; return 404; }
+    location = /api/config.php        { deny all; return 404; }
+    location = /api/config.example.php { deny all; return 404; }
+    location ~ /\.                    { deny all; return 404; }
+    location ~ \.md$                  { deny all; return 404; }
+
+    # --- Anfragebegrenzung auf Serverebene ---------------------------------
+    # Ergänzt die Begrenzung in PHP. Die zugehörige limit_req_zone gehört
+    # in den http-Block:
+    #   limit_req_zone $binary_remote_addr zone=formular:10m rate=10r/m;
+    location = /api/kontakt.php {
+        limit_req zone=formular burst=3 nodelay;
+
+        include        fastcgi_params;
+        fastcgi_pass   unix:/run/php/php8.2-fpm.sock;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_hide_header X-Powered-By;
+    }
+
+    location = /api/token.php {
+        include        fastcgi_params;
+        fastcgi_pass   unix:/run/php/php8.2-fpm.sock;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_hide_header X-Powered-By;
+    }
+
+    # Kein weiteres PHP ausführen
+    location ~ \.php$ { deny all; return 404; }
+
+    # --- Zwischenspeicherung ------------------------------------------------
+    location ~* \.(css|js)$          { expires 1y; add_header Cache-Control "public, immutable"; }
+    location ~* \.(svg|webp|png|jpg|woff2)$ { expires 30d; add_header Cache-Control "public"; }
+    location ~* \.html$              { expires -1;  add_header Cache-Control "no-cache"; }
+
+    # --- Fehlerseiten -------------------------------------------------------
+    error_page 403 404 /404.html;
+
+    # --- Komprimierung ------------------------------------------------------
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 512;
+    gzip_types text/plain text/css application/javascript application/json image/svg+xml application/manifest+json;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

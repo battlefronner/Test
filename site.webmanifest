@@ -1,0 +1,19 @@
+{
+  "name": "Finanzwächter — Versicherungsvertretung",
+  "short_name": "Finanzwächter",
+  "lang": "de",
+  "description": "Versicherungsvertretung nach § 34d GewO für Absicherung und Vorsorge.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbfaf7",
+  "theme_color": "#0f2f47",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

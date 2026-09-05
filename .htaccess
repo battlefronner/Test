@@ -1,0 +1,149 @@
+# =============================================================================
+# Finanzwächter — Apache-Konfiguration
+#
+# Getestet mit Apache 2.4. Nicht alle Direktiven sind bei jedem Hoster
+# freigeschaltet; siehe README.md, Abschnitt „Deployment".
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 1. HTTPS erzwingen
+# -----------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Hinter einem Reverse Proxy wird das ursprüngliche Schema im Header übergeben.
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # Kanonische Domain: ohne "www" auf die "www"-Variante umleiten.
+    # Aktivieren, sobald die endgültige Domain feststeht.
+    # RewriteCond %{HTTP_HOST} ^finanzwaechter\.de$ [NC]
+    # RewriteRule ^ https://www.finanzwaechter.de%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 2. Sicherheits-Header
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+
+    # Content-Security-Policy
+    #
+    # Die Seite kommt ohne externe Ressourcen und ohne Inline-Skripte aus.
+    # Deshalb ist eine strikte Richtlinie ohne 'unsafe-inline' für Skripte
+    # möglich. 'unsafe-inline' bleibt nur für style-src nötig, weil einzelne
+    # Elemente ein style-Attribut für Layoutfeinheiten tragen.
+    #
+    # Wenn Sie später externe Dienste einbinden (Karten, Videos, Analyse),
+    # muss diese Zeile erweitert werden — und dann ist auch die
+    # Datenschutzerklärung anzupassen.
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Rvi7Q7lPzWWczrOWuDqYZGA6wW9wfZDafchk4bqW2M8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
+
+    # Einbettung in fremde Seiten unterbinden (Clickjacking-Schutz)
+    Header always set X-Frame-Options "DENY"
+
+    # MIME-Type-Sniffing unterbinden
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Referrer nur eingeschränkt weitergeben
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Nicht benötigte Browser-Schnittstellen abschalten
+    Header always set Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), interest-cohort=()"
+
+    # Isolation gegenüber anderen Ursprüngen
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+    Header always set Cross-Origin-Embedder-Policy "require-corp"
+
+    # HSTS — erst aktivieren, wenn HTTPS dauerhaft und für alle Subdomains steht.
+    # Ein voreiliges Aktivieren macht die Domain für die angegebene Dauer
+    # unerreichbar, falls das Zertifikat ausfällt.
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Serverkennung reduzieren
+    Header unset X-Powered-By
+    Header always unset X-AspNet-Version
+
+    # Formularantworten nie zwischenspeichern
+    <FilesMatch "\.(php)$">
+        Header always set Cache-Control "no-store, no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_php.c>
+    php_flag expose_php off
+</IfModule>
+ServerSignature Off
+
+# -----------------------------------------------------------------------------
+# 3. Zugriffsschutz
+# -----------------------------------------------------------------------------
+
+# Konfiguration, Bibliotheken und Versionsverwaltung nicht ausliefern
+<FilesMatch "^(config\.php|config\.example\.php|\.env.*|composer\.(json|lock)|.*\.md|\.gitignore)$">
+    Require all denied
+</FilesMatch>
+
+# Verstecke Dateien (.git, .DS_Store …)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Bibliotheks- und Speicherverzeichnis sind nicht direkt aufrufbar
+    RewriteRule ^api/lib/ - [F,L]
+    RewriteRule ^api/storage/ - [F,L]
+    RewriteRule ^api/bootstrap\.php$ - [F,L]
+    RewriteRule (^|/)\.git - [F,L]
+</IfModule>
+
+# Verzeichnisauflistung abschalten
+Options -Indexes -MultiViews
+
+# -----------------------------------------------------------------------------
+# 4. Fehlerseiten
+# -----------------------------------------------------------------------------
+ErrorDocument 403 /404.html
+ErrorDocument 404 /404.html
+
+# -----------------------------------------------------------------------------
+# 5. Komprimierung
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml application/manifest+json
+</IfModule>
+
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript image/svg+xml
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 6. Zwischenspeicherung im Browser
+# -----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault                        "access plus 1 hour"
+    ExpiresByType text/html               "access plus 0 seconds"
+    ExpiresByType text/css                "access plus 1 year"
+    ExpiresByType application/javascript  "access plus 1 year"
+    ExpiresByType image/svg+xml           "access plus 1 month"
+    ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+
+# Hinweis: CSS und JS sind auf ein Jahr gesetzt. Nach inhaltlichen Änderungen
+# an diesen Dateien muss der Dateiname versioniert werden (z. B. style.v2.css),
+# sonst sehen wiederkehrende Besucher die alte Fassung.
+
+# -----------------------------------------------------------------------------
+# 7. Zeichensatz und MIME-Typen
+# -----------------------------------------------------------------------------
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+    AddType image/svg+xml               .svg
+    AddType application/manifest+json   .webmanifest
+</IfModule>

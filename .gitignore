@@ -1,0 +1,19 @@
+# Tatsächliche Konfiguration mit Empfängeradressen und Signaturschlüssel.
+# Nur api/config.example.php gehört ins Repository.
+/api/config.php
+
+# Laufzeitdaten des Spamschutzes und archivierte Anfragen
+/api/storage/*
+!/api/storage/.gitkeep
+!/api/storage/.htaccess
+
+# Betriebssystem und Editoren
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Logs
+*.log
