@@ -1,11 +1,57 @@
 # Finanzwächter — Website
 
-Statische Website für eine Versicherungsvertretung nach § 34d Abs. 1 GewO,
-mit gehärtetem PHP-Kontaktformular.
+Website für **Florian Wächter**, Versicherungsvertretung nach § 34d Abs. 1 GewO.
+Claim: *Klartext für Versicherungen, Vorsorge & Vermögen.*
 
-Kein Build-Schritt, keine Paketabhängigkeiten, keine externen Ressourcen zur
-Laufzeit. Die Dateien können unverändert auf jeden Webspace mit PHP 8.0 oder
-neuer geladen werden.
+Statisches HTML mit gehärtetem PHP-Kontaktformular. Kein Build-Schritt, keine
+Paketabhängigkeiten, keine externen Ressourcen zur Laufzeit. Die Dateien können
+unverändert auf jeden Webspace mit PHP 8.0 oder neuer geladen werden.
+
+## Gestaltung
+
+Die Seite übernimmt die Corporate Identity aus dem Markenbild: Tiefschwarz mit
+Gold, das Signet aus Ring, Schild und **W**, die geschwungenen Goldbögen und
+die vier Säulen **Schutz · Vorsorge · Vermögen · Unternehmen**.
+
+Bewusste Entscheidung: **einfarbige Markenwelt, kein heller Modus.** Die Marke
+ist dunkel; ein umschaltbares Erscheinungsbild würde die Wiedererkennung
+brechen. Alle Farben werden explizit gesetzt, damit die Seite unabhängig vom
+Systemdesign des Besuchers gleich aussieht.
+
+| Rolle | Wert |
+| --- | --- |
+| Grundfläche | `#0B0B0F` |
+| Karten | `#121218` |
+| Gold (Verlauf) | `#F7E3A1` → `#E3BF62` → `#B8892B` |
+| Schrift | `#F2EFE9` (warmes Weiß, weniger Nachleuchten als reines Weiß) |
+| Überschriften | Sora 300–700 |
+| Fließtext | IBM Plex Sans |
+| Daten und Marken-Labels | IBM Plex Mono |
+
+Die Schriften liegen unter `assets/fonts/` und werden **selbst ausgeliefert**.
+Beim Einbinden über `fonts.googleapis.com` würde bei jedem Seitenaufruf die
+IP-Adresse des Besuchers an Google übertragen — dieselbe Konstellation, die
+das LG München I 2022 als Datenschutzverstoß gewertet hat. Beide Familien
+stehen unter der SIL Open Font License (siehe `assets/fonts/LICENSE.txt`).
+
+## Bewegung
+
+Alle Effekte sind ohne externe Bibliothek gebaut und respektieren
+`prefers-reduced-motion`:
+
+| Element | Umsetzung |
+| --- | --- |
+| Knotennetz im Kopfbereich | Canvas 2D, reagiert auf den Zeiger |
+| Drehendes Signet | Canvas 2D mit **selbst gerechneter 3D-Projektion** — Rotationsmatrix, perspektivische Teilung, Tiefensortierung über die Deckkraft |
+| Karten | Neigen sich zum Zeiger (CSS-Perspektive), nur bei echtem Zeigegerät |
+| Hauptschaltflächen | Folgen dem Zeiger leicht, Lichtreflex beim Zeigen |
+| Abschnitte | Blenden beim Scrollen ein, mit Zeitschaltung als Sicherheitsnetz |
+| Kennzahlen | Zählen beim Sichtbarwerden hoch |
+| Fortschrittsbalken | Goldene Linie am oberen Rand |
+
+Das 3D-Signet ersetzt eine 3D-Bibliothek wie Three.js (rund 600 KB). Das hält
+die Seite schnell und die Content-Security-Policy eng — die gesamte Seite
+kommt ohne Inline-Skripte und ohne fremde Hosts aus.
 
 ---
 
@@ -34,9 +80,9 @@ tools/pruefen.sh
 | Datei / Ordner | Zweck |
 | --- | --- |
 | `index.html` | Startseite |
-| `leistungen.html` | Leistungsübersicht in fünf Bereichen |
+| `leistungen.html` | Die vier Säulen |
 | `ablauf.html` | Beratungsablauf, Rechte des Kunden |
-| `ueber-uns.html` | Unternehmen, Grundsätze, rechtlicher Rahmen |
+| `ueber-uns.html` | Person, Grundsätze, rechtlicher Rahmen |
 | `kontakt.html` | Kontaktdaten und Formular |
 | `kontakt-danke.html` / `kontakt-fehler.html` | Statusseiten für den Betrieb ohne JavaScript |
 | `404.html` | Fehlerseite |
@@ -46,9 +92,13 @@ tools/pruefen.sh
 | `recht/beschwerde.html` | Beschwerdewege und Schlichtungsstellen |
 | `recht/barrierefreiheit.html` | Erklärung zur Barrierefreiheit |
 | `assets/css/style.css` | Vollständiges Gestaltungssystem |
-| `assets/js/theme-init.js` | Setzt das Farbschema vor dem ersten Rendern |
-| `assets/js/main.js` | Navigation, Farbschema, Einblendungen |
+| `assets/js/boot.js` | Markiert früh, dass JavaScript verfügbar ist |
+| `assets/js/main.js` | Navigation und Kopfbereich |
+| `assets/js/motion.js` | Einblendungen, Zähler, Neigung, Fortschritt |
+| `assets/js/hero-scene.js` | Knotennetz und 3D-Signet |
 | `assets/js/form.js` | Formularprüfung im Browser |
+| `assets/fonts/` | Selbst gehostete Schriften samt Lizenz |
+| `assets/img/og-finanzwaechter.jpg` | Vorschaubild für Social Media |
 | `api/` | Kontaktformular-Backend |
 | `tools/pruefen.sh` | Prüfung vor dem Livegang |
 | `tools/csp-hash.sh` | Hash für die Content-Security-Policy berechnen |
@@ -260,7 +310,7 @@ Deshalb ist **kein Cookie-Banner erforderlich**. Verwendet werden nur:
 | Speicherung | Zweck | Rechtsgrundlage |
 | --- | --- | --- |
 | Sitzungs-Cookie `fw_sess` | Missbrauchsschutz des Formulars | § 25 Abs. 2 Nr. 2 TDDDG — unbedingt erforderlich |
-| `localStorage` `fw-theme` | Gewähltes Farbschema, verbleibt auf dem Gerät | kein Personenbezug |
+| — | Sonst nichts. Kein `localStorage`, keine Analyse, keine Einbettungen | — |
 
 > **Sobald externe Dienste ergänzt werden**, wird die Datenschutzerklärung
 > unrichtig. Dann sind anzupassen: die Erklärung selbst, die
@@ -278,8 +328,10 @@ Umgesetzt wurde:
 - semantische Auszeichnung, genau eine `h1` je Seite, lückenlose Überschriftenfolge
 - Formularfelder mit zugeordneten Beschriftungen und Fehlermeldungen über `aria-live`
 - Berücksichtigung von `prefers-reduced-motion`
-- alle Farbkombinationen auf **WCAG 2.1 AA** geprüft (Text ≥ 4,5:1, Bedienelemente ≥ 3:1),
-  in hellem und dunklem Erscheinungsbild
+- alle Farbkombinationen auf **WCAG 2.1 AA** geprüft (Text ≥ 4,5:1, Bedienelemente ≥ 3:1)
+- kein waagerechter Überlauf bei 320, 390, 768, 1024 und 1440 px Breite
+- lange Fachwörter in Überschriften mit weichen Trennstellen (`&shy;`), damit
+  sie mit Trennstrich umbrechen statt mitten im Wort
 
 Nicht geleistet: eine Prüfung mit Screenreadern und assistiven Technologien.
 Die Aussagen in `recht/barrierefreiheit.html` sind erst nach einer solchen
@@ -322,8 +374,10 @@ Vor der Übergabe wurde geprüft:
 
 - **HTML** — Struktur, Verschachtelung, doppelte `id`-Werte, Überschriftenfolge,
   Beschriftung aller Formularfelder: keine Befunde
-- **Farbkontraste** — 29 Kombinationen gegen WCAG 2.1 AA in beiden
-  Erscheinungsbildern: alle bestanden
+- **Farbkontraste** — alle Kombinationen der Gold-auf-Schwarz-Palette gegen
+  WCAG 2.1 AA: bestanden
+- **Waagerechter Überlauf** — 13 Seiten × 5 Bildschirmbreiten automatisiert
+  geprüft: keine Abweichung
 - **Kontaktformular** — alle sieben Schutzstufen einzeln ausgelöst, dazu
   Header-Injection über Name und Adresse, Anfragebegrenzung, CSRF-Ablauf und
   der Betrieb ohne JavaScript
@@ -334,3 +388,18 @@ Vor der Übergabe wurde geprüft:
 Nicht geprüft: Darstellung in echten Browsern außer Chromium, Screenreader,
 Zustellbarkeit der E-Mails (hängt von der Serverumgebung ab) und die
 inhaltliche Richtigkeit der Rechtstexte.
+
+## Verkaufspsychologie — bewusst gesetzte Grenze
+
+Die Seite arbeitet mit den Mitteln, die bei erklärungsbedürftigen
+Finanzdienstleistungen tatsächlich wirken: Autorität durch nachprüfbare
+Nachweise (Erlaubnis, Registernummer), Reibungsabbau („kostenfrei",
+„unverbindlich", „kein Abschluss im Erstgespräch"), vorweggenommene Einwände
+im Fragenbereich, Transparenz bei der Vergütung und klar wiederholte
+Handlungsaufforderungen.
+
+Bewusst **nicht** eingesetzt: künstliche Verknappung, Countdown, erfundene
+Bewertungen oder Kundenzahlen. Solche Mittel sind bei Versicherungsvermittlung
+nach § 5 UWG angreifbar und würden dem Markenkern „Klartext" widersprechen —
+sie würden die Seite schwächer machen, nicht stärker. Die Kennzahlen auf der
+Startseite nennen deshalb nur belegbare Größen (0 €, 100 %, 24 h, § 34d).

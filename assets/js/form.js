@@ -120,7 +120,7 @@
         setStatus('err', result.json.message || 'Das Senden hat nicht geklappt. Bitte versuchen Sie es erneut.');
       })
       .catch(function () {
-        setStatus('err', 'Verbindungsfehler. Bitte versuchen Sie es später erneut oder rufen Sie uns an.');
+        setStatus('err', 'Verbindungsfehler. Bitte versuchen Sie es später erneut oder rufen Sie mich an.');
       })
       .then(function () {
         if (submitBtn) {

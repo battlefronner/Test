@@ -23,14 +23,19 @@ final class Validator
     private array $clean = [];
 
     /** Zulässige Werte des Auswahlfelds — muss zum Markup in kontakt.html passen. */
+    /**
+     * Zulässige Werte des Auswahlfelds und ihre lesbare Bezeichnung.
+     * Der Schlüssel steht im Formular (bewusst ohne Umlaute), die
+     * Bezeichnung erscheint in der Benachrichtigung.
+     */
     private const THEMEN = [
-        'Existenzabsicherung',
-        'Altersvorsorge',
-        'Sach und Haftpflicht',
-        'Gewerbe',
-        'Versicherungs-Check',
-        'Schadensfall',
-        'Sonstiges',
+        'Schutz'        => 'Schutz',
+        'Vorsorge'      => 'Vorsorge',
+        'Vermoegen'     => 'Vermögen',
+        'Unternehmen'   => 'Unternehmen',
+        'Vertragscheck' => 'Prüfung bestehender Verträge',
+        'Schadensfall'  => 'Schadensfall',
+        'Sonstiges'     => 'Sonstiges',
     ];
 
     /** @param array<string,mixed> $input */
@@ -152,11 +157,11 @@ final class Validator
             $this->errors['thema'] = 'Bitte wählen Sie ein Thema aus.';
             return;
         }
-        if (!in_array($value, self::THEMEN, true)) {
+        if (!array_key_exists($value, self::THEMEN)) {
             $this->errors['thema'] = 'Bitte wählen Sie ein gültiges Thema aus.';
             return;
         }
-        $this->clean['thema'] = $value;
+        $this->clean['thema'] = self::THEMEN[$value];
     }
 
     /** @param array<string,mixed> $input */

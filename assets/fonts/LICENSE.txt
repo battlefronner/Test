@@ -1,0 +1,20 @@
+Schriften in diesem Verzeichnis
+================================
+
+Sora
+  Copyright 2020 The Sora Project Authors (https://github.com/SoraFoundry/Sora)
+  Lizenz: SIL Open Font License, Version 1.1
+
+IBM Plex Sans, IBM Plex Mono
+  Copyright 2017 IBM Corp. (https://github.com/IBM/plex)
+  Lizenz: SIL Open Font License, Version 1.1
+
+Der vollständige Lizenztext ist unter https://openfontlicense.org abrufbar.
+
+Die SIL OFL erlaubt Verwendung, Weitergabe und Einbettung — auch kommerziell —
+solange die Schriften nicht einzeln verkauft werden und dieser Copyright-Hinweis
+erhalten bleibt.
+
+Die Dateien wurden von Google Fonts bezogen und werden bewusst selbst
+ausgeliefert: Beim Einbinden über fonts.googleapis.com würde bei jedem
+Seitenaufruf die IP-Adresse des Besuchers an Google übertragen.

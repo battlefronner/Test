@@ -1,0 +1,139 @@
+/* ==========================================================================
+   Bewegung im Seitenaufbau.
+   Alles hier ist Zugabe: Ohne JavaScript oder bei reduzierter Bewegung
+   bleibt die Seite vollständig lesbar und bedienbar.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- Einblenden beim Scrollen ---------------------------------------- */
+  var targets = document.querySelectorAll('.reveal, .line-in');
+
+  if (reduced || !('IntersectionObserver' in window)) {
+    targets.forEach(function (el) { el.classList.add('shown'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('shown');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+
+    targets.forEach(function (el) { io.observe(el); });
+
+    // Sicherheitsnetz: Inhalt darf nie dauerhaft unsichtbar bleiben.
+    window.setTimeout(function () {
+      targets.forEach(function (el) { el.classList.add('shown'); });
+    }, 2600);
+  }
+
+  /* --- Fortschrittsbalken ---------------------------------------------- */
+  var bar = document.querySelector('.scroll-progress');
+  if (bar) {
+    var ticking = false;
+    function progress() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', progress, { passive: true });
+    progress();
+  }
+
+  /* --- Zahlen zählen hoch ----------------------------------------------- */
+  var counters = document.querySelectorAll('[data-count]');
+  if (counters.length) {
+    function run(el) {
+      var target = parseFloat(el.getAttribute('data-count'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      var prefix = el.getAttribute('data-prefix') || '';
+      var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+
+      if (reduced || isNaN(target)) {
+        el.textContent = prefix + target.toLocaleString('de-DE', {
+          minimumFractionDigits: decimals, maximumFractionDigits: decimals
+        }) + suffix;
+        return;
+      }
+
+      var start = performance.now(), dur = 1500;
+      (function step(now) {
+        var p = Math.min(1, (now - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + (target * eased).toLocaleString('de-DE', {
+          minimumFractionDigits: decimals, maximumFractionDigits: decimals
+        }) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      })(start);
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      counters.forEach(run);
+    } else {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          run(e.target);
+          cio.unobserve(e.target);
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(function (el) { cio.observe(el); });
+    }
+  }
+
+  /* --- Karten kippen leicht in Richtung Zeiger --------------------------- */
+  // Nur auf Geräten mit echtem Zeiger; auf Touch wäre das nur störend.
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (finePointer && !reduced) {
+    document.querySelectorAll('.tilt').forEach(function (card) {
+      var raf = 0;
+
+      card.addEventListener('pointermove', function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          var r = card.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width  - 0.5;
+          var py = (e.clientY - r.top)  / r.height - 0.5;
+          card.style.transform =
+            'perspective(900px) rotateX(' + (-py * 7).toFixed(2) + 'deg) ' +
+            'rotateY(' + (px * 9).toFixed(2) + 'deg) translateY(-4px)';
+          raf = 0;
+        });
+      });
+
+      card.addEventListener('pointerleave', function () {
+        cancelAnimationFrame(raf); raf = 0;
+        card.style.transform = '';
+      });
+    });
+  }
+
+  /* --- Hauptschaltflächen folgen dem Zeiger leicht ----------------------- */
+  if (finePointer && !reduced) {
+    document.querySelectorAll('[data-magnetic]').forEach(function (btn) {
+      var raf = 0;
+      btn.addEventListener('pointermove', function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          var r = btn.getBoundingClientRect();
+          var dx = (e.clientX - (r.left + r.width  / 2)) * 0.16;
+          var dy = (e.clientY - (r.top  + r.height / 2)) * 0.22;
+          btn.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
+          raf = 0;
+        });
+      });
+      btn.addEventListener('pointerleave', function () {
+        cancelAnimationFrame(raf); raf = 0;
+        btn.style.transform = '';
+      });
+    });
+  }
+})();

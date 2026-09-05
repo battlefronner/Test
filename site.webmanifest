@@ -1,19 +1,14 @@
 {
-  "name": "Finanzwächter — Versicherungsvertretung",
+  "name": "Finanzwächter — Florian Wächter",
   "short_name": "Finanzwächter",
   "lang": "de",
-  "description": "Versicherungsvertretung nach § 34d GewO für Absicherung und Vorsorge.",
+  "description": "Klartext für Versicherungen, Vorsorge und Vermögen. Versicherungsvertretung nach § 34d GewO.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#fbfaf7",
-  "theme_color": "#0f2f47",
+  "background_color": "#0B0B0F",
+  "theme_color": "#0B0B0F",
   "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }

@@ -37,7 +37,7 @@
     # Wenn Sie später externe Dienste einbinden (Karten, Videos, Analyse),
     # muss diese Zeile erweitert werden — und dann ist auch die
     # Datenschutzerklärung anzupassen.
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Rvi7Q7lPzWWczrOWuDqYZGA6wW9wfZDafchk4bqW2M8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
 
     # Einbettung in fremde Seiten unterbinden (Clickjacking-Schutz)
     Header always set X-Frame-Options "DENY"
@@ -132,6 +132,8 @@ ErrorDocument 404 /404.html
     ExpiresByType text/css                "access plus 1 year"
     ExpiresByType application/javascript  "access plus 1 year"
     ExpiresByType image/svg+xml           "access plus 1 month"
+    ExpiresByType font/woff2              "access plus 1 year"
+    ExpiresByType image/jpeg              "access plus 1 month"
     ExpiresByType application/manifest+json "access plus 1 week"
 </IfModule>
 
@@ -146,4 +148,5 @@ AddDefaultCharset UTF-8
 <IfModule mod_mime.c>
     AddType image/svg+xml               .svg
     AddType application/manifest+json   .webmanifest
+    AddType font/woff2                  .woff2
 </IfModule>

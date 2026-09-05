@@ -42,7 +42,7 @@ server {
     # --- Sicherheits-Header -------------------------------------------------
     # Der Hash gilt für den JSON-LD-Block in index.html. Nach jeder Änderung
     # dort mit tools/csp-hash.sh neu berechnen.
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Rvi7Q7lPzWWczrOWuDqYZGA6wW9wfZDafchk4bqW2M8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests" always;
     add_header X-Frame-Options "DENY" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
@@ -89,7 +89,8 @@ server {
 
     # --- Zwischenspeicherung ------------------------------------------------
     location ~* \.(css|js)$          { expires 1y; add_header Cache-Control "public, immutable"; }
-    location ~* \.(svg|webp|png|jpg|woff2)$ { expires 30d; add_header Cache-Control "public"; }
+    location ~* \.(svg|webp|png|jpg|jpeg)$ { expires 30d; add_header Cache-Control "public"; }
+    location ~* \.woff2$ { expires 1y; add_header Cache-Control "public, immutable"; }
     location ~* \.html$              { expires -1;  add_header Cache-Control "no-cache"; }
 
     # --- Fehlerseiten -------------------------------------------------------

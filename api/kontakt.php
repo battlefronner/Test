@@ -88,7 +88,7 @@ if ($security->rateLimitExceeded(
     (int) ($config['rate_limit_per_ip'] ?? 3),
     (int) ($config['rate_limit_window'] ?? 3600)
 )) {
-    respond(429, 'error', 'Es wurden bereits mehrere Anfragen von Ihnen gesendet. Bitte versuchen Sie es später erneut oder rufen Sie uns an.');
+    respond(429, 'error', 'Es wurden bereits mehrere Anfragen von Ihnen gesendet. Bitte versuchen Sie es später erneut oder rufen Sie mich an.');
 }
 
 if ($security->rateLimitExceeded(
@@ -97,7 +97,7 @@ if ($security->rateLimitExceeded(
     (int) ($config['rate_limit_global_window'] ?? 3600)
 )) {
     error_log('Kontaktformular: globale Anfragegrenze erreicht.');
-    respond(429, 'error', 'Das Formular ist derzeit stark ausgelastet. Bitte versuchen Sie es später erneut oder rufen Sie uns an.');
+    respond(429, 'error', 'Das Formular ist derzeit stark ausgelastet. Bitte versuchen Sie es später erneut oder rufen Sie mich an.');
 }
 
 // --- 7. Validierung --------------------------------------------------------
@@ -134,7 +134,7 @@ if (!$sent) {
     respond(
         500,
         'error',
-        'Ihre Nachricht konnte technisch nicht zugestellt werden. Bitte rufen Sie uns an oder schreiben Sie uns direkt per E-Mail.'
+        'Ihre Nachricht konnte technisch nicht zugestellt werden. Bitte rufen Sie mich an oder schreiben Sie mir direkt per E-Mail.'
     );
 }
 
@@ -145,5 +145,5 @@ unset($_SESSION['csrf_token']);
 respond(
     200,
     'ok',
-    'Vielen Dank für Ihre Nachricht. Wir melden uns in der Regel innerhalb eines Werktages bei Ihnen.'
+    'Vielen Dank für Ihre Nachricht. Ich melde mich in der Regel innerhalb eines Werktages bei Ihnen.'
 );

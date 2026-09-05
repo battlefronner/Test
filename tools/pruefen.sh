@@ -109,6 +109,25 @@ else
     ok "Keine externen Ressourcen eingebunden."
 fi
 
+# Nur tatsächliche Einbindungen zählen, nicht die Erwähnung in Kommentaren.
+if grep -rqE '(src=|href=|url\()[^)"'"'"']*fonts\.(googleapis|gstatic)\.com' \
+       --include='*.html' --include='*.css' . 2>/dev/null; then
+    fail "Schriften werden von Google geladen — dabei wird die IP-Adresse der Besucher übertragen."
+else
+    ok "Schriften werden selbst ausgeliefert (keine Verbindung zu Google)."
+fi
+
+fehlende_schrift=0
+for f in sora-latin sora-latin-ext ibm-plex-sans-latin ibm-plex-sans-latin-ext ibm-plex-mono-latin ibm-plex-mono-latin-ext; do
+    [ -f "assets/fonts/$f.woff2" ] || { fail "Schriftdatei fehlt: assets/fonts/$f.woff2"; fehlende_schrift=1; }
+done
+[ "$fehlende_schrift" -eq 0 ] && ok "Alle sechs Schriftdateien vorhanden."
+
+# ---------------------------------------------------------------------------
+titel "5b. Waagerechter Überlauf"
+warn "Nicht automatisch prüfbar. Vor dem Livegang die Seiten bei 320 px Breite ansehen;"
+printf '         die Vorlage wurde bei 320, 390, 768, 1024 und 1440 px geprüft.\n'
+
 # ---------------------------------------------------------------------------
 titel "6. Content-Security-Policy"
 if command -v python3 >/dev/null 2>&1 && [ -f .htaccess ]; then

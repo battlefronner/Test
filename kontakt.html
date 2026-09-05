@@ -3,49 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kontakt &amp; Termin — Finanzwächter</title>
-<meta name="description" content="Kostenfreies Erstgespräch anfragen: per Formular, telefonisch oder per E-Mail. Wir antworten in der Regel innerhalb eines Werktages.">
+<title>Kontakt und Terminanfrage | Finanzwächter</title>
+<meta name="description" content="Kostenfreies Erstgespräch anfragen: per Formular, telefonisch oder per E-Mail. Antwort in der Regel innerhalb eines Werktages.">
 <link rel="canonical" href="https://www.finanzwaechter.de/kontakt.html">
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#0f2f47" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#071722" media="(prefers-color-scheme: dark)">
+<meta name="author" content="Florian Wächter">
+<meta name="theme-color" content="#0B0B0F">
+<meta name="color-scheme" content="dark">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Finanzwächter">
 <meta property="og:locale" content="de_DE">
-<meta property="og:title" content="Kontakt &amp; Termin — Finanzwächter">
-<meta property="og:description" content="Kostenfreies Erstgespräch anfragen: per Formular, telefonisch oder per E-Mail. Wir antworten in der Regel innerhalb eines Werktages.">
+<meta property="og:title" content="Kontakt und Terminanfrage | Finanzwächter">
+<meta property="og:description" content="Kostenfreies Erstgespräch anfragen: per Formular, telefonisch oder per E-Mail. Antwort in der Regel innerhalb eines Werktages.">
 <meta property="og:url" content="https://www.finanzwaechter.de/kontakt.html">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://www.finanzwaechter.de/assets/img/og-finanzwaechter.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Finanzwächter — Florian Wächter. Klartext für Versicherungen, Vorsorge und Vermögen.">
+<meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <link rel="manifest" href="/site.webmanifest">
+
+<link rel="preload" href="/assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
-<script src="/assets/js/theme-init.js"></script>
+<script src="/assets/js/boot.js"></script>
 </head>
 <body>
+<div class="scroll-progress" aria-hidden="true"></div>
 <a class="skip-link" href="#hauptinhalt">Zum Hauptinhalt springen</a>
 
 <header class="site-header">
   <div class="wrap">
     <nav class="nav" aria-label="Hauptnavigation">
       <a class="brand" href="/">
-        <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
-          <path d="M24 3.5 6.5 10.2v13.4c0 10.8 7.1 19.3 17.5 21.9 10.4-2.6 17.5-11.1 17.5-21.9V10.2L24 3.5Z" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-          <path d="M14 29.5 20.6 22l4.9 4.6L34 16.5" stroke="#b8912f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M28.6 16.5H34v5.2" stroke="#b8912f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="brand__signet" viewBox="0 0 120 120" fill="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="bg1" x1="18" y1="10" x2="102" y2="112" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#F7E3A1"/><stop offset=".32" stop-color="#E3BF62"/>
+              <stop offset=".58" stop-color="#B8892B"/><stop offset=".8" stop-color="#E8CA78"/>
+              <stop offset="1" stop-color="#9A6F1C"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="52" stroke="url(#bg1)" stroke-width="5"/>
+          <path d="M60 26 33 37v22c0 17.2 11 30.4 27 35 16-4.6 27-17.8 27-35V37L60 26Z"
+                stroke="url(#bg1)" stroke-width="3.4" stroke-linejoin="round"/>
+          <path d="M45 52.5 55 79l5-14.5L65 79l10-26.5"
+                stroke="url(#bg1)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span class="brand__text">
+        <span class="brand__type">
           <span class="brand__name">Finanzwächter</span>
-          <span class="brand__claim">Versicherungsvertretung</span>
+          <span class="brand__sub">Florian Wächter</span>
         </span>
       </a>
 
       <button class="nav__burger" type="button" data-nav-toggle
               aria-expanded="false" aria-controls="nav-menu" aria-label="Menü öffnen">
-        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <svg class="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
 
       <div class="nav__menu" id="nav-menu" data-open="false">
@@ -53,17 +71,10 @@
           <li><a class="nav__link" href="/" data-nav="start">Start</a></li>
           <li><a class="nav__link" href="/leistungen.html" data-nav="leistungen">Leistungen</a></li>
           <li><a class="nav__link" href="/ablauf.html" data-nav="ablauf">Ablauf</a></li>
-          <li><a class="nav__link" href="/ueber-uns.html" data-nav="ueber-uns">Über uns</a></li>
+          <li><a class="nav__link" href="/ueber-uns.html" data-nav="ueber-uns">Über mich</a></li>
           <li><a class="nav__link" href="/kontakt.html" data-nav="kontakt" aria-current="page">Kontakt</a></li>
         </ul>
-        <a class="btn btn--sm" href="/kontakt.html">Termin vereinbaren</a>
-      </div>
-
-      <div class="nav__actions">
-        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Design wechseln">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-        </button>
+        <a class="btn btn--gold btn--sm" href="/kontakt.html">Erstgespräch</a>
       </div>
     </nav>
   </div>
@@ -71,42 +82,43 @@
 <main id="hauptinhalt">
 
   <section class="page-head">
-    <div class="wrap">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="wrap" style="position:relative; z-index:1">
       <nav class="breadcrumb" aria-label="Brotkrumennavigation">
         <ol><li><a href="/">Start</a></li><li aria-current="page">Kontakt</li></ol>
       </nav>
       <p class="eyebrow">Kontakt</p>
-      <h1>Sprechen wir miteinander</h1>
+      <h1>Sprechen wir<br><span class="gold">mit&shy;einander.</span></h1>
       <p class="lead measure">
-        Schildern Sie uns kurz Ihre Situation. Wir melden uns in der Regel
-        innerhalb eines Werktages — mit einer ehrlichen Einschätzung, ob und
-        wo wir Ihnen weiterhelfen können.
+        Schildern Sie mir kurz Ihre Situation. Ich melde mich in der Regel innerhalb
+        eines Werktages — mit einer ehrlichen Einschätzung, ob und wo ich Ihnen
+        weiterhelfen kann.
       </p>
     </div>
   </section>
 
   <section class="section section--tight">
     <div class="wrap">
-      <div class="contact-tiles reveal">
-        <a class="contact-tile" href="tel:+490000000000">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"/></svg>
-          <span class="label">Telefon</span>
-          <span class="value"><span class="ph">[[TELEFON]]</span></span>
+      <div class="contact-grid reveal">
+        <a class="contact-cell" href="tel:+490000000000">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"/></svg>
+          <span class="k">Telefon</span>
+          <span class="v"><span class="ph">[[TELEFON]]</span></span>
         </a>
-        <a class="contact-tile" href="mailto:platzhalter@example.invalid">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-          <span class="label">E-Mail</span>
-          <span class="value"><span class="ph">[[E-MAIL]]</span></span>
+        <a class="contact-cell" href="mailto:platzhalter@example.invalid">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          <span class="k">E-Mail</span>
+          <span class="v"><span class="ph">[[E-MAIL]]</span></span>
         </a>
-        <div class="contact-tile" style="cursor:default">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span class="label">Büro</span>
-          <span class="value"><span class="ph">[[STRASSE HAUSNR.]]<br>[[PLZ ORT]]</span></span>
+        <div class="contact-cell" style="cursor:default">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span class="k">Büro</span>
+          <span class="v"><span class="ph">[[STRASSE HAUSNR.]]<br>[[PLZ ORT]]</span></span>
         </div>
-        <div class="contact-tile" style="cursor:default">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span class="label">Sprechzeiten</span>
-          <span class="value"><span class="ph">[[MO–FR 09:00–18:00]]</span></span>
+        <div class="contact-cell" style="cursor:default">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          <span class="k">Sprechzeiten</span>
+          <span class="v"><span class="ph">[[MO–FR 09:00–18:00]]</span></span>
         </div>
       </div>
     </div>
@@ -114,18 +126,18 @@
 
   <section class="section section--tight">
     <div class="wrap">
-      <div class="grid" style="grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: clamp(2rem,5vw,4rem); align-items:start">
+      <div class="split">
 
         <div class="reveal">
-          <div class="section-head" style="margin-bottom: var(--sp-6)">
-            <h2>Anfrage senden</h2>
-            <p class="muted">Felder mit <span class="req" aria-hidden="true">*</span> sind Pflichtfelder.</p>
+          <div class="section-head" style="margin-bottom: var(--s6)">
+            <p class="eyebrow">Anfrage</p>
+            <h2>Erstgespräch anfragen</h2>
+            <p class="muted small">Felder mit <span class="req" aria-hidden="true">*</span> sind Pflichtfelder.</p>
           </div>
 
           <div class="form__status" id="form-status" tabindex="-1"></div>
 
           <form class="form" id="kontaktformular" action="/api/kontakt.php" method="post" novalidate>
-            <!-- Spamschutz: unsichtbares Feld, das Menschen nie ausfüllen -->
             <div class="hp-field" aria-hidden="true">
               <label for="website">Website (bitte frei lassen)</label>
               <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
@@ -137,15 +149,13 @@
               <div class="field">
                 <label for="vorname">Vorname <span class="req" aria-hidden="true">*</span></label>
                 <input class="input" type="text" id="vorname" name="vorname"
-                       autocomplete="given-name" required maxlength="60"
-                       aria-describedby="vorname-error">
+                       autocomplete="given-name" required maxlength="60" aria-describedby="vorname-error">
                 <p class="field__error" id="vorname-error" aria-live="polite"></p>
               </div>
               <div class="field">
                 <label for="nachname">Nachname <span class="req" aria-hidden="true">*</span></label>
                 <input class="input" type="text" id="nachname" name="nachname"
-                       autocomplete="family-name" required maxlength="60"
-                       aria-describedby="nachname-error">
+                       autocomplete="family-name" required maxlength="60" aria-describedby="nachname-error">
                 <p class="field__error" id="nachname-error" aria-live="polite"></p>
               </div>
             </div>
@@ -154,15 +164,13 @@
               <div class="field">
                 <label for="email">E-Mail <span class="req" aria-hidden="true">*</span></label>
                 <input class="input" type="email" id="email" name="email"
-                       autocomplete="email" required maxlength="180"
-                       aria-describedby="email-error">
+                       autocomplete="email" required maxlength="180" aria-describedby="email-error">
                 <p class="field__error" id="email-error" aria-live="polite"></p>
               </div>
               <div class="field">
-                <label for="telefon">Telefon <span class="muted small">(optional)</span></label>
+                <label for="telefon">Telefon <span class="faint small">(optional)</span></label>
                 <input class="input" type="tel" id="telefon" name="telefon"
-                       autocomplete="tel" maxlength="40"
-                       aria-describedby="telefon-hint telefon-error">
+                       autocomplete="tel" maxlength="40" aria-describedby="telefon-hint telefon-error">
                 <p class="hint" id="telefon-hint">Nur nötig, wenn Sie einen Rückruf möchten.</p>
                 <p class="field__error" id="telefon-error" aria-live="polite"></p>
               </div>
@@ -172,11 +180,11 @@
               <label for="thema">Worum geht es? <span class="req" aria-hidden="true">*</span></label>
               <select class="select" id="thema" name="thema" required aria-describedby="thema-error">
                 <option value="">Bitte wählen …</option>
-                <option value="Existenzabsicherung">Existenzabsicherung (BU, Unfall, Risikoleben)</option>
-                <option value="Altersvorsorge">Altersvorsorge</option>
-                <option value="Sach und Haftpflicht">Sach &amp; Haftpflicht</option>
-                <option value="Gewerbe">Gewerbe &amp; Selbstständige</option>
-                <option value="Versicherungs-Check">Versicherungs-Check bestehender Verträge</option>
+                <option value="Schutz">Schutz — Arbeitskraft, Haftung, Sachwerte</option>
+                <option value="Vorsorge">Vorsorge — Alter und Rente</option>
+                <option value="Vermoegen">Vermögen — kapitalbildende Verträge</option>
+                <option value="Unternehmen">Unternehmen — Betrieb und Belegschaft</option>
+                <option value="Vertragscheck">Prüfung bestehender Verträge</option>
                 <option value="Schadensfall">Frage zu einem Schadensfall</option>
                 <option value="Sonstiges">Etwas anderes</option>
               </select>
@@ -186,9 +194,8 @@
             <div class="field">
               <label for="nachricht">Ihre Nachricht <span class="req" aria-hidden="true">*</span></label>
               <textarea class="textarea" id="nachricht" name="nachricht" required
-                        minlength="20" maxlength="3000"
-                        aria-describedby="nachricht-hint nachricht-error"
-                        placeholder="Beschreiben Sie kurz Ihre Situation und was Sie von uns brauchen."></textarea>
+                        minlength="20" maxlength="3000" aria-describedby="nachricht-hint nachricht-error"
+                        placeholder="Beschreiben Sie kurz Ihre Situation und was Sie von mir brauchen."></textarea>
               <p class="hint" id="nachricht-hint">
                 <strong>Bitte keine Gesundheitsdaten angeben.</strong> Angaben zu Erkrankungen,
                 Behandlungen oder Diagnosen sind besonders geschützte Daten nach Art. 9 DSGVO.
@@ -202,8 +209,8 @@
                      aria-describedby="datenschutz-error">
               <label for="datenschutz">
                 Ich habe die <a href="/recht/datenschutz.html">Datenschutzerklärung</a>
-                zur Kenntnis genommen und bin damit einverstanden, dass meine Angaben zur
-                Bearbeitung meiner Anfrage gespeichert und verarbeitet werden.
+                zur Kenntnis genommen und bin damit einverstanden, dass meine Angaben
+                zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden.
                 <span class="req" aria-hidden="true">*</span>
               </label>
             </div>
@@ -218,10 +225,10 @@
             </div>
 
             <div>
-              <button class="btn btn--accent" type="submit">Anfrage absenden</button>
+              <button class="btn btn--gold" type="submit">Anfrage absenden</button>
             </div>
 
-            <p class="small muted">
+            <p class="small faint">
               Ihre Angaben werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet.
               Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen)
               bzw. Art. 6 Abs. 1 lit. a DSGVO, soweit Sie eingewilligt haben. Eine
@@ -231,16 +238,16 @@
           </form>
         </div>
 
-        <aside class="stack-lg reveal reveal-delay-1">
-          <div class="hero__card">
+        <aside class="stack-lg reveal d1">
+          <div class="card card--gold bracket">
             <p class="eyebrow">Erstinformation</p>
-            <h2 style="font-size: var(--step-1)">Bevor wir starten</h2>
-            <p class="muted small" style="margin-top: var(--sp-4)">
-              Beim ersten Geschäftskontakt sind wir gesetzlich verpflichtet, Sie über
-              unseren Status als Versicherungsvertreter, unsere Registrierung und
-              unsere Vergütung zu informieren.
+            <h2 style="font-size: var(--t-1); margin-top: var(--s3)">Bevor wir starten</h2>
+            <p class="muted small">
+              Beim ersten Geschäftskontakt bin ich gesetzlich verpflichtet, Sie über
+              meinen Status als Versicherungsvertreter, meine Registrierung und meine
+              Vergütung zu informieren.
             </p>
-            <p style="margin-top: var(--sp-4)">
+            <p style="margin-top: var(--s4)">
               <a class="link-arrow" href="/recht/erstinformation.html">Erstinformation lesen</a>
             </p>
           </div>
@@ -250,18 +257,18 @@
                erfolgt verschlüsselt über HTTPS. Beachten Sie bitte, dass eine
                unverschlüsselte E-Mail-Kommunikation im Internet grundsätzlich nicht
                gegen Kenntnisnahme durch Dritte gesichert ist. Vertrauliche Unterlagen
-               übermitteln wir auf Wunsch über einen gesicherten Weg.</p>
+               übermittle ich auf Wunsch über einen gesicherten Weg.</p>
           </div>
 
-          <div class="note">
+          <div class="note note--warn">
             <p><strong>Im Schadensfall?</strong> Melden Sie den Schaden zuerst Ihrem
                Versicherer innerhalb der vertraglich vorgesehenen Frist — dieses
                Formular ist dafür nicht der richtige Weg. Bei Fristproblemen rufen
-               Sie uns bitte direkt an.</p>
+               Sie mich bitte direkt an.</p>
           </div>
 
           <div class="note">
-            <p><strong>Beschwerde?</strong> Wenn Sie mit unserer Arbeit unzufrieden sind,
+            <p><strong>Beschwerde?</strong> Wenn Sie mit meiner Arbeit unzufrieden sind,
                finden Sie den Weg und die zuständigen Schlichtungsstellen unter
                <a href="/recht/beschwerde.html">Beschwerde &amp; Schlichtung</a>.</p>
           </div>
@@ -273,43 +280,58 @@
 
 </main>
 <footer class="site-footer">
-  <div class="wrap">
+  <div class="arc-field" aria-hidden="true">
+    <svg class="arc-br" viewBox="0 0 800 800" fill="none" preserveAspectRatio="xMidYMid slice">
+      <path d="M-40 690C170 690 430 520 520 250 570 100 640 20 800 -30" stroke="#D4A73C" stroke-opacity=".22" stroke-width="1.5"/>
+      <path d="M-40 760C210 750 500 560 590 270 640 110 700 40 830 10" stroke="#D4A73C" stroke-opacity=".1" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="wrap" style="position:relative; z-index:1">
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="brand" href="/">
-          <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
-            <path d="M24 3.5 6.5 10.2v13.4c0 10.8 7.1 19.3 17.5 21.9 10.4-2.6 17.5-11.1 17.5-21.9V10.2L24 3.5Z" fill="currentColor" fill-opacity=".08" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-            <path d="M14 29.5 20.6 22l4.9 4.6L34 16.5" stroke="#cfa94a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M28.6 16.5H34v5.2" stroke="#cfa94a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg class="brand__signet" viewBox="0 0 120 120" fill="none" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="bg2" x1="18" y1="10" x2="102" y2="112" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#F7E3A1"/><stop offset=".32" stop-color="#E3BF62"/>
+                <stop offset=".58" stop-color="#B8892B"/><stop offset=".8" stop-color="#E8CA78"/>
+                <stop offset="1" stop-color="#9A6F1C"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="52" stroke="url(#bg2)" stroke-width="5"/>
+            <path d="M60 26 33 37v22c0 17.2 11 30.4 27 35 16-4.6 27-17.8 27-35V37L60 26Z"
+                  stroke="url(#bg2)" stroke-width="3.4" stroke-linejoin="round"/>
+            <path d="M45 52.5 55 79l5-14.5L65 79l10-26.5"
+                  stroke="url(#bg2)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span class="brand__text">
+          <span class="brand__type">
             <span class="brand__name">Finanzwächter</span>
-            <span class="brand__claim">Versicherungsvertretung</span>
+            <span class="brand__sub">Florian Wächter</span>
           </span>
         </a>
         <p>
-          Versicherungsvertretung mit Erlaubnis nach § 34d Abs. 1 GewO.
-          Wir begleiten Privatpersonen und Selbstständige bei Absicherung
-          und Vorsorge — verständlich, dokumentiert und langfristig.
+          Klartext für Versicherungen, Vorsorge und Vermögen. Versicherungsvertretung
+          mit Erlaubnis nach § 34d Abs. 1 GewO — für Menschen, die verstehen wollen,
+          wofür sie zahlen.
         </p>
       </div>
 
       <div class="footer__col">
-        <h2>Leistungen</h2>
+        <h2>Die vier Säulen</h2>
         <ul>
-          <li><a href="/leistungen.html#absicherung">Existenzabsicherung</a></li>
-          <li><a href="/leistungen.html#vorsorge">Altersvorsorge</a></li>
-          <li><a href="/leistungen.html#sach">Sach &amp; Haftpflicht</a></li>
-          <li><a href="/leistungen.html#gewerbe">Gewerbe &amp; Selbstständige</a></li>
-          <li><a href="/leistungen.html#check">Versicherungs-Check</a></li>
+          <li><a href="/leistungen.html#schutz">Schutz</a></li>
+          <li><a href="/leistungen.html#vorsorge">Vorsorge</a></li>
+          <li><a href="/leistungen.html#vermoegen">Vermögen</a></li>
+          <li><a href="/leistungen.html#unternehmen">Unternehmen</a></li>
         </ul>
       </div>
 
       <div class="footer__col">
-        <h2>Unternehmen</h2>
+        <h2>Kanzlei</h2>
         <ul>
-          <li><a href="/ueber-uns.html">Über uns</a></li>
-          <li><a href="/ablauf.html">So arbeiten wir</a></li>
+          <li><a href="/ueber-uns.html">Über mich</a></li>
+          <li><a href="/ablauf.html">So arbeite ich</a></li>
           <li><a href="/kontakt.html">Kontakt &amp; Termin</a></li>
           <li><a href="/recht/beschwerde.html">Beschwerde &amp; Schlichtung</a></li>
         </ul>
@@ -320,14 +342,14 @@
         <ul>
           <li><a href="/recht/impressum.html">Impressum</a></li>
           <li><a href="/recht/datenschutz.html">Datenschutz</a></li>
-          <li><a href="/recht/erstinformation.html">Erstinformation § 15 VersVermV</a></li>
+          <li><a href="/recht/erstinformation.html">Erstinformation</a></li>
           <li><a href="/recht/barrierefreiheit.html">Barrierefreiheit</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer__bottom">
-      <p>&copy; <span data-current-year>2026</span> <span class="ph">[[FIRMIERUNG]]</span>. Alle Rechte vorbehalten.</p>
+      <p>&copy; <span data-current-year>2026</span> <span class="ph">[[FIRMIERUNG]]</span> · Florian Wächter</p>
       <nav aria-label="Rechtliche Hinweise">
         <ul>
           <li><a href="/recht/impressum.html">Impressum</a></li>
@@ -337,20 +359,21 @@
       </nav>
     </div>
 
-    <p class="footer__legal-note">
-      <strong>Statushinweis:</strong> <span class="ph">[[FIRMIERUNG]]</span> ist als Versicherungsvertreter
+    <p class="footer__status">
+      <strong>Statushinweis nach § 15 VersVermV:</strong> Florian Wächter ist als Versicherungsvertreter
       mit Erlaubnis nach § 34d Abs. 1 GewO tätig und im Vermittlerregister unter der Registrierungsnummer
-      <span class="ph">[[REGISTRIERUNGSNUMMER]]</span> eingetragen. Wir erhalten für die Vermittlung von
-      Versicherungsverträgen eine Vergütung, die im Beitrag der vermittelten Verträge enthalten ist.
-      Die vollständigen Angaben nach § 15 VersVermV finden Sie in der
-      <a href="/recht/erstinformation.html">Erstinformation</a>.
-      Die Inhalte dieser Website dienen der allgemeinen Information und stellen keine
-      individuelle Beratung im Einzelfall dar.
+      <span class="ph">[[REGISTRIERUNGSNUMMER]]</span> eingetragen. Die Vergütung erfolgt über die
+      Versicherungsunternehmen und ist im Beitrag der vermittelten Verträge enthalten; ein gesondertes
+      Honorar wird nicht berechnet. Die vollständigen Pflichtangaben stehen in der
+      <a href="/recht/erstinformation.html">Erstinformation</a>. Die Inhalte dieser Website dienen der
+      allgemeinen Information und ersetzen keine Beratung im Einzelfall. Maßgeblich für Umfang und Grenzen
+      des Versicherungsschutzes sind ausschließlich die Bedingungen des jeweiligen Vertrags.
     </p>
   </div>
 </footer>
 
 <script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/motion.js" defer></script>
 <script src="/assets/js/form.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Finanzwächter Signet">
+  <defs>
+    <linearGradient id="fwGold" x1="18" y1="10" x2="102" y2="112" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7E3A1"/>
+      <stop offset=".32" stop-color="#E3BF62"/>
+      <stop offset=".58" stop-color="#B8892B"/>
+      <stop offset=".78" stop-color="#E8CA78"/>
+      <stop offset="1" stop-color="#9A6F1C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="52" stroke="url(#fwGold)" stroke-width="5"/>
+  <path d="M60 26 33 37v22c0 17.2 11 30.4 27 35 16-4.6 27-17.8 27-35V37L60 26Z"
+        stroke="url(#fwGold)" stroke-width="3.4" stroke-linejoin="round"/>
+  <path d="M45 52.5 55 79l5-14.5L65 79l10-26.5"
+        stroke="url(#fwGold)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
