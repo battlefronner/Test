@@ -7,6 +7,7 @@
   'use strict';
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* --- Einblenden beim Scrollen ---------------------------------------- */
   var targets = document.querySelectorAll('.reveal, .line-in');
@@ -46,6 +47,40 @@
       });
     }
     window.addEventListener('scroll', parallax, { passive: true });
+  }
+
+  /* --- Lichtkegel folgt dem Zeiger über der Bühne ------------------------ */
+  var hero = document.querySelector('.hero');
+  var light = document.querySelector('.hero__light');
+  if (hero && light && finePointer && !reduced) {
+    var lRaf = 0;
+    hero.addEventListener('pointermove', function (e) {
+      if (lRaf) return;
+      lRaf = requestAnimationFrame(function () {
+        var r = hero.getBoundingClientRect();
+        light.style.setProperty('--lx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        light.style.setProperty('--ly', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+        lRaf = 0;
+      });
+    });
+  }
+
+  /* --- Handlungsleiste auf kleinen Schirmen ------------------------------- */
+  var sticky = document.querySelector('[data-sticky-cta]');
+  if (sticky && !document.querySelector('[data-funnel]')) {
+    var sRaf = false;
+    function stickyCheck() {
+      if (sRaf) return; sRaf = true;
+      requestAnimationFrame(function () {
+        var nearEnd = window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 320;
+        sticky.classList.toggle('is-on', window.scrollY > window.innerHeight * 0.9 && !nearEnd);
+        sRaf = false;
+      });
+    }
+    window.addEventListener('scroll', stickyCheck, { passive: true });
+    stickyCheck();
+  } else if (sticky) {
+    sticky.remove();
   }
 
   /* --- Fortschrittsbalken ---------------------------------------------- */
@@ -108,7 +143,6 @@
 
   /* --- Karten kippen leicht in Richtung Zeiger --------------------------- */
   // Nur auf Geräten mit echtem Zeiger; auf Touch wäre das nur störend.
-  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   if (finePointer && !reduced) {
     document.querySelectorAll('.tilt').forEach(function (card) {

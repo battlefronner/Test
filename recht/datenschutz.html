@@ -74,7 +74,7 @@
           <li><a class="nav__link" href="/ueber-uns.html" data-nav="ueber-uns">Über uns</a></li>
           <li><a class="nav__link" href="/kontakt.html" data-nav="kontakt">Kontakt</a></li>
         </ul>
-        <a class="btn btn--gold btn--sm" href="/kontakt.html">Erstgespräch</a>
+        <a class="btn btn--gold btn--sm" href="/erstgespraech.html">Erstgespräch</a>
       </div>
     </nav>
   </div>
@@ -208,11 +208,20 @@
           ausdrücklich gewünschten Dienstes unbedingt erforderlich ist. Die anschließende
           Verarbeitung stützt sich auf Art. 6 Abs. 1 lit. f DSGVO (Schutz vor Missbrauch).
         </p>
-        <h3>4.3 Keine weitere Speicherung auf Ihrem Gerät</h3>
+        <h3>4.3 Zwischenspeicher des Erstgespräch-Assistenten</h3>
         <p>
-          Über das unter 4.2 genannte Sitzungs-Cookie hinaus legt diese Website
-          keine Daten auf Ihrem Gerät ab. Insbesondere wird der lokale Speicher
-          des Browsers („localStorage“) nicht verwendet.
+          Der Assistent unter „Erstgespräch anfragen“ merkt sich Ihre Antworten auf
+          die vier Einordnungsfragen für die Dauer der Browsersitzung im
+          Sitzungsspeicher Ihres Browsers („sessionStorage“), damit Sie nach einem
+          Seitenwechsel nicht von vorn beginnen müssen. Gespeichert werden nur die
+          gewählten Antwortoptionen — keine Namen, keine Kontaktdaten. Der Speicher
+          wird beim Absenden der Anfrage und spätestens beim Schließen des Browsers
+          geleert; er verlässt Ihr Gerät nicht. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2
+          TDDDG, da die Speicherung für den von Ihnen gewünschten Dienst erforderlich ist.
+        </p>
+        <p>
+          Darüber hinaus legt diese Website keine Daten auf Ihrem Gerät ab.
+          Insbesondere wird der dauerhafte lokale Speicher („localStorage“) nicht verwendet.
         </p>
         <h3>4.4 Keine externen Inhalte</h3>
         <p>
@@ -536,6 +545,11 @@
     </p>
   </div>
 </footer>
+
+<div class="sticky-cta" data-sticky-cta aria-label="Erstgespräch anfragen">
+  <span class="sticky-cta__t"><strong>Erstgespräch</strong>kostenfrei · 45 Min.</span>
+  <a class="btn btn--gold btn--sm" href="/erstgespraech.html">Termin wünschen</a>
+</div>
 
 <script src="/assets/js/main.js" defer></script>
 <script src="/assets/js/motion.js" defer></script>

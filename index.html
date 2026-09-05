@@ -107,7 +107,7 @@
           <li><a class="nav__link" href="/ueber-uns.html" data-nav="ueber-uns">Über uns</a></li>
           <li><a class="nav__link" href="/kontakt.html" data-nav="kontakt">Kontakt</a></li>
         </ul>
-        <a class="btn btn--gold btn--sm" href="/kontakt.html">Erstgespräch</a>
+        <a class="btn btn--gold btn--sm" href="/erstgespraech.html">Erstgespräch</a>
       </div>
     </nav>
   </div>
@@ -118,6 +118,7 @@
   <section class="hero">
     <canvas class="hero__canvas" data-scene="network" aria-hidden="true"></canvas>
     <div class="mesh" aria-hidden="true"></div>
+    <div class="hero__light" aria-hidden="true"></div>
     <div class="arc-field" aria-hidden="true">
       <svg class="arc-tl" viewBox="0 0 800 800" fill="none" preserveAspectRatio="xMidYMid slice">
         <path d="M-40 690C170 690 430 520 520 250 570 100 640 20 800 -30" stroke="#D4A73C" stroke-opacity=".3" stroke-width="1.5"/>
@@ -146,7 +147,7 @@
           </p>
 
           <div class="hero__cta reveal d3">
-            <a class="btn btn--gold" href="/kontakt.html" data-magnetic>Erstgespräch vereinbaren</a>
+            <a class="btn btn--gold" href="/erstgespraech.html" data-magnetic>Erstgespräch vereinbaren</a>
             <a class="btn btn--line" href="#bedarf">Wo stehe ich? — 60 Sekunden</a>
           </div>
           <p class="small faint reveal d3">Kostenfrei · unverbindlich · 45 bis 60 Minuten · kein Abschluss im ersten Gespräch</p>
@@ -171,6 +172,30 @@
           <canvas class="hero__object" data-scene="object"
                   role="img"
                   aria-label="Bewegtes Drahtmodell des Finanzwächter-Signets: ein Schild mit dem Buchstaben W, umgeben von einem Ring."></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ Kennzahlen ══════════ -->
+  <section class="section section--tight" aria-label="Kennzahlen">
+    <div class="wrap">
+      <div class="metrics reveal">
+        <div class="metric">
+          <span class="metric__value">0 €</span>
+          <span class="metric__label">kostet Sie das Erstgespräch — inklusive Analyse Ihrer bestehenden Verträge</span>
+        </div>
+        <div class="metric">
+          <span class="metric__value" data-count="100" data-suffix=" %">100 %</span>
+          <span class="metric__label">der Empfehlungen schriftlich begründet, mit Alternativen und Kosten</span>
+        </div>
+        <div class="metric">
+          <span class="metric__value" data-count="24" data-suffix=" h">24 h</span>
+          <span class="metric__label">in der Regel bis zur Rückmeldung auf Ihre Anfrage, werktags</span>
+        </div>
+        <div class="metric">
+          <span class="metric__value">§&nbsp;34d</span>
+          <span class="metric__label">Erlaubnis nach Gewerbeordnung, erteilt durch die Industrie- und Handelskammer</span>
         </div>
       </div>
     </div>
@@ -249,92 +274,56 @@
     </div>
   </section>
 
-  <!-- ══════════ Bedarfs-Check ══════════ -->
+  <!-- ══════════ Einstieg in den Assistenten ══════════ -->
   <section class="section section--raised" id="bedarf" aria-labelledby="bedarf-titel">
     <div class="wrap">
       <div class="split split--even">
         <div class="section-head mb-0 reveal">
           <p class="eyebrow">Wo stehen Sie?</p>
-          <h2 id="bedarf-titel">Drei Fragen. Eine erste Einordnung.</h2>
+          <h2 id="bedarf-titel">Eine Frage genügt für den Anfang.</h2>
           <p class="lead">
-            Nicht jeder braucht dasselbe. Beantworten Sie drei Fragen, und Sie sehen,
-            welche Säule für Sie zuerst zählt — ohne dass ein einziges Byte diese
-            Seite verlässt.
+            Vier Fragen, dann sehen Sie Ihre persönliche Prioritätenliste — welche
+            der vier Säulen bei Ihnen zuerst zählt und warum. Danach entscheiden Sie,
+            ob Sie einen Termin möchten.
           </p>
-          <p class="small faint">Die Einordnung ersetzt keine Beratung. Sie zeigt, wo ein Gespräch anfangen sollte.</p>
+          <ul class="proof mb-0">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              etwa 90 Sekunden
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              nichts verlässt Ihren Browser
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg>
+              kein Termin nötig
+            </li>
+          </ul>
         </div>
 
-        <form class="check card bracket reveal d1" id="bedarfscheck" data-check novalidate>
-          <fieldset class="check__step" data-step="1">
-            <legend class="check__q"><span class="check__no">01</span>Wer hängt finanziell von Ihrem Einkommen ab?</legend>
-            <div class="check__opts">
-              <label class="check__opt"><input type="radio" name="q1" value="allein" required><span>Nur ich selbst</span></label>
-              <label class="check__opt"><input type="radio" name="q1" value="partner"><span>Partner oder Partnerin</span></label>
-              <label class="check__opt"><input type="radio" name="q1" value="familie"><span>Familie mit Kindern</span></label>
-              <label class="check__opt"><input type="radio" name="q1" value="betrieb"><span>Mein Betrieb und Mitarbeitende</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset class="check__step" data-step="2" hidden>
-            <legend class="check__q"><span class="check__no">02</span>Was beschreibt Ihre Lage am ehesten?</legend>
-            <div class="check__opts">
-              <label class="check__opt"><input type="radio" name="q2" value="angestellt" required><span>Angestellt</span></label>
-              <label class="check__opt"><input type="radio" name="q2" value="selbst"><span>Selbstständig oder Freiberufler</span></label>
-              <label class="check__opt"><input type="radio" name="q2" value="unternehmer"><span>Unternehmer mit Angestellten</span></label>
-              <label class="check__opt"><input type="radio" name="q2" value="ruhestand"><span>Kurz vor oder im Ruhestand</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset class="check__step" data-step="3" hidden>
-            <legend class="check__q"><span class="check__no">03</span>Was beschäftigt Sie gerade am meisten?</legend>
-            <div class="check__opts">
-              <label class="check__opt"><input type="radio" name="q3" value="ausfall" required><span>Was passiert, wenn ich ausfalle</span></label>
-              <label class="check__opt"><input type="radio" name="q3" value="alter"><span>Ob das Geld im Alter reicht</span></label>
-              <label class="check__opt"><input type="radio" name="q3" value="vertraege"><span>Ob meine bestehenden Verträge taugen</span></label>
-              <label class="check__opt"><input type="radio" name="q3" value="betrieb"><span>Haftung und Risiken im Betrieb</span></label>
-            </div>
-          </fieldset>
-
-          <div class="check__result" data-result hidden aria-live="polite">
-            <p class="eyebrow" data-result-eyebrow>Ihre Einordnung</p>
-            <h3 class="h-1" data-result-title></h3>
-            <p class="muted" data-result-text></p>
-            <div class="hero__cta mt-5">
-              <a class="btn btn--gold" data-result-link href="/kontakt.html">Erstgespräch zu diesem Thema</a>
-              <a class="btn btn--line" data-result-more href="/leistungen.html">Säule ansehen</a>
-            </div>
-            <button type="button" class="check__reset" data-check-reset>Nochmal von vorn</button>
+        <div class="card bracket reveal d1" data-entry data-entry-target="/erstgespraech.html">
+          <p class="eyebrow">Frage 1 von 4</p>
+          <h3 class="fstep__q mt-4">Wer hängt finanziell von Ihrem Einkommen ab?</h3>
+          <div class="fopts">
+            <button type="button" class="fopt" data-value="allein" data-feedback="Dann geht es zuerst um Sie selbst. Weiter zu Frage 2 …">
+              <span class="fopt__t">Nur ich selbst</span>
+            </button>
+            <button type="button" class="fopt" data-value="partner" data-feedback="Zu zweit trägt jeder einen Teil. Weiter zu Frage 2 …">
+              <span class="fopt__t">Partner oder Partnerin</span>
+            </button>
+            <button type="button" class="fopt" data-value="familie" data-feedback="Bei einer Familie hängt am meisten daran. Weiter zu Frage 2 …">
+              <span class="fopt__t">Familie mit Kindern</span>
+            </button>
+            <button type="button" class="fopt" data-value="betrieb" data-feedback="Ein Betrieb bedeutet Verantwortung über den Haushalt hinaus. Weiter zu Frage 2 …">
+              <span class="fopt__t">Mein Betrieb und Mitarbeitende</span>
+            </button>
           </div>
-
-          <div class="check__nav">
-            <span class="check__progress" data-progress aria-hidden="true"><i></i><i></i><i></i></span>
-            <button type="button" class="btn btn--sm btn--line" data-check-back hidden>Zurück</button>
-            <button type="button" class="btn btn--sm btn--gold" data-check-next>Weiter</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ Kennzahlen ══════════ -->
-  <section class="section section--tight" aria-label="Kennzahlen">
-    <div class="wrap">
-      <div class="metrics reveal">
-        <div class="metric">
-          <span class="metric__value">0 €</span>
-          <span class="metric__label">kostet Sie das Erstgespräch — inklusive Analyse Ihrer bestehenden Verträge</span>
-        </div>
-        <div class="metric">
-          <span class="metric__value" data-count="100" data-suffix=" %">100 %</span>
-          <span class="metric__label">der Empfehlungen schriftlich begründet, mit Alternativen und Kosten</span>
-        </div>
-        <div class="metric">
-          <span class="metric__value" data-count="24" data-suffix=" h">24 h</span>
-          <span class="metric__label">in der Regel bis zur Rückmeldung auf Ihre Anfrage, werktags</span>
-        </div>
-        <div class="metric">
-          <span class="metric__value">§&nbsp;34d</span>
-          <span class="metric__label">Erlaubnis nach Gewerbeordnung, erteilt durch die Industrie- und Handelskammer</span>
+          <p class="fstep__feedback" data-entry-note aria-live="polite"></p>
+          <p class="small faint mt-4">
+            Die Einordnung ersetzt keine Beratung. Sie sortiert vor, damit wir im
+            Gespräch nicht bei null anfangen.
+          </p>
         </div>
       </div>
     </div>
@@ -465,6 +454,8 @@
     </div>
   </section>
 
+  <div class="wrap"><hr class="rule reveal"></div>
+
   <!-- ══════════ Fragen ══════════ -->
   <section class="section section--raised" aria-labelledby="faq-titel">
     <div class="wrap wrap--narrow">
@@ -545,7 +536,7 @@
           helfen können, sagen wir Ihnen das im Erstgespräch.
         </p>
         <div class="hero__cta center-x mt-6">
-          <a class="btn btn--gold" href="/kontakt.html" data-magnetic>Termin anfragen</a>
+          <a class="btn btn--gold" href="/erstgespraech.html" data-magnetic>Termin anfragen</a>
           <a class="btn btn--line" href="tel:+49">Direkt anrufen</a>
         </div>
       </div>
@@ -648,6 +639,11 @@
     </p>
   </div>
 </footer>
+
+<div class="sticky-cta" data-sticky-cta aria-label="Erstgespräch anfragen">
+  <span class="sticky-cta__t"><strong>Erstgespräch</strong>kostenfrei · 45 Min.</span>
+  <a class="btn btn--gold btn--sm" href="/erstgespraech.html">Termin wünschen</a>
+</div>
 
 <script src="/assets/js/main.js" defer></script>
 <script src="/assets/js/motion.js" defer></script>

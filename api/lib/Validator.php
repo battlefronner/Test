@@ -54,6 +54,15 @@ final class Validator
 
         $this->clean['rueckruf'] = $this->flag($input, 'rueckruf') ? 'ja' : 'nein';
 
+        // Zusatzangaben des Erstgespräch-Assistenten — nur feste Werte
+        $this->enum($input, 'quelle',      ['funnel', 'formular']);
+        $this->enum($input, 'kontaktweg',  ['telefon', 'video', 'vor-ort']);
+        $this->enum($input, 'zeitfenster', ['vormittag', 'nachmittag', 'abend']);
+        $antworten = $this->normalize($input['antworten'] ?? '');
+        if ($antworten !== '' && preg_match('/^[a-z+|-]{1,80}$/', $antworten) === 1) {
+            $this->clean['antworten'] = $antworten;
+        }
+
         return $this->errors === [];
     }
 
@@ -208,6 +217,19 @@ final class Validator
             return;
         }
         $this->clean['datenschutz'] = 'ja';
+    }
+
+    /**
+     * Übernimmt ein optionales Feld nur, wenn es exakt einem erlaubten Wert entspricht.
+     * @param array<string,mixed> $input
+     * @param list<string> $allowed
+     */
+    private function enum(array $input, string $key, array $allowed): void
+    {
+        $value = $this->normalize($input[$key] ?? '');
+        if ($value !== '' && in_array($value, $allowed, true)) {
+            $this->clean[$key] = $value;
+        }
     }
 
     /** @param array<string,mixed> $input */

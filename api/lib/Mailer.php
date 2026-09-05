@@ -42,8 +42,9 @@ final class Mailer
         }
 
         $subject = trim(sprintf(
-            '%s %s — %s %s',
+            '%s %s%s — %s %s',
             (string) $this->config['subject_prefix'],
+            ($data['quelle'] ?? '') === 'funnel' ? 'Termin · ' : '',
             $data['thema'] ?? 'Anfrage',
             $data['vorname'] ?? '',
             $data['nachname'] ?? ''
@@ -83,6 +84,9 @@ final class Mailer
             'Telefon:   ' . ($data['telefon'] ?? '— nicht angegeben —'),
             'Thema:     ' . ($data['thema'] ?? ''),
             'Rückruf:   ' . ($data['rueckruf'] ?? 'nein'),
+            'Quelle:    ' . (($data['quelle'] ?? '') === 'funnel' ? 'Erstgespräch-Assistent' : 'Kontaktformular'),
+            'Kontaktweg: ' . ($data['kontaktweg'] ?? '—') . '   Zeitfenster: ' . ($data['zeitfenster'] ?? '—'),
+            'Antworten:  ' . ($data['antworten'] ?? '—'),
             '',
             'Nachricht:',
             str_repeat('-', 56),

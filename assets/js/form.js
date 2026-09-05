@@ -27,7 +27,8 @@
   // CSRF-Token der Sitzung nachladen. Schlägt das fehl, bleibt das Feld leer;
   // der Server prüft dann die Herkunft der Anfrage (Origin/Referer).
   var tokenField = form.querySelector('input[name="csrf_token"]');
-  if (tokenField && window.fetch) {
+  var canFetch = window.fetch && /^https?:$/.test(window.location.protocol);
+  if (tokenField && canFetch) {
     fetch('/api/token.php', {
       method: 'GET',
       headers: { 'Accept': 'application/json' },

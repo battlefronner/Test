@@ -115,6 +115,7 @@ tools/pruefen.sh
 | `leistungen.html` | Die vier Säulen |
 | `ablauf.html` | Beratungsablauf, Rechte des Kunden |
 | `ueber-uns.html` | Person, Grundsätze, rechtlicher Rahmen |
+| `erstgespraech.html` | **Erstgespräch-Assistent**: vier Fragen, Prioritätenliste, Terminwunsch, Versand |
 | `kontakt.html` | Kontaktdaten und Formular |
 | `kontakt-danke.html` / `kontakt-fehler.html` | Statusseiten für den Betrieb ohne JavaScript |
 | `404.html` | Fehlerseite |
@@ -129,7 +130,8 @@ tools/pruefen.sh
 | `assets/js/motion.js` | Einblendungen, Zähler, Neigung, Fortschritt |
 | `assets/js/hero-scene.js` | Knotennetz und 3D-Signet |
 | `assets/js/form.js` | Formularprüfung im Browser, Themenvorbelegung aus dem Bedarfs-Check |
-| `assets/js/check.js` | Bedarfs-Check: drei Fragen, Einordnung in eine Säule — läuft ohne Übertragung |
+| `assets/js/check.js` | Einstiegsfrage auf der Startseite; übergibt die Antwort an den Assistenten |
+| `assets/js/funnel.js` | Erstgespräch-Assistent: Fragen, Bewertung, Prioritätengrafik, Versand |
 | `build/` | Baukasten: Konfiguration, Seitenquellen, Bausteine, Bauskript |
 | `assets/fonts/` | Selbst gehostete Schriften samt Lizenz; die `@font-face`-Regeln stehen direkt in `style.css` |
 | `assets/img/og-finanzwaechter.jpg` | Vorschaubild für Social Media |
@@ -409,12 +411,24 @@ Nachweise (Erlaubnis, Registernummer), Reibungsabbau („kostenfrei",
 im Fragenbereich, Transparenz bei der Vergütung und klar wiederholte
 Handlungsaufforderungen.
 
-**Bedarfs-Check** auf der Startseite: Drei Fragen, eine Einordnung in eine der
-vier Säulen, danach eine Handlungsaufforderung mit vorbelegtem Thema im
-Kontaktformular. Der Besucher bekommt zuerst etwas — eine Antwort auf seine
-Lage — bevor er etwas gibt. Die Zuordnung ist absichtlich einfach und liegt
-offen in `assets/js/check.js`; sie sortiert vor, sie berät nicht. Es wird
-nichts gespeichert und nichts übertragen.
+**Der Erstgespräch-Assistent** ist der zentrale Weg zur Anfrage:
+
+1. **Einstiegsfrage auf der Startseite** — eine Frage, ein Klick. Wer antwortet,
+   hat begonnen; die Antwort wandert über den Sitzungsspeicher mit.
+2. **Drei weitere Fragen** unter `/erstgespraech.html`, jede mit sofortiger
+   Rückmeldung in einem Satz.
+3. **Prioritätenliste** — die vier Säulen nach Gewicht sortiert, als Balkengrafik
+   mit Begründung aus den eigenen Antworten. Das ist der Gegenwert: Der Besucher
+   bekommt etwas, bevor er Kontaktdaten gibt.
+4. **Terminwunsch** — Kontaktweg und Zeitfenster als Auswahlfelder, dann vier
+   Felder. Bei „Telefon“ wird die Rufnummer zur Pflicht, sonst nicht.
+5. **Versand** über dieselbe geprüfte Schnittstelle wie das Kontaktformular. Die
+   Benachrichtigung enthält Schwerpunkt, Kontaktweg, Zeitfenster und die
+   Antwortfolge.
+
+Die Bewertung liegt offen in `assets/js/funnel.js` und ist bewusst einfach: Sie
+sortiert vor, sie berät nicht. Antworten bleiben bis zum Absenden im
+Sitzungsspeicher des Browsers und werden danach gelöscht.
 
 Bewusst **nicht** eingesetzt: künstliche Verknappung, Countdown, erfundene
 Bewertungen oder Kundenzahlen. Solche Mittel sind bei Versicherungsvermittlung
