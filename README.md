@@ -25,6 +25,14 @@ python3 build/build.py --live   # Livegang: Hinweise entfernt, bricht bei leeren
 Der Bau erzeugt außerdem `sitemap.xml` und trägt den Hash des Datenblocks
 für Suchmaschinen in die Content-Security-Policy ein.
 
+**Franchisefähig aufgesetzt:** Der Name des Inhabers erscheint nur dort, wo
+das Gesetz ihn verlangt — im Impressum (§ 5 DDG), in der Erstinformation
+(§ 15 VersVermV) und in der Barrierefreiheitserklärung — sowie im Team-Bereich
+auf „Über uns“. Die Marke selbst trägt ihn nicht: Kopf- und Fußbereich zeigen
+`web.zusatz`, der Leitsatz auf der Startseite gilt für alle, die unter dem
+Namen arbeiten. Ein weiterer Standort oder Partner übernimmt damit die Marke,
+ohne dass Texte umgeschrieben werden müssen.
+
 **Neuen Standort anlegen:** In `site.json` unter `standorte` ein weiteres
 Objekt anhängen, bauen — er erscheint in der Fußzeile und auf der Seite
 „Über uns“. Der Eintrag mit `"hauptsitz": true` liefert die Anschrift für

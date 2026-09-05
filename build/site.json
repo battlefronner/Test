@@ -3,7 +3,9 @@
   "web": {
     "domain": "https://www.finanzwaechter.de",
     "name": "Finanzwächter",
-    "claim": "Klartext für Versicherungen, Vorsorge & Vermögen."
+    "claim": "Klartext für Versicherungen, Vorsorge & Vermögen.",
+    "zusatz": "Versicherungsvertretung",
+    "_zusatz": "Zeile unter dem Schriftzug in Kopf- und Fußbereich. Bewusst ohne Personennamen, damit weitere Standorte oder Partner dieselbe Marke tragen können."
   },
   "firma": {
     "firmierung": "",
@@ -13,7 +15,8 @@
     "_funktion": "z. B. „Gründer und Inhaber“ – geschützte Titel wie „Versicherungsfachmann (IHK)“ nur mit Nachweis",
     "kurzprofil": "",
     "_kurzprofil": "Drei bis vier Sätze zu Werdegang, Qualifikation und Schwerpunkt",
-    "gruendungsjahr": ""
+    "gruendungsjahr": "",
+    "_inhaber": "Vertretungsberechtigte Person. Erscheint ausschließlich dort, wo das Gesetz sie verlangt (Impressum nach § 5 DDG, Erstinformation nach § 15 VersVermV) sowie im Team-Bereich auf „Über uns“ — nicht in der Marke."
   },
   "kontakt": {
     "telefon": "",

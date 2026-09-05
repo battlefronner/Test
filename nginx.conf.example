@@ -42,7 +42,7 @@ server {
     # --- Sicherheits-Header -------------------------------------------------
     # Der Hash gilt für den JSON-LD-Block in index.html. Nach jeder Änderung
     # dort mit tools/csp-hash.sh neu berechnen.
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-iGaT61rKQ5DJNPz84Wbt63Zglf2SOvU1IDDgFYVwqTY='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-19jdRKPSc1+0cv+mRD6jM628BCdfM4fK9rdVFKeDi4I='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests" always;
     add_header X-Frame-Options "DENY" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;

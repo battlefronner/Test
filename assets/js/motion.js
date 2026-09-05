@@ -31,22 +31,40 @@
     }, 2600);
   }
 
-  /* --- Signet läuft beim Scrollen langsamer als die Seite ---------------- */
+  /* --- Signet läuft beim Scrollen langsamer als die Seite ----------------
+     Nur eine sanfte Verschiebung, kein Ausblenden: Das Signet ist das
+     Markenzeichen — es beim Scrollen wegzublenden verschenkt es. Auf schmalen
+     Schirmen steht es unter dem Text, dort wäre die Verschiebung wirkungslos
+     und das frühere Ausblenden ließ es verschwinden, bevor es sichtbar war. */
   var stage = document.querySelector('.hero__stage');
+  var wide = window.matchMedia('(min-width: 64rem)');
+
   if (stage && !reduced) {
     var pRaf = false;
+
     function parallax() {
       if (pRaf) return; pRaf = true;
       requestAnimationFrame(function () {
         var y = window.scrollY;
         if (y < window.innerHeight * 1.2) {
-          stage.style.transform = 'translate3d(0,' + (y * 0.18).toFixed(1) + 'px,0)';
-          stage.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.9)));
+          stage.style.transform = 'translate3d(0,' + (y * 0.16).toFixed(1) + 'px,0)';
         }
         pRaf = false;
       });
     }
-    window.addEventListener('scroll', parallax, { passive: true });
+
+    function applyParallax(on) {
+      if (on) {
+        window.addEventListener('scroll', parallax, { passive: true });
+        parallax();
+      } else {
+        window.removeEventListener('scroll', parallax);
+        stage.style.transform = '';
+      }
+    }
+
+    applyParallax(wide.matches);
+    wide.addEventListener('change', function (e) { applyParallax(e.matches); });
   }
 
   /* --- Lichtkegel folgt dem Zeiger über der Bühne ------------------------ */
