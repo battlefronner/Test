@@ -50,8 +50,10 @@ Alle Effekte sind ohne externe Bibliothek gebaut und respektieren
 | Fortschrittsbalken | Goldene Linie am oberen Rand |
 
 Das 3D-Signet ersetzt eine 3D-Bibliothek wie Three.js (rund 600 KB). Das hält
-die Seite schnell und die Content-Security-Policy eng — die gesamte Seite
-kommt ohne Inline-Skripte und ohne fremde Hosts aus.
+die Seite schnell und die Content-Security-Policy eng: `script-src 'self'` und
+`style-src 'self'` ohne jede Ausnahme — keine Inline-Skripte, keine
+`style`-Attribute, keine fremden Hosts. Einzige Ausnahme ist der Block mit
+strukturierten Daten auf der Startseite, der per Hash freigegeben ist.
 
 ---
 
@@ -97,7 +99,7 @@ tools/pruefen.sh
 | `assets/js/motion.js` | Einblendungen, Zähler, Neigung, Fortschritt |
 | `assets/js/hero-scene.js` | Knotennetz und 3D-Signet |
 | `assets/js/form.js` | Formularprüfung im Browser |
-| `assets/fonts/` | Selbst gehostete Schriften samt Lizenz |
+| `assets/fonts/` | Selbst gehostete Schriften samt Lizenz; die `@font-face`-Regeln stehen direkt in `style.css` |
 | `assets/img/og-finanzwaechter.jpg` | Vorschaubild für Social Media |
 | `api/` | Kontaktformular-Backend |
 | `tools/pruefen.sh` | Prüfung vor dem Livegang |

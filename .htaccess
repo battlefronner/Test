@@ -29,15 +29,14 @@
 
     # Content-Security-Policy
     #
-    # Die Seite kommt ohne externe Ressourcen und ohne Inline-Skripte aus.
-    # Deshalb ist eine strikte Richtlinie ohne 'unsafe-inline' für Skripte
-    # möglich. 'unsafe-inline' bleibt nur für style-src nötig, weil einzelne
-    # Elemente ein style-Attribut für Layoutfeinheiten tragen.
+    # Die Seite kommt ohne externe Ressourcen, ohne Inline-Skripte und ohne
+    # style-Attribute aus. Deshalb gilt für Skripte und Stylesheets 'self'
+    # ohne jede Ausnahme.
     #
     # Wenn Sie später externe Dienste einbinden (Karten, Videos, Analyse),
     # muss diese Zeile erweitert werden — und dann ist auch die
     # Datenschutzerklärung anzupassen.
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-papIMrqnOGCQyZbTw6LwC6CQ/9Wxn88aytjiVsGKlqs='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
 
     # Einbettung in fremde Seiten unterbinden (Clickjacking-Schutz)
     Header always set X-Frame-Options "DENY"

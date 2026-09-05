@@ -10,7 +10,64 @@
    Keine externen Ressourcen: Schriften werden selbst ausgeliefert.
    ========================================================================== */
 
-@import url('/assets/fonts/fonts.css');
+/* @import würde eine zusätzliche Netzrunde kosten — die Schriften stehen deshalb direkt hier. */
+/* Selbst gehostete Schriften — beim Seitenaufruf entsteht keine Verbindung
+   zu Google. Das ist zugleich die datenschutzrechtlich saubere Variante:
+   beim Einbinden über fonts.googleapis.com würde die IP-Adresse des
+   Besuchers an Google übertragen.
+
+   Sora und IBM Plex stehen unter der SIL Open Font License 1.1.
+   Es handelt sich um Variable Fonts: eine Datei deckt den gesamten
+   Gewichtsbereich ab. */
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/ibm-plex-mono-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/ibm-plex-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/assets/fonts/ibm-plex-sans-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/assets/fonts/ibm-plex-sans-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/assets/fonts/sora-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/assets/fonts/sora-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 /* --------------------------------------------------------------------------
    1. Marken-Token
@@ -176,7 +233,7 @@ a:hover { color: var(--gold-100); }
 /* --------------------------------------------------------------------------
    3. Layout-Primitive
    -------------------------------------------------------------------------- */
-.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.wrap { position: relative; z-index: 1; width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
 .wrap--narrow { max-width: var(--wrap-narrow); }
 
 .section { position: relative; padding-block: clamp(4rem, 9vw, 8.5rem); }
@@ -224,6 +281,28 @@ a:hover { color: var(--gold-100); }
   text-decoration: none; font-weight: 600;
 }
 .skip-link:focus { top: 0; color: var(--ink-on-gold); }
+
+/* --------------------------------------------------------------------------
+   3b. Hilfsklassen — ersetzen Inline-Styles, damit die Content-Security-Policy
+       ohne 'unsafe-inline' für Stylesheets auskommt.
+   -------------------------------------------------------------------------- */
+.mt-3 { margin-top: var(--s3); } .mt-4 { margin-top: var(--s4); } .mt-5 { margin-top: var(--s5); }
+.mt-6 { margin-top: var(--s6); } .mt-8 { margin-top: var(--s8); }
+.mb-0 { margin-bottom: 0; } .mb-6 { margin-bottom: var(--s6); } .mb-7 { margin-bottom: var(--s7); }
+.gap-4 { gap: var(--s4); }
+.ta-c { text-align: center; }
+.center-x { justify-content: center; }
+.h-1 { font-size: var(--t-1); }
+.h-3 { font-size: var(--t-3); }
+.gold-dim { color: var(--gold-600); }
+.mono-gold { font-family: var(--f-mono); color: var(--gold-300); letter-spacing: .1em; }
+.eyebrow--err { color: var(--err); }
+.contact-cell--static { cursor: default; }
+
+/* Abschließende Handlungsaufforderung */
+.card--cta { text-align: center; padding: clamp(2.5rem, 6vw, 4rem); }
+.card--err { border-color: var(--err); }
+.cta-lead { margin: var(--s4) auto 0; max-width: 40rem; }
 
 /* --------------------------------------------------------------------------
    4. Marken-Ornamente

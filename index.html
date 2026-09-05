@@ -31,6 +31,39 @@
 <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script src="/assets/js/boot.js"></script>
+
+<!-- Strukturierte Daten für Suchmaschinen (schema.org/InsuranceAgency).
+     VOR DEM LIVEGANG: Platzhalter durch echte Angaben ersetzen oder den
+     gesamten Block entfernen. Der Inhalt ist in der Content-Security-Policy
+     per Hash freigegeben; nach jeder Änderung den Hash mit tools/csp-hash.sh
+     neu berechnen und in .htaccess sowie nginx.conf.example eintragen. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InsuranceAgency",
+  "name": "Finanzwächter — Florian Wächter",
+  "legalName": "[[FIRMIERUNG]]",
+  "founder": { "@type": "Person", "name": "Florian Wächter" },
+  "slogan": "Klartext für Versicherungen, Vorsorge & Vermögen.",
+  "description": "Versicherungsvertretung mit Erlaubnis nach § 34d Abs. 1 GewO. Vier Säulen: Schutz, Vorsorge, Vermögen, Unternehmen.",
+  "url": "https://www.finanzwaechter.de/",
+  "logo": "https://www.finanzwaechter.de/assets/img/signet.svg",
+  "image": "https://www.finanzwaechter.de/assets/img/og-finanzwaechter.jpg",
+  "telephone": "[[TELEFON im Format +49...]]",
+  "email": "[[E-MAIL]]",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "[[STRASSE HAUSNUMMER]]",
+    "postalCode": "[[PLZ]]",
+    "addressLocality": "[[ORT]]",
+    "addressRegion": "Nordrhein-Westfalen",
+    "addressCountry": "DE"
+  },
+  "areaServed": { "@type": "Country", "name": "Deutschland" },
+  "knowsLanguage": "de-DE",
+  "priceRange": "Erstgespräch kostenfrei; Vergütung über die Versicherer"
+}
+</script>
 </head>
 <body>
 <div class="scroll-progress" aria-hidden="true"></div>
@@ -97,7 +130,7 @@
         <div class="hero__content">
           <span class="hero__status">
             <span class="dot" aria-hidden="true"></span>
-            Erlaubnis § 34d GewO · IHK-geprüft
+            Erlaubnis § 34d GewO · Vermittlerregister
           </span>
 
           <h1>
@@ -145,7 +178,7 @@
   <!-- ══════════ Die vier Säulen ══════════ -->
   <section class="section section--tight" aria-labelledby="saeulen-titel">
     <div class="wrap">
-      <div class="section-head reveal" style="margin-bottom: var(--s6)">
+      <div class="section-head reveal mb-6">
         <p class="eyebrow">Vier Säulen</p>
         <h2 id="saeulen-titel">Woran ich arbeite</h2>
       </div>
@@ -220,7 +253,7 @@
     <div class="wrap">
       <div class="metrics reveal">
         <div class="metric">
-          <span class="metric__value" data-count="0" data-suffix=" €">0 €</span>
+          <span class="metric__value">0 €</span>
           <span class="metric__label">kostet Sie das Erstgespräch — inklusive Analyse Ihrer bestehenden Verträge</span>
         </div>
         <div class="metric">
@@ -243,7 +276,7 @@
   <section class="section section--raised" aria-labelledby="haltung-titel">
     <div class="wrap">
       <div class="split split--even">
-        <div class="section-head reveal" style="margin-bottom: 0">
+        <div class="section-head reveal mb-0">
           <p class="eyebrow">Warum Finanzwächter</p>
           <h2 id="haltung-titel">Die meisten sind versichert.<br>Kaum jemand ist es richtig.</h2>
           <p class="lead">
@@ -321,7 +354,7 @@
         </li>
       </ol>
 
-      <p class="reveal d2" style="margin-top: var(--s8)">
+      <p class="reveal d2 mt-8">
         <a class="btn btn--line" href="/ablauf.html">Ablauf im Detail</a>
       </p>
     </div>
@@ -343,7 +376,7 @@
           </figcaption>
         </figure>
 
-        <div class="section-head reveal d1" style="margin-bottom: 0">
+        <div class="section-head reveal d1 mb-0">
           <p class="eyebrow">Transparenz</p>
           <h2 id="transparenz-titel">Wie ich bezahlt werde</h2>
           <p class="muted">
@@ -436,14 +469,14 @@
   <!-- ══════════ Abschluss ══════════ -->
   <section class="section section--deep">
     <div class="wrap">
-      <div class="card card--gold bracket reveal" style="text-align:center; padding: clamp(2.5rem, 6vw, 4.5rem)">
+      <div class="card card--gold bracket reveal card--cta">
         <p class="eyebrow eyebrow--center">Nächster Schritt</p>
-        <h2 style="margin-top: var(--s4)">Reden wir über Ihre Situation</h2>
-        <p class="lead" style="margin: var(--s4) auto 0; max-width: 42rem">
+        <h2 class="mt-4">Reden wir über Ihre Situation</h2>
+        <p class="lead cta-lead">
           Unverbindlich, kostenfrei und ohne Abschlussdruck. Wenn ich Ihnen nicht
           helfen kann, sage ich Ihnen das im Erstgespräch.
         </p>
-        <div class="hero__cta" style="justify-content:center; margin-top: var(--s6)">
+        <div class="hero__cta center-x mt-6">
           <a class="btn btn--gold" href="/kontakt.html" data-magnetic>Termin anfragen</a>
           <a class="btn btn--line" href="tel:+490000000000">Direkt anrufen</a>
         </div>
@@ -460,7 +493,7 @@
     </svg>
   </div>
 
-  <div class="wrap" style="position:relative; z-index:1">
+  <div class="wrap">
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="brand" href="/">
@@ -501,7 +534,7 @@
       </div>
 
       <div class="footer__col">
-        <h2>Kanzlei</h2>
+        <h2>Über Finanzwächter</h2>
         <ul>
           <li><a href="/ueber-uns.html">Über mich</a></li>
           <li><a href="/ablauf.html">So arbeite ich</a></li>

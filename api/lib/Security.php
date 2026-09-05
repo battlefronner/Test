@@ -208,7 +208,8 @@ final class Security
         if (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off') {
             return true;
         }
-        // Hinter einem Reverse Proxy nur auswerten, wenn der Proxy vertrauenswürdig ist.
+        // Hinter einem Reverse Proxy. Ein gefälschter Wert wirkt sich nur auf das
+        // Secure-Flag des Cookies aus — und zwar in die sichere Richtung.
         if (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') {
             return true;
         }

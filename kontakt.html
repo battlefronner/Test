@@ -83,7 +83,7 @@
 
   <section class="page-head">
     <div class="mesh" aria-hidden="true"></div>
-    <div class="wrap" style="position:relative; z-index:1">
+    <div class="wrap">
       <nav class="breadcrumb" aria-label="Brotkrumennavigation">
         <ol><li><a href="/">Start</a></li><li aria-current="page">Kontakt</li></ol>
       </nav>
@@ -110,12 +110,12 @@
           <span class="k">E-Mail</span>
           <span class="v"><span class="ph">[[E-MAIL]]</span></span>
         </a>
-        <div class="contact-cell" style="cursor:default">
+        <div class="contact-cell contact-cell--static">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
           <span class="k">Büro</span>
           <span class="v"><span class="ph">[[STRASSE HAUSNR.]]<br>[[PLZ ORT]]</span></span>
         </div>
-        <div class="contact-cell" style="cursor:default">
+        <div class="contact-cell contact-cell--static">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
           <span class="k">Sprechzeiten</span>
           <span class="v"><span class="ph">[[MO–FR 09:00–18:00]]</span></span>
@@ -129,7 +129,7 @@
       <div class="split">
 
         <div class="reveal">
-          <div class="section-head" style="margin-bottom: var(--s6)">
+          <div class="section-head mb-6">
             <p class="eyebrow">Anfrage</p>
             <h2>Erstgespräch anfragen</h2>
             <p class="muted small">Felder mit <span class="req" aria-hidden="true">*</span> sind Pflichtfelder.</p>
@@ -209,9 +209,7 @@
                      aria-describedby="datenschutz-error">
               <label for="datenschutz">
                 Ich habe die <a href="/recht/datenschutz.html">Datenschutzerklärung</a>
-                zur Kenntnis genommen und bin damit einverstanden, dass meine Angaben
-                zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden.
-                <span class="req" aria-hidden="true">*</span>
+                zur Kenntnis genommen. <span class="req" aria-hidden="true">*</span>
               </label>
             </div>
             <p class="field__error" id="datenschutz-error" aria-live="polite"></p>
@@ -241,13 +239,13 @@
         <aside class="stack-lg reveal d1">
           <div class="card card--gold bracket">
             <p class="eyebrow">Erstinformation</p>
-            <h2 style="font-size: var(--t-1); margin-top: var(--s3)">Bevor wir starten</h2>
+            <h2 class="h-1 mt-3">Bevor wir starten</h2>
             <p class="muted small">
               Beim ersten Geschäftskontakt bin ich gesetzlich verpflichtet, Sie über
               meinen Status als Versicherungsvertreter, meine Registrierung und meine
               Vergütung zu informieren.
             </p>
-            <p style="margin-top: var(--s4)">
+            <p class="mt-4">
               <a class="link-arrow" href="/recht/erstinformation.html">Erstinformation lesen</a>
             </p>
           </div>
@@ -287,7 +285,7 @@
     </svg>
   </div>
 
-  <div class="wrap" style="position:relative; z-index:1">
+  <div class="wrap">
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="brand" href="/">
@@ -328,7 +326,7 @@
       </div>
 
       <div class="footer__col">
-        <h2>Kanzlei</h2>
+        <h2>Über Finanzwächter</h2>
         <ul>
           <li><a href="/ueber-uns.html">Über mich</a></li>
           <li><a href="/ablauf.html">So arbeite ich</a></li>

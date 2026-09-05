@@ -39,6 +39,12 @@ if (!$security->originAllowed()) {
 
 $security->startSession();
 
+// Abgelaufene Spamschutz-Daten bei jeder Anfrage mit gültiger Herkunft aufräumen —
+// unabhängig davon, ob die Anfrage danach angenommen oder abgewiesen wird. Der Lauf
+// ist billig (ein Verzeichnis mit wenigen kleinen Dateien) und sorgt dafür, dass die
+// in der Datenschutzerklärung genannte Löschfrist auch bei wenig Verkehr gilt.
+$security->purgeExpired();
+
 // --- 3. CSRF-Token ---------------------------------------------------------
 // Das Token wird per JavaScript geholt. Fehlt in der Sitzung ein Token,
 // wurde die Seite ohne JavaScript genutzt; dann trägt die Herkunftsprüfung
@@ -76,11 +82,6 @@ if ($renderTs > 0) {
 }
 
 // --- 6. Anfragebegrenzung --------------------------------------------------
-// Gelegentlich abgelaufene Spamschutz-Daten aufräumen (ca. jede 20. Anfrage).
-if (random_int(1, 20) === 1) {
-    $security->purgeExpired();
-}
-
 $clientKey = $security->clientKey();
 
 if ($security->rateLimitExceeded(
