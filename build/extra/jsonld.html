@@ -1,0 +1,33 @@
+
+<!-- Strukturierte Daten für Suchmaschinen (schema.org/InsuranceAgency).
+     VOR DEM LIVEGANG: Platzhalter durch echte Angaben ersetzen oder den
+     gesamten Block entfernen. Der Inhalt ist in der Content-Security-Policy
+     per Hash freigegeben; nach jeder Änderung den Hash mit tools/csp-hash.sh
+     neu berechnen und in .htaccess sowie nginx.conf.example eintragen. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InsuranceAgency",
+  "name": "Finanzwächter — Florian Wächter",
+  "legalName": "{{@firma.firmierung|Firmierung}}",
+  "founder": { "@type": "Person", "name": "Florian Wächter" },
+  "slogan": "Klartext für Versicherungen, Vorsorge & Vermögen.",
+  "description": "Versicherungsvertretung mit Erlaubnis nach § 34d Abs. 1 GewO. Vier Säulen: Schutz, Vorsorge, Vermögen, Unternehmen.",
+  "url": "https://www.finanzwaechter.de/",
+  "logo": "https://www.finanzwaechter.de/assets/img/signet.svg",
+  "image": "https://www.finanzwaechter.de/assets/img/og-finanzwaechter.jpg",
+  "telephone": "{{@kontakt.telefon_link|Telefon}}",
+  "email": "{{@kontakt.email|E-Mail}}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{hauptsitz.strasse}}",
+    "postalCode": "{{hauptsitz.plz}}",
+    "addressLocality": "{{hauptsitz.ort}}",
+    "addressRegion": "Nordrhein-Westfalen",
+    "addressCountry": "DE"
+  },
+  "areaServed": { "@type": "Country", "name": "Deutschland" },
+  "knowsLanguage": "de-DE",
+  "priceRange": "Erstgespräch kostenfrei; Vergütung über die Versicherer"
+}
+</script>

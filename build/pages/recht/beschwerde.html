@@ -1,0 +1,115 @@
+<!-- page title="Beschwerde und Schlichtung | Finanzwächter" desc="Wege zur Beschwerde: direkt, über die anerkannten Schlichtungsstellen nach § 214 VVG oder bei der zuständigen Aufsichtsbehörde." path="/recht/beschwerde.html" robots="index,follow" prio="0.4" -->
+<main id="hauptinhalt">
+
+  <section class="page-head">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="wrap wrap--narrow">
+      <nav class="breadcrumb" aria-label="Brotkrumennavigation">
+        <ol><li><a href="/">Start</a></li><li aria-current="page">Beschwerde &amp; Schlichtung</li></ol>
+      </nav>
+      <h1>Beschwerde &amp; Schlichtung</h1>
+      <p class="lead">
+        Wenn etwas schiefgelaufen ist, sollen Sie wissen, an wen Sie sich wenden können —
+        auch dann, wenn Sie sich nicht mehr an uns wenden möchten.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <div class="legal">
+
+        <h2 id="direkt">1. Beschwerde direkt bei uns</h2>
+        <p>
+          Der schnellste Weg ist meist der direkte. Schildern Sie uns Ihr Anliegen
+          schriftlich oder telefonisch. Wir bestätigen den Eingang Ihrer Beschwerde
+          und melden uns mit einer inhaltlichen Antwort — in der Regel innerhalb von
+          {{recht.beschwerde_frist}}.
+        </p>
+        <address>
+          {{firma.firmierung|Firmierung}}<br>
+          {{hauptsitz.strasse}}<br>
+          {{hauptsitz.plz}} {{hauptsitz.ort}}<br>
+          Telefon: {{kontakt.telefon|Telefon}}<br>
+          E-Mail: {{kontakt.email|E-Mail}}
+        </address>
+
+        <h2 id="schlichtung">2. Außergerichtliche Schlichtung</h2>
+        <p>
+          Kommen wir nicht zu einer Einigung, können Sie eine anerkannte
+          Verbraucherschlichtungsstelle anrufen. Das Verfahren ist für Sie
+          in der Regel kostenfrei; Ihr Recht, den ordentlichen Rechtsweg zu
+          beschreiten, bleibt davon unberührt.
+        </p>
+
+        <!--editor--><div class="note note--warn"><p><strong>Bearbeitungshinweis:</strong> Die Anschriften der Schlichtungsstellen und Behörden stehen in build/site.json unter „behoerden“ und wurden am 05.09.2026 über die offiziellen Seiten belegt. Vor dem Livegang einmal gegenprüfen.</p></div><!--/editor-->
+
+        <h3>Versicherungsombudsmann e.&nbsp;V.</h3>
+        <p>Zuständig für Streitigkeiten aus Versicherungsverträgen und aus der
+           Versicherungsvermittlung mit Ausnahme der privaten Kranken- und
+           Pflegeversicherung.</p>
+        <address>
+          {{behoerden.ombudsmann.name}}<br>
+          {{behoerden.ombudsmann.postfach}}, {{behoerden.ombudsmann.postfach_plz}} {{behoerden.ombudsmann.ort}}<br>
+          Hausanschrift: {{behoerden.ombudsmann.strasse}}, {{behoerden.ombudsmann.plz}} {{behoerden.ombudsmann.ort}}<br>
+          Telefon {{behoerden.ombudsmann.telefon}} ({{behoerden.ombudsmann.telefon_hinweis}})<br>
+          E-Mail {{behoerden.ombudsmann.email}}<br>
+          <a href="{{behoerden.ombudsmann.web}}" rel="noopener noreferrer external" target="_blank">www.versicherungsombudsmann.de</a>
+        </address>
+
+        <h3>Ombudsmann Private Kranken- und Pflegeversicherung</h3>
+        <p>Zuständig für Streitigkeiten aus der privaten Kranken- und Pflegeversicherung.</p>
+        <address>
+          {{behoerden.pkv_ombudsmann.name}}<br>
+          {{behoerden.pkv_ombudsmann.postfach}}, {{behoerden.pkv_ombudsmann.postfach_plz}} {{behoerden.pkv_ombudsmann.ort}}<br>
+          Telefon {{behoerden.pkv_ombudsmann.telefon}} ({{behoerden.pkv_ombudsmann.telefon_hinweis}})<br>
+          <a href="{{behoerden.pkv_ombudsmann.web}}" rel="noopener noreferrer external" target="_blank">www.pkv-ombudsmann.de</a>
+        </address>
+
+        <h2 id="aufsicht">3. Beschwerde bei der Aufsichtsbehörde</h2>
+        <p>
+          Unabhängig von einer Schlichtung können Sie sich an die für uns zuständige
+          Gewerbeaufsicht wenden:
+        </p>
+        <address>
+          {{ihk.name}}<br>
+          {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}<br>
+          Telefon {{ihk.telefon}}<br>
+          <a href="{{ihk.web}}" rel="noopener noreferrer external" target="_blank">www.ihk.de/nordwestfalen</a>
+        </address>
+        <p>
+          Für Beschwerden gegen ein Versicherungsunternehmen ist zusätzlich die
+          Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin) zuständig:
+        </p>
+        <address>
+          {{behoerden.bafin.name}}<br>
+          {{behoerden.bafin.strasse}}, {{behoerden.bafin.plz}} {{behoerden.bafin.ort}}<br>
+          Telefon {{behoerden.bafin.telefon}}<br>
+          <a href="{{behoerden.bafin.web}}" rel="noopener noreferrer external" target="_blank">www.bafin.de</a>
+        </address>
+        <p class="small">
+          Hinweis: Die BaFin beaufsichtigt Versicherungsunternehmen, nicht die
+          Versicherungsvermittler nach § 34d GewO. Für Beschwerden über unsere
+          Tätigkeit ist die Industrie- und Handelskammer die richtige Adresse.
+        </p>
+
+        <h2 id="datenschutz">4. Datenschutzrechtliche Beschwerde</h2>
+        <p>
+          Wenn Sie der Ansicht sind, dass wir Ihre personenbezogenen Daten nicht
+          rechtmäßig verarbeiten, steht Ihnen nach Art. 77 DSGVO ein Beschwerderecht
+          bei einer Datenschutz-Aufsichtsbehörde zu. Die zuständige Stelle ist in
+          unserer <a href="/recht/datenschutz.html#rechte">Datenschutzerklärung</a> genannt.
+        </p>
+
+        <h2 id="rechtsweg">5. Ordentlicher Rechtsweg</h2>
+        <p>
+          Alle vorgenannten Verfahren sind freiwillig und schließen den Weg zu den
+          ordentlichen Gerichten nicht aus. Ihre gesetzlichen Rechte, insbesondere
+          Schadensersatzansprüche wegen Beratungspflichtverletzungen nach § 63 VVG,
+          bleiben unberührt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>

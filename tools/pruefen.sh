@@ -149,7 +149,7 @@ PY
     elif grep -q "$ist" .htaccess 2>/dev/null; then
         ok "CSP-Hash stimmt mit dem Inline-Skript überein."
     else
-        fail "CSP-Hash veraltet. Erwartet: '$ist' — neu eintragen (siehe tools/csp-hash.sh)."
+        fail "CSP-Hash veraltet. Erwartet: '$ist' — neu bauen: python3 build/build.py."
     fi
 fi
 

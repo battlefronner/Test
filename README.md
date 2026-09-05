@@ -7,6 +7,36 @@ Statisches HTML mit gehärtetem PHP-Kontaktformular. Kein Build-Schritt, keine
 Paketabhängigkeiten, keine externen Ressourcen zur Laufzeit. Die Dateien können
 unverändert auf jeden Webspace mit PHP 8.0 oder neuer geladen werden.
 
+## Baukasten
+
+Die Website wird aus drei Teilen zusammengesetzt:
+
+| Ort | Inhalt |
+| --- | --- |
+| `build/site.json` | **Alle veränderlichen Angaben an einer Stelle**: Firmierung, Standorte, Kontakt, Registernummer, Behördenanschriften, Fristen. Leere Felder erscheinen auf der Seite rot als Platzhalter. Zu jedem Feld gibt es einen Hinweis mit Unterstrich (`_feldname`). |
+| `build/pages/` | Ein Seitenkörper je Seite, mit `{{platzhaltern}}` aus `site.json` |
+| `build/partials/` | Kopfbereich, Navigation, Fußbereich — einmal vorhanden, überall gleich |
+
+```bash
+python3 build/build.py          # Entwurf: Platzhalter sichtbar, Bearbeitungshinweise sichtbar
+python3 build/build.py --live   # Livegang: Hinweise entfernt, bricht bei leeren Pflichtfeldern ab
+```
+
+Der Bau erzeugt außerdem `sitemap.xml` und trägt den Hash des Datenblocks
+für Suchmaschinen in die Content-Security-Policy ein.
+
+**Neuen Standort anlegen:** In `site.json` unter `standorte` ein weiteres
+Objekt anhängen, bauen — er erscheint in der Fußzeile und auf der Seite
+„Über uns“. Der Eintrag mit `"hauptsitz": true` liefert die Anschrift für
+Impressum, Erstinformation und Datenblock.
+
+**Text ändern:** Datei in `build/pages/` bearbeiten, bauen. Die Ausgabedateien
+im Wurzelverzeichnis werden überschrieben — dort nicht von Hand ändern.
+
+**Bearbeitungshinweise** (rote Kästen wie „Vor dem Livegang prüfen“) stehen in
+den Quellen zwischen `<!--editor-->` und `<!--/editor-->`. Im Entwurf sind sie
+sichtbar, `--live` entfernt sie. So kann niemand vergessen, sie zu löschen.
+
 ## Gestaltung
 
 Die Seite übernimmt die Corporate Identity aus dem Markenbild: Tiefschwarz mit
@@ -98,12 +128,13 @@ tools/pruefen.sh
 | `assets/js/main.js` | Navigation und Kopfbereich |
 | `assets/js/motion.js` | Einblendungen, Zähler, Neigung, Fortschritt |
 | `assets/js/hero-scene.js` | Knotennetz und 3D-Signet |
-| `assets/js/form.js` | Formularprüfung im Browser |
+| `assets/js/form.js` | Formularprüfung im Browser, Themenvorbelegung aus dem Bedarfs-Check |
+| `assets/js/check.js` | Bedarfs-Check: drei Fragen, Einordnung in eine Säule — läuft ohne Übertragung |
+| `build/` | Baukasten: Konfiguration, Seitenquellen, Bausteine, Bauskript |
 | `assets/fonts/` | Selbst gehostete Schriften samt Lizenz; die `@font-face`-Regeln stehen direkt in `style.css` |
 | `assets/img/og-finanzwaechter.jpg` | Vorschaubild für Social Media |
 | `api/` | Kontaktformular-Backend |
 | `tools/pruefen.sh` | Prüfung vor dem Livegang |
-| `tools/csp-hash.sh` | Hash für die Content-Security-Policy berechnen |
 | `.htaccess` | Apache: Sicherheits-Header, Zugriffsschutz |
 | `nginx.conf.example` | Entsprechung für nginx |
 
@@ -130,29 +161,25 @@ In `api/config.php` einzutragen:
 
 `api/config.php` steht in `.gitignore` und gehört nicht ins Repository.
 
-### 2. Platzhalter ersetzen
+### 2. Angaben eintragen
+
+Alle Angaben stehen in `build/site.json`. Nach dem Ausfüllen:
 
 ```bash
-grep -rn '\[\[' --include='*.html' .
+python3 build/build.py --live
 ```
 
-Die vollständige Liste steht weiter unten unter „Platzhalter".
+Der Bau nennt jedes Feld, das noch leer ist, und bricht ab, solange
+Pflichtangaben fehlen.
 
 ### 3. Domain eintragen
 
-Die Domain `www.finanzwaechter.de` ist als Vorgabe hinterlegt und in diesen
-Dateien anzupassen:
+`web.domain` in `build/site.json` setzen und bauen — Canonical-Links, Datenblock
+und Sitemap folgen daraus. Zusätzlich von Hand:
 
-- `robots.txt`, `sitemap.xml`
-- `<link rel="canonical">` und `og:url` in jeder HTML-Datei
+- `robots.txt` (Sitemap-Zeile)
 - `allowed_hosts` in `api/config.php`
 - der auskommentierte Umleitungsblock in `.htaccess`
-
-```bash
-# Beispiel: Domain über alle Dateien austauschen
-grep -rl 'www.finanzwaechter.de' --include='*.html' --include='*.xml' --include='*.txt' . \
-  | xargs sed -i 's|www\.finanzwaechter\.de|IHRE-DOMAIN.de|g'
-```
 
 ### 4. Serverkonfiguration
 
@@ -192,37 +219,19 @@ tools/pruefen.sh
 
 ## Platzhalter
 
-| Platzhalter | Betrifft |
-| --- | --- |
-| `[[FIRMIERUNG]]` | Vollständige Firmierung inklusive Rechtsform |
-| `[[NAME INHABER/IN]]`, `[[FUNKTION]]` | Vertretungsberechtigte Person |
-| `[[STRASSE HAUSNR.]]`, `[[PLZ ORT]]` | Geschäftsanschrift |
-| `[[TELEFON]]`, `[[E-MAIL]]`, `[[WWW-ADRESSE]]` | Kontaktdaten |
-| `[[REGISTRIERUNGSNUMMER]]` | Nummer im Vermittlerregister (Format `D-XXXX-XXXXX-XX`) |
-| `[[ZUSTÄNDIGE IHK]]` | Erlaubnisbehörde laut Erlaubnisbescheid |
-| `[[VERSICHERER DER BERUFSHAFTPFLICHT]]` | Berufshaftpflicht nach § 34d Abs. 5 GewO |
-| `[[NAME UND ANSCHRIFT DES HOSTERS]]` | Auftragsverarbeiter in der Datenschutzerklärung |
-| `[[ZUSTÄNDIGE AUFSICHTSBEHÖRDE]]` | Datenschutzaufsicht nach Sitz des Unternehmens |
-| `[[XX]]`, `[[XXX]]` | Kennzahlen auf der Startseite |
+Alle Platzhalter werden aus `build/site.json` gefüllt. Der Bau listet leere
+Felder auf; die Hinweise zu jedem Feld stehen in der Datei selbst.
 
-Zusätzlich stehen in den Rechtstexten **Entscheidungsplatzhalter**, bei denen
-eine von mehreren Varianten zu wählen ist — etwa die Angabe nach § 36 VSBG,
-die Beteiligungserklärung und der Vertreterstatus (Einfirmen- oder
-Mehrfachvertreter). Diese sind im Text jeweils erläutert.
+Drei Angaben verlangen eine Entscheidung, die nur der Inhaber treffen kann —
+die Datei erläutert jeweils die Varianten:
 
-Ebenfalls zu ersetzen:
+- `register.vertretung` — Einfirmen- oder Mehrfachvertreter (bei Letzterem alle Versicherer namentlich)
+- `recht.vsbg` — Angabe nach § 36 VSBG zur Verbraucherschlichtung
+- `register.beteiligungen` — Standardtext ist hinterlegt, nur bei Beteiligungen über 10 % ändern
 
-- `tel:+490000000000` — Vorgabewert in allen `tel:`-Verweisen
-- `platzhalter@example.invalid` — Vorgabewert in allen `mailto:`-Verweisen
-- Der Block mit strukturierten Daten am Ende von `index.html` — füllen oder entfernen
-
-> Wird der Block mit strukturierten Daten geändert, verliert der Hash in der
-> Content-Security-Policy seine Gültigkeit und der Browser blockiert den Block.
-> Neuen Wert mit `tools/csp-hash.sh index.html` berechnen und in `.htaccess`
-> sowie `nginx.conf.example` eintragen. Wird der Block entfernt, kann der Hash
-> aus der Richtlinie gestrichen werden.
-
----
+Die Anschriften unter `behoerden` wurden am 05.09.2026 über die offiziellen
+Seiten belegt (IHK Nord Westfalen, Versicherungsombudsmann, PKV-Ombudsmann,
+LDI NRW, DIHK-Registerstelle, BaFin). Vor dem Livegang einmal gegenprüfen.
 
 ## Kontaktformular
 
@@ -399,6 +408,13 @@ Nachweise (Erlaubnis, Registernummer), Reibungsabbau („kostenfrei",
 „unverbindlich", „kein Abschluss im Erstgespräch"), vorweggenommene Einwände
 im Fragenbereich, Transparenz bei der Vergütung und klar wiederholte
 Handlungsaufforderungen.
+
+**Bedarfs-Check** auf der Startseite: Drei Fragen, eine Einordnung in eine der
+vier Säulen, danach eine Handlungsaufforderung mit vorbelegtem Thema im
+Kontaktformular. Der Besucher bekommt zuerst etwas — eine Antwort auf seine
+Lage — bevor er etwas gibt. Die Zuordnung ist absichtlich einfach und liegt
+offen in `assets/js/check.js`; sie sortiert vor, sie berät nicht. Es wird
+nichts gespeichert und nichts übertragen.
 
 Bewusst **nicht** eingesetzt: künstliche Verknappung, Countdown, erfundene
 Bewertungen oder Kundenzahlen. Solche Mittel sind bei Versicherungsvermittlung

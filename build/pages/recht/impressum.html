@@ -1,0 +1,225 @@
+<!-- page title="Impressum | Finanzwächter" desc="Pflichtangaben nach § 5 DDG und § 18 Abs. 2 MStV sowie berufsrechtliche Angaben zur Versicherungsvermittlung nach § 34d GewO." path="/recht/impressum.html" robots="index,follow" prio="0.4" -->
+<main id="hauptinhalt">
+
+  <section class="page-head">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="wrap wrap--narrow">
+      <nav class="breadcrumb" aria-label="Brotkrumennavigation">
+        <ol><li><a href="/">Start</a></li><li aria-current="page">Impressum</li></ol>
+      </nav>
+      <h1>Impressum</h1>
+      <p class="lead">Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG) und § 18 Abs. 2 Medienstaatsvertrag (MStV).</p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+
+      <!--editor--><div class="note note--warn mb-7">
+        <p><strong>Vor dem Livegang bearbeiten.</strong> Alle rot markierten Platzhalter müssen durch
+           Ihre tatsächlichen Angaben ersetzt und die Angaben anschließend anwaltlich geprüft werden.
+           Ein unvollständiges Impressum ist abmahnfähig und kann nach § 5 DDG i.&nbsp;V.&nbsp;m.
+           § 26 DDG bußgeldbewehrt sein. Diese Vorlage ist keine Rechtsberatung.</p>
+      </div><!--/editor-->
+
+      <nav class="toc" aria-labelledby="toc-titel">
+        <h2 id="toc-titel">Inhalt</h2>
+        <ol>
+          <li><a href="#anbieter">Anbieter</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="#register">Register und Umsatzsteuer</a></li>
+          <li><a href="#berufsrecht">Berufsrechtliche Angaben</a></li>
+          <li><a href="#aufsicht">Aufsichts- und Registerbehörden</a></li>
+          <li><a href="#verantwortlich">Redaktionelle Verantwortung</a></li>
+          <li><a href="#schlichtung">Verbraucherstreitbeilegung</a></li>
+          <li><a href="#haftung">Haftung für Inhalte und Links</a></li>
+          <li><a href="#urheberrecht">Urheberrecht</a></li>
+        </ol>
+      </nav>
+
+      <div class="legal">
+
+        <h2 id="anbieter">1. Anbieter</h2>
+        <address>
+          {{firma.firmierung|Firmierung}}<br>
+          {{hauptsitz.strasse}}<br>
+          {{hauptsitz.plz}} {{hauptsitz.ort}}<br>
+          Deutschland
+        </address>
+        <p>
+          <strong>Vertreten durch:</strong> Florian Wächter
+        </p>
+        <!--editor--><p class="small">
+          Hinweis zur Rechtsform: Bei einer GmbH, UG oder GmbH &amp; Co. KG sind zusätzlich
+          sämtliche Geschäftsführer namentlich zu nennen. Bei einer Einzelunternehmung
+          genügt die natürliche Person mit Vor- und Nachname; ein Geschäftsname ersetzt
+          den bürgerlichen Namen nicht.
+        </p><!--/editor-->
+
+        <h2 id="kontakt">2. Kontakt</h2>
+        <dl>
+          <dt>Telefon</dt>
+          <dd>{{kontakt.telefon|Telefon}}</dd>
+          <dt>E-Mail</dt>
+          <dd>{{kontakt.email|E-Mail}}</dd>
+          <dt>Website</dt>
+          <dd>{{web.domain}}</dd>
+        </dl>
+        <!--editor--><p class="small">
+          Nach § 5 Abs. 1 Nr. 2 DDG müssen Angaben vorliegen, die eine schnelle
+          elektronische Kontaktaufnahme und unmittelbare Kommunikation ermöglichen.
+          Eine E-Mail-Adresse ist zwingend; ein reines Kontaktformular genügt nicht.
+        </p><!--/editor-->
+
+        <h2 id="register">3. Register und Umsatzsteuer</h2>
+        <dl>
+          {{?recht.handelsregister}}<dt>Handelsregister</dt>
+          <dd>{{recht.handelsregister}}</dd>{{/?}}
+          {{?recht.ustid}}<dt>Umsatzsteuer-Identifikationsnummer</dt>
+          <dd>{{recht.ustid}}</dd>{{/?}}
+          <!--editor-->{{!recht.handelsregister}}<dt>Handelsregister</dt><dd>{{recht.handelsregister|Handelsregister — leer lassen, wenn keine Eintragung}}</dd>{{/!}}
+          {{!recht.ustid}}<dt>Umsatzsteuer-Identifikationsnummer</dt><dd>{{recht.ustid|USt-IdNr. — leer lassen, wenn keine erteilt}}</dd>{{/!}}<!--/editor-->
+          {{!recht.handelsregister}}{{!recht.ustid}}<dt>Handelsregister und Umsatzsteuer-Identifikationsnummer</dt>
+          <dd>Es besteht keine Eintragung im Handelsregister. Eine Umsatzsteuer-Identifikationsnummer wurde nicht erteilt; die Vermittlung von Versicherungen ist nach § 4 Nr. 11 UStG umsatzsteuerfrei.</dd>{{/!}}{{/!}}
+        </dl>
+        <!--editor--><p class="small">
+          Hinweis: Die Vermittlung von Versicherungen ist nach § 4 Nr. 11 UStG
+          umsatzsteuerfrei. Viele Vermittler verfügen daher über keine USt-IdNr.
+          In diesem Fall entfällt die Angabe ersatzlos — sie darf nicht erfunden werden.
+        </p><!--/editor-->
+
+        <h2 id="berufsrecht">4. Berufsrechtliche Angaben</h2>
+        <p>Angaben gemäß § 5 Abs. 1 Nr. 5 DDG:</p>
+        <dl>
+          <dt>Gesetzliche Berufsbezeichnung</dt>
+          <dd>Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 der Gewerbeordnung (GewO),
+              verliehen in der Bundesrepublik Deutschland</dd>
+
+          <dt>Erlaubnis erteilt durch</dt>
+          <dd>Industrie- und Handelskammer
+              {{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>
+
+          <dt>Registrierungsnummer im Vermittlerregister</dt>
+          <dd>{{register.nummer|Registrierungsnummer}}</dd>
+
+          <dt>Registerstelle</dt>
+          <dd>
+            {{behoerden.dihk.name}}<br>
+            {{behoerden.dihk.zusatz}}<br>
+            {{behoerden.dihk.strasse}}, {{behoerden.dihk.plz}} {{behoerden.dihk.ort}}<br>
+            Telefon {{behoerden.dihk.telefon}} ({{behoerden.dihk.telefon_hinweis}})<br>
+            <a href="{{behoerden.dihk.web}}" rel="noopener noreferrer external" target="_blank">www.vermittlerregister.info</a>
+          </dd>
+
+          <dt>Maßgebliche berufsrechtliche Regelungen</dt>
+          <dd>
+            <ul>
+              <li>§ 34d Gewerbeordnung (GewO)</li>
+              <li>§§ 59 bis 68 Versicherungsvertragsgesetz (VVG)</li>
+              <li>Verordnung über die Versicherungsvermittlung und -beratung (VersVermV)</li>
+            </ul>
+            <p class="small">Die genannten Regelungen sind über das Portal des Bundesministeriums
+               der Justiz unter <a href="https://www.gesetze-im-internet.de" rel="noopener noreferrer external" target="_blank">www.gesetze-im-internet.de</a>
+               einsehbar.</p>
+          </dd>
+
+          <dt>Berufshaftpflichtversicherung</dt>
+          <dd>
+            Nach § 34d Abs. 5 GewO besteht eine Berufshaftpflichtversicherung.<br>
+            Versicherer: {{register.haftpflicht_versicherer|Berufshaftpflichtversicherer}}<br>
+            Räumlicher Geltungsbereich: {{register.haftpflicht_gebiet}}
+          </dd>
+        </dl>
+
+        <h2 id="aufsicht">5. Aufsichts- und Registerbehörden</h2>
+        <p>
+          Zuständig für die Erlaubnis und die Gewerbeaufsicht ist die unter Ziffer 4
+          genannte Industrie- und Handelskammer. Die Eintragung im Vermittlerregister
+          kann jederzeit unter
+          <a href="https://www.vermittlerregister.info" rel="noopener noreferrer external" target="_blank">www.vermittlerregister.info</a>
+          anhand der Registrierungsnummer überprüft werden.
+        </p>
+
+        <h2 id="verantwortlich">6. Redaktionelle Verantwortung</h2>
+        <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:</p>
+        <address>
+          Florian Wächter<br>
+          {{hauptsitz.strasse}}<br>
+          {{hauptsitz.plz}} {{hauptsitz.ort}}
+        </address>
+        <!--editor--><p class="small">
+          Diese Angabe ist erforderlich, sofern die Website journalistisch-redaktionell
+          gestaltete Inhalte enthält (etwa einen Ratgeber- oder Newsbereich). Beschränkt
+          sich die Website auf die Selbstdarstellung des Unternehmens, kann die Angabe
+          entfallen; sie schadet jedoch nicht.
+        </p><!--/editor-->
+
+        <h2 id="schlichtung">7. Verbraucherstreitbeilegung</h2>
+        <p>
+          Für Streitigkeiten aus der Versicherungsvermittlung stehen anerkannte
+          Verbraucherschlichtungsstellen nach § 214 VVG zur Verfügung. Die zuständigen
+          Stellen und den Ablauf haben wir auf einer eigenen Seite zusammengestellt:
+          <a href="/recht/beschwerde.html">Beschwerde &amp; Schlichtung</a>.
+        </p>
+        <p>
+          <strong>Angabe nach § 36 Verbraucherstreitbeilegungsgesetz (VSBG):</strong><br>
+          {{recht.vsbg|Angabe nach § 36 VSBG}}
+        </p>
+<!--editor--><p class="small">
+          Bearbeitungshinweis: Die EU-Plattform zur Online-Streitbeilegung (OS-Plattform)
+          wurde zum 20. Juli 2025 eingestellt (Verordnung (EU) 2024/3228). Ein Link
+          darauf ist seitdem nicht mehr zulässig und gilt als irreführend — deshalb
+          steht hier bewusst keiner.
+        </p><!--/editor-->
+
+        <h2 id="haftung">8. Haftung für Inhalte und Links</h2>
+        <h3>Inhalte dieser Website</h3>
+        <p>
+          Die Inhalte dieser Website wurden mit Sorgfalt erstellt. Für die Richtigkeit,
+          Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr
+          übernehmen. Als Diensteanbieter sind wir nach § 7 Abs. 1 DDG für eigene
+          Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+          Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet,
+          übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach
+          Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+        </p>
+        <p>
+          Die Darstellungen zu Versicherungsprodukten dienen der allgemeinen Information
+          und stellen keine auf den Einzelfall bezogene Beratung dar. Maßgeblich für
+          Inhalt und Umfang des Versicherungsschutzes sind ausschließlich die
+          Versicherungsbedingungen und der jeweilige Vertrag.
+        </p>
+        <h3>Externe Links</h3>
+        <p>
+          Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte
+          wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets
+          der jeweilige Anbieter oder Betreiber verantwortlich. Die verlinkten Seiten
+          wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft;
+          rechtswidrige Inhalte waren nicht erkennbar. Bei Bekanntwerden von
+          Rechtsverletzungen entfernen wir derartige Links umgehend.
+        </p>
+
+        <h2 id="urheberrecht">9. Urheberrecht</h2>
+        <p>
+          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+          unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
+          Verbreitung und jede Art der Verwertung außerhalb der Grenzen des
+          Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors
+          bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten,
+          nicht kommerziellen Gebrauch gestattet.
+        </p>
+        <p>
+          Soweit Inhalte auf dieser Seite nicht von uns erstellt wurden, werden die
+          Urheberrechte Dritter beachtet und entsprechend gekennzeichnet. Sollten Sie
+          dennoch auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um
+          einen entsprechenden Hinweis.
+        </p>
+
+        <p class="small muted mt-8">
+          Stand dieser Angaben: {{recht.stand|Stand}}
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>

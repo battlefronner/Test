@@ -1,0 +1,99 @@
+<!-- page title="Erklärung zur Barrierefreiheit | Finanzwächter" desc="Stand der Barrierefreiheit dieser Website, umgesetzte Maßnahmen und Kontaktmöglichkeit zur Meldung von Barrieren." path="/recht/barrierefreiheit.html" robots="index,follow" prio="0.3" -->
+<main id="hauptinhalt">
+
+  <section class="page-head">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="wrap wrap--narrow">
+      <nav class="breadcrumb" aria-label="Brotkrumennavigation">
+        <ol><li><a href="/">Start</a></li><li aria-current="page">Barrierefreiheit</li></ol>
+      </nav>
+      <h1>Erklärung zur Barrierefreiheit</h1>
+      <p class="lead">
+        Wir möchten, dass diese Website für alle Menschen nutzbar ist —
+        unabhängig von Einschränkungen oder eingesetzter Technik.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <div class="legal">
+
+        <!--editor--><div class="note note--warn">
+          <p><strong>Vor dem Livegang prüfen.</strong> Ob und in welchem Umfang das
+             Barrierefreiheitsstärkungsgesetz (BFSG) für Ihr Unternehmen gilt, hängt
+             unter anderem davon ab, ob Sie Dienstleistungen im elektronischen
+             Geschäftsverkehr gegenüber Verbrauchern anbieten und ob die Ausnahme
+             für Kleinstunternehmen greift (Faustregel: weniger als 10 Beschäftigte
+             <em>und</em> höchstens 2 Millionen Euro Jahresumsatz beziehungsweise
+             Jahresbilanzsumme). Die Kleinstunternehmen-Ausnahme gilt für
+             Dienstleistungen, nicht für Produkte. Bitte lassen Sie die Einordnung
+             und den unten stehenden Text vor Veröffentlichung rechtlich prüfen
+             und passen Sie die markierten Stellen an.</p>
+        </div><!--/editor-->
+
+        <h2>1. Geltungsbereich</h2>
+        <p>
+          Diese Erklärung gilt für die Website
+          {{web.domain}} der
+          {{firma.firmierung|Firmierung}}.
+        </p>
+
+        <h2>2. Stand der Barrierefreiheit</h2>
+        <p>
+          {{recht.bf_status|Stand der Vereinbarkeit}}
+        </p>
+        <p>Bei der Gestaltung dieser Website wurden folgende Maßnahmen umgesetzt:</p>
+        <ul>
+          <li>durchgängige Bedienbarkeit ohne Maus, allein über die Tastatur</li>
+          <li>sichtbare Fokusmarkierung auf allen bedienbaren Elementen</li>
+          <li>Sprungmarke „Zum Hauptinhalt springen“ zu Beginn jeder Seite</li>
+          <li>semantische Struktur mit Überschriftenhierarchie, Bereichsauszeichnungen und Beschriftungen</li>
+          <li>Farbkontraste, die auf die Anforderungen der Stufe AA ausgelegt sind</li>
+          <li>skalierbare Schriftgrößen in relativen Einheiten; die Seite bleibt bis 200 Prozent Vergrößerung nutzbar</li>
+          <li>Formularfelder mit zugeordneten Beschriftungen, Fehlermeldungen und Statusmeldungen für Screenreader</li>
+          <li>Berücksichtigung der Systemeinstellung für reduzierte Bewegung</li>
+          <li>helles und dunkles Erscheinungsbild, jeweils kontrastgeprüft</li>
+          <li>Verzicht auf reine Farbcodierung als alleiniges Unterscheidungsmerkmal</li>
+          <li>Textinhalte in klarer, möglichst kurzer Sprache; Fachbegriffe werden erläutert</li>
+        </ul>
+
+        <h2>3. Nicht barrierefreie Inhalte</h2>
+        <p>
+          {{recht.bf_einschraenkungen}}
+        </p>
+
+        <h2>4. Erstellung dieser Erklärung</h2>
+        <p>
+          Diese Erklärung wurde am {{recht.bf_datum|Datum}} erstellt.
+          Grundlage war {{recht.bf_grundlage}}.
+        </p>
+
+        <h2>5. Barrieren melden — Feedback</h2>
+        <p>
+          Sie haben eine Barriere gefunden oder benötigen Informationen in einer
+          zugänglicheren Form? Melden Sie sich bitte bei uns. Wir antworten
+          so schnell wie möglich und stellen Ihnen den betreffenden Inhalt auf
+          Wunsch in einem anderen Format bereit.
+        </p>
+        <address>
+          Florian Wächter<br>
+          {{firma.firmierung|Firmierung}}<br>
+          {{hauptsitz.strasse}}<br>
+          {{hauptsitz.plz}} {{hauptsitz.ort}}<br>
+          Telefon: {{kontakt.telefon|Telefon}}<br>
+          E-Mail: {{kontakt.email|E-Mail}}
+        </address>
+
+        {{?recht.bf_schlichtung}}<h2>6. Schlichtungsverfahren</h2>
+        <p>{{recht.bf_schlichtung}}</p>{{/?}}
+        <!--editor-->{{!recht.bf_schlichtung}}<h2>6. Schlichtungsverfahren</h2><p>{{recht.bf_schlichtung|Nur wenn das BFSG anwendbar ist — sonst entfällt der Abschnitt im Livegang}}</p>{{/!}}<!--/editor-->
+
+        <p class="small muted mt-8">
+          Stand: {{recht.stand|Stand}}
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,167 @@
+<!-- page title="Über uns — Finanzwächter in Marl" desc="Wer hinter Finanzwächter steht, welche Grundsätze unsere Arbeit bestimmen, unsere Standorte und der rechtliche Rahmen der Versicherungsvertretung." path="/ueber-uns.html" robots="index,follow" nav="ueber-uns" prio="0.7" -->
+<main id="hauptinhalt">
+
+  <section class="page-head">
+    <div class="mesh" aria-hidden="true"></div>
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="Brotkrumennavigation">
+        <ol><li><a href="/">Start</a></li><li aria-current="page">Über uns</li></ol>
+      </nav>
+      <p class="eyebrow">Über uns</p>
+      <h1>Wer hinter Finanzwächter steht</h1>
+      <p class="lead measure">
+        Versicherungsvertretung mit Sitz in {{hauptsitz.ort}} — gegründet von Florian Wächter
+        mit dem Anspruch, dass Sie nach dem Gespräch mehr verstehen als vorher.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="split split--even">
+        <div class="stack reveal">
+          <h2>Unsere Haltung</h2>
+          <p class="muted">
+            Versicherungen haben einen schlechten Ruf, und in Teilen zu Recht: zu
+            komplizierte Bedingungen, zu viel Verkaufsdruck, zu wenig Erklärung.
+            Florian Wächter hat Finanzwächter gegründet, weil er das anders machen wollte
+            — und dieser Anspruch gilt für jeden, der hier arbeitet.
+          </p>
+          <p class="muted">
+            Unser Maßstab ist einfach: Sie sollen jede Empfehlung, die Sie von uns
+            bekommen, einer dritten Person erklären können. Wenn Ihnen das nicht
+            gelingt, haben wir unseren Job nicht gut gemacht.
+          </p>
+          <p class="muted">
+            Das bedeutet auch, dass wir Ihnen manchmal abraten — von einem Wechsel,
+            von einem Zusatzbaustein oder davon, überhaupt etwas zu ändern. Ein
+            Beratungsgespräch, das mit „lassen Sie alles, wie es ist“ endet, ist
+            für uns ein Erfolg.
+          </p>
+        </div>
+
+        <div class="stack reveal d1">
+          <div class="card card--gold bracket">
+            <p class="eyebrow">Gründer</p>
+            <h3 class="mt-3">Florian Wächter</h3>
+            <p class="mono small mono-gold">
+              {{firma.funktion|Funktion}}
+            </p>
+            <p class="muted">
+              {{firma.kurzprofil|Kurzprofil}}
+            </p>
+          </div>
+          <!--editor--><div class="note note--warn">
+            <p><strong>Hinweis zur Bearbeitung:</strong> Berufsbezeichnungen wie
+               „Versicherungsfachmann (IHK)“ oder „Fachwirt für Versicherungen und
+               Finanzen (IHK)“ dürfen nur geführt werden, wenn die entsprechende
+               Prüfung tatsächlich abgelegt wurde. Bitte ausschließlich nachweisbare
+               Abschlüsse eintragen — unzutreffende Qualifikationsangaben sind
+               wettbewerbsrechtlich angreifbar.</p>
+          </div><!--/editor-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--raised">
+    <div class="wrap">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow eyebrow--center">Grundsätze</p>
+        <h2>Vier Regeln, an die wir uns halten</h2>
+      </div>
+      <div class="grid grid--4">
+        <article class="card tilt reveal"><div class="tilt__inner">
+          <span class="mono small gold-dim">01</span>
+          <h3>Erst zuhören</h3>
+          <p>Kein Produkt kommt auf den Tisch, bevor wir Ihre Situation verstanden haben.</p>
+        </div></article>
+        <article class="card tilt reveal d1"><div class="tilt__inner">
+          <span class="mono small gold-dim">02</span>
+          <h3>Alles schriftlich</h3>
+          <p>Jede Empfehlung mit Begründung, Alternativen und Kosten — dokumentiert nach § 61 VVG.</p>
+        </div></article>
+        <article class="card tilt reveal d2"><div class="tilt__inner">
+          <span class="mono small gold-dim">03</span>
+          <h3>Keine Eile</h3>
+          <p>Wir setzen keine Fristen und arbeiten nicht mit künstlicher Verknappung.</p>
+        </div></article>
+        <article class="card tilt reveal d3"><div class="tilt__inner">
+          <span class="mono small gold-dim">04</span>
+          <h3>Erreichbar bleiben</h3>
+          <p>Vor allem dann, wenn es unangenehm wird: im Schadensfall.</p>
+        </div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="standorte" aria-labelledby="standorte-titel">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Standorte</p>
+        <h2 id="standorte-titel">Wo Sie uns finden</h2>
+        <p class="lead">Persönlich vor Ort, telefonisch oder per Video — Sie entscheiden, wie wir uns treffen.</p>
+      </div>
+      <div class="sites reveal d1">
+        {{#standorte}}<article class="site card tilt"><div class="tilt__inner">
+          <p class="eyebrow">{{.titel}}</p>
+          <h3>{{.name}}</h3>
+          <address class="site__addr">{{.strasse}}<br>{{.plz}} {{.ort}}</address>
+          <p class="small faint">{{.region}}</p>
+          <p class="mt-4"><a class="link-arrow" href="https://www.openstreetmap.org/search?query={{.strasse}}%2C%20{{.plz}}%20{{.ort}}" rel="noopener noreferrer external" target="_blank">Auf der Karte</a></p>
+        </div></article>{{/standorte}}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--raised">
+    <div class="wrap wrap--narrow">
+      <div class="section-head reveal">
+        <p class="eyebrow">Status &amp; Qualifikation</p>
+        <h2>Rechtlicher Rahmen unserer Tätigkeit</h2>
+      </div>
+      <div class="legal reveal d1">
+        <dl>
+          <dt>Tätigkeit</dt>
+          <dd>Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 der Gewerbeordnung (GewO)</dd>
+
+          <dt>Erlaubnisbehörde</dt>
+          <dd>{{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>
+
+          <dt>Registrierung</dt>
+          <dd>Eingetragen im Vermittlerregister unter der Registrierungsnummer
+              {{register.nummer|Registrierungsnummer}}, geführt vom Deutschen Industrie-
+              und Handelskammertag e.&nbsp;V. (DIHK), abrufbar unter
+              <a href="https://www.vermittlerregister.info" rel="noopener noreferrer external" target="_blank">www.vermittlerregister.info</a></dd>
+
+          <dt>Berufshaftpflichtversicherung</dt>
+          <dd>Nach § 34d Abs. 5 GewO besteht eine Berufshaftpflichtversicherung.
+              Versicherer: {{register.haftpflicht_versicherer|Berufshaftpflichtversicherer}}</dd>
+
+          <dt>Aufsicht</dt>
+          <dd>Die gewerberechtliche Aufsicht führt die oben genannte Industrie- und Handelskammer.</dd>
+        </dl>
+        <p>
+          Die vollständigen Pflichtangaben finden Sie in der
+          <a href="/recht/erstinformation.html">Erstinformation nach § 15 VersVermV</a>
+          und im <a href="/recht/impressum.html">Impressum</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--deep">
+    <div class="wrap">
+      <div class="card card--gold bracket reveal card--cta">
+        <h2>Lernen wir uns kennen</h2>
+        <p class="lead cta-lead">
+          Ein unverbindliches Gespräch sagt mehr als jede Website.
+        </p>
+        <p class="mt-6">
+          <a class="btn btn--gold" href="/kontakt.html" data-magnetic>Termin vereinbaren</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>

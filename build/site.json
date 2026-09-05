@@ -1,0 +1,148 @@
+{
+  "_hinweis": "Zentrale Konfiguration der Website. Leere Felder werden auf der Seite rot als Platzhalter angezeigt. Nach Änderungen: python3 build/build.py  (für den Livegang: --live)",
+  "web": {
+    "domain": "https://www.finanzwaechter.de",
+    "name": "Finanzwächter",
+    "claim": "Klartext für Versicherungen, Vorsorge & Vermögen."
+  },
+  "firma": {
+    "firmierung": "",
+    "_firmierung": "Vollständige Firmierung inkl. Rechtsform, z. B. „Finanzwächter Florian Wächter e. K.“ oder „Finanzwächter GmbH“",
+    "inhaber": "Florian Wächter",
+    "funktion": "",
+    "_funktion": "z. B. „Gründer und Inhaber“ – geschützte Titel wie „Versicherungsfachmann (IHK)“ nur mit Nachweis",
+    "kurzprofil": "",
+    "_kurzprofil": "Drei bis vier Sätze zu Werdegang, Qualifikation und Schwerpunkt",
+    "gruendungsjahr": ""
+  },
+  "kontakt": {
+    "telefon": "",
+    "telefon_link": "",
+    "_telefon_link": "Internationales Format ohne Leerzeichen, z. B. +49236512345",
+    "email": "",
+    "beschwerde_email": "",
+    "sprechzeiten": "Mo–Fr 09:00–18:00 Uhr"
+  },
+  "standorte": [
+    {
+      "id": "marl",
+      "name": "Marl",
+      "titel": "Hauptsitz Marl",
+      "strasse": "Dieselstraße 7",
+      "plz": "45770",
+      "ort": "Marl",
+      "region": "Kreis Recklinghausen · nördliches Ruhrgebiet",
+      "telefon": "",
+      "email": "",
+      "hauptsitz": true
+    }
+  ],
+  "_standorte": "Weitere Standorte als zusätzliche Objekte anhängen. Der erste Eintrag mit hauptsitz=true liefert die Adresse für Impressum und Erstinformation.",
+  "einzugsgebiet": [
+    "Marl",
+    "Kreis Recklinghausen",
+    "Ruhrgebiet",
+    "Münsterland",
+    "Nordrhein-Westfalen"
+  ],
+  "register": {
+    "nummer": "",
+    "_nummer": "Format z. B. D-XXXX-XXXXX-XX, steht im Vermittlerregister",
+    "status": "Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 GewO",
+    "vertretung": "",
+    "_vertretung": "Pflichtangabe § 15 VersVermV: entweder „gebundener Vertreter für [Versicherer]“ oder „Mehrfachvertreter für [Liste aller Versicherer mit Sitz]“",
+    "beteiligungen": "Wir halten keine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an einem Versicherungsunternehmen. Ebenso hält kein Versicherungsunternehmen oder dessen Mutterunternehmen eine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an unserem Unternehmen.",
+    "_beteiligungen": "Standardtext – nur ändern, falls Beteiligungen bestehen",
+    "haftpflicht_versicherer": "",
+    "haftpflicht_gebiet": "Europäischer Wirtschaftsraum"
+  },
+  "ihk": {
+    "name": "Industrie- und Handelskammer Nord Westfalen",
+    "strasse": "Sentmaringer Weg 61",
+    "plz": "48151",
+    "ort": "Münster",
+    "telefon": "0251 707-0",
+    "web": "https://www.ihk.de/nordwestfalen/"
+  },
+  "recht": {
+    "handelsregister": "",
+    "_handelsregister": "z. B. „Amtsgericht Gelsenkirchen, HRB 12345“ – leer lassen, wenn keine Eintragung",
+    "ustid": "",
+    "_ustid": "Nur eintragen, wenn erteilt. Versicherungsvermittlung ist nach § 4 Nr. 11 UStG umsatzsteuerfrei, viele Vermittler haben keine.",
+    "vsbg": "",
+    "_vsbg": "Angabe nach § 36 VSBG. Entweder: „Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle verpflichtet und nehmen am Verfahren des Versicherungsombudsmann e. V. teil.“ oder: „Wir sind zur Teilnahme … weder bereit noch verpflichtet.“ Vorher rechtlich klären.",
+    "datenschutzbeauftragter": "",
+    "_datenschutzbeauftragter": "Nur wenn benannt (Pflicht ab 20 ständig mit Datenverarbeitung Beschäftigten). Sonst leer lassen – der Absatz entfällt dann.",
+    "hoster": "",
+    "_hoster": "Name und Anschrift des Hostinganbieters",
+    "logfile_tage": "",
+    "_logfile_tage": "Speicherdauer der Server-Logfiles beim Hoster, z. B. „7 Tage“",
+    "weitere_auftragsverarbeiter": "",
+    "_weitere_auftragsverarbeiter": "z. B. Maklerverwaltungsprogramm, E-Mail-Dienstleister – oder „keine“",
+    "drittland": "Eine Übermittlung personenbezogener Daten in Länder außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums findet nicht statt.",
+    "spamschutz_frist": "24 Stunden",
+    "anfragen_loeschfrist": "6 Monaten",
+    "beschwerde_frist": "zwei Wochen",
+    "stand": "",
+    "bf_status": "",
+    "_bf_status": "Erst nach Prüfung: „vollständig vereinbar mit WCAG 2.1 AA“ oder „teilweise vereinbar; folgende Bereiche sind nicht barrierefrei: …“",
+    "bf_einschraenkungen": "Uns sind derzeit keine Einschränkungen bekannt.",
+    "bf_datum": "",
+    "_bf_datum": "Datum der Erstellung der Erklärung",
+    "bf_grundlage": "eine Selbstbewertung",
+    "bf_schlichtung": "",
+    "_bf_schlichtung": "Nur wenn das BFSG anwendbar ist: Hinweis auf Marktüberwachung/Schlichtung mit Anschrift. Sonst leer lassen – Abschnitt entfällt."
+  },
+  "behoerden": {
+    "_quelle": "Recherchiert am 05.09.2026 über die offiziellen Seiten. Vor dem Livegang einmal gegenprüfen.",
+    "dihk": {
+      "name": "Deutscher Industrie- und Handelskammertag e. V. (DIHK)",
+      "zusatz": "Gemeinsame Registerstelle nach § 11a Abs. 1 GewO",
+      "strasse": "Breite Straße 29",
+      "plz": "10178",
+      "ort": "Berlin",
+      "telefon": "0180 6 00 58 50",
+      "telefon_hinweis": "0,20 € je Anruf aus dem deutschen Festnetz, Mobilfunk abweichend",
+      "web": "https://www.vermittlerregister.info"
+    },
+    "ombudsmann": {
+      "name": "Versicherungsombudsmann e. V.",
+      "postfach": "Postfach 08 06 32",
+      "postfach_plz": "10006",
+      "strasse": "Leipziger Straße 121",
+      "plz": "10117",
+      "ort": "Berlin",
+      "telefon": "0800 3 69 60 00",
+      "telefon_hinweis": "kostenfrei aus deutschen Netzen",
+      "email": "beschwerde@versicherungsombudsmann.de",
+      "web": "https://www.versicherungsombudsmann.de"
+    },
+    "pkv_ombudsmann": {
+      "name": "Ombudsmann Private Kranken- und Pflegeversicherung",
+      "postfach": "Postfach 06 02 22",
+      "postfach_plz": "10052",
+      "ort": "Berlin",
+      "telefon": "0800 2 55 04 44",
+      "telefon_hinweis": "kostenfrei aus deutschen Netzen",
+      "web": "https://www.pkv-ombudsmann.de"
+    },
+    "ldi": {
+      "name": "Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen",
+      "strasse": "Kavalleriestraße 2–4",
+      "plz": "40213",
+      "ort": "Düsseldorf",
+      "postfach": "Postfach 20 04 44, 40102 Düsseldorf",
+      "telefon": "0211 38424-0",
+      "email": "poststelle@ldi.nrw.de",
+      "web": "https://www.ldi.nrw.de"
+    },
+    "bafin": {
+      "name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "strasse": "Graurheindorfer Straße 108",
+      "plz": "53117",
+      "ort": "Bonn",
+      "telefon": "0228 4108-0",
+      "web": "https://www.bafin.de"
+    }
+  }
+}

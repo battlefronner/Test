@@ -30,6 +30,24 @@
     }, 2600);
   }
 
+  /* --- Signet läuft beim Scrollen langsamer als die Seite ---------------- */
+  var stage = document.querySelector('.hero__stage');
+  if (stage && !reduced) {
+    var pRaf = false;
+    function parallax() {
+      if (pRaf) return; pRaf = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        if (y < window.innerHeight * 1.2) {
+          stage.style.transform = 'translate3d(0,' + (y * 0.18).toFixed(1) + 'px,0)';
+          stage.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.9)));
+        }
+        pRaf = false;
+      });
+    }
+    window.addEventListener('scroll', parallax, { passive: true });
+  }
+
   /* --- Fortschrittsbalken ---------------------------------------------- */
   var bar = document.querySelector('.scroll-progress');
   if (bar) {

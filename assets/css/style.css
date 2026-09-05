@@ -188,6 +188,8 @@ body::after {
 }
 
 img, svg, canvas, video { display: block; max-width: 100%; height: auto; }
+/* Das hidden-Attribut gewinnt gegen jede display-Regel einer Komponente. */
+[hidden] { display: none !important; }
 input, button, textarea, select { font: inherit; color: inherit; }
 button { cursor: pointer; background: none; border: 0; }
 
@@ -316,7 +318,7 @@ a:hover { color: var(--gold-100); }
 
 /* Technisches Raster */
 .mesh {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .55;
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .38;
   background-image:
     linear-gradient(to right, var(--line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--line) 1px, transparent 1px);
@@ -545,15 +547,11 @@ a:hover { color: var(--gold-100); }
   font-family: var(--f-mono); font-size: var(--t--2);
   letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2);
 }
-.hero__status .dot {
-  width: .45rem; height: .45rem; border-radius: 50%; background: var(--ok); flex: none;
-  box-shadow: 0 0 0 0 rgba(99,217,164,.7);
-  animation: pulse 2.6s var(--ease) infinite;
-}
-@keyframes pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(99,217,164,.55); }
-  70%  { box-shadow: 0 0 0 .5rem rgba(99,217,164,0); }
-  100% { box-shadow: 0 0 0 0 rgba(99,217,164,0); }
+/* Ruhige Goldmarke statt pulsierendem Grün — ein Puls liest sich als „jetzt online“
+   und verspricht damit etwas, das die Seite nicht halten kann. */
+.hero__status .mark {
+  width: .4rem; height: .4rem; border-radius: 50%; flex: none;
+  background: var(--gold-400); box-shadow: 0 0 10px rgba(212,167,60,.6);
 }
 
 /* Nachweise unter der Bühne */
@@ -608,6 +606,54 @@ a:hover { color: var(--gold-100); }
 .pillar p { font-size: .95rem; color: var(--ink-2); flex: 1; }
 .pillar__more { margin-top: var(--s2); }
 .pillar__link::after { content: ""; position: absolute; inset: 0; }
+
+/* --------------------------------------------------------------------------
+   9b. Bedarfs-Check — drei Fragen, eine Einordnung, alles im Browser
+   -------------------------------------------------------------------------- */
+.check { padding: clamp(1.5rem, 3vw, 2.25rem); }
+.check fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.check__q {
+  display: flex; align-items: baseline; gap: var(--s3);
+  font-family: var(--f-display); font-size: var(--t-1); font-weight: 500;
+  margin-bottom: var(--s5); padding: 0;
+}
+.check__no { font-family: var(--f-mono); font-size: var(--t--2); letter-spacing: .18em; color: var(--gold-600); }
+.check__opts { display: grid; gap: var(--s2); }
+.check__opt {
+  position: relative; display: flex; align-items: center; gap: var(--s3);
+  padding: .9rem 1.1rem; border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  background: var(--void); cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.check__opt:hover { border-color: var(--line-field); transform: translateX(3px); }
+.check__opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.check__opt span { flex: 1; }
+.check__opt span::before {
+  content: ""; display: inline-block; width: .9rem; height: .9rem; margin-right: .75rem;
+  border: 1px solid var(--line-field); border-radius: 50%; vertical-align: -.1em;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.check__opt:has(input:checked) { border-color: var(--gold-500); background: #17150F; }
+.check__opt:has(input:checked) span::before { background: var(--gold-400); border-color: var(--gold-400); box-shadow: 0 0 0 3px rgba(212,167,60,.18); }
+.check__opt:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.check__nav { display: flex; align-items: center; gap: var(--s3); margin-top: var(--s6); }
+.check__nav .btn { margin-left: auto; }
+.check__nav .btn + .btn { margin-left: 0; }
+.check__progress { display: inline-flex; gap: .35rem; }
+.check__progress i { width: 1.6rem; height: 3px; border-radius: 2px; background: var(--line-2); transition: background-color var(--dur) var(--ease); }
+.check__progress i.on { background: var(--gold-500); }
+
+.check__result > * + * { margin-top: var(--s3); }
+.check__reset { margin-top: var(--s5); font-size: var(--t--1); color: var(--ink-3); text-decoration: underline; text-underline-offset: .2em; }
+.check__reset:hover { color: var(--gold-200); }
+
+/* Standorte */
+.sites { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+.sites > * { max-width: 28rem; }
+.site__addr { font-style: normal; color: var(--ink); font-weight: 500; line-height: 1.5; }
+.footer__sites { list-style: none; padding: 0; margin-top: var(--s4); display: grid; gap: var(--s2); font-size: .9rem; color: var(--ink-2); }
+.footer__sites .k { display: block; font-family: var(--f-mono); font-size: var(--t--2); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-600); }
 
 /* --------------------------------------------------------------------------
    10. Karten
@@ -916,7 +962,6 @@ a:hover { color: var(--gold-100); }
   }
   .js .reveal { opacity: 1; transform: none; }
   .js .line-in > span { transform: none; }
-  .hero__status .dot { animation: none; }
 }
 
 /* --------------------------------------------------------------------------

@@ -8,6 +8,15 @@
   if (!form) return;
 
   var statusBox = document.getElementById('form-status');
+
+  // Kommt der Besucher aus dem Bedarfs-Check, ist das Thema schon gewählt
+  var themeMatch = window.location.hash.match(/^#thema-([a-z]+)$/);
+  if (themeMatch) {
+    var map = { schutz: 'Schutz', vorsorge: 'Vorsorge', vermoegen: 'Vermoegen',
+                unternehmen: 'Unternehmen', vertragscheck: 'Vertragscheck' };
+    var sel = form.querySelector('select[name="thema"]');
+    if (sel && map[themeMatch[1]]) sel.value = map[themeMatch[1]];
+  }
   var submitBtn = form.querySelector('[type="submit"]');
   var startedAt = Date.now();
 
