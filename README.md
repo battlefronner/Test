@@ -72,7 +72,7 @@ Alle Effekte sind ohne externe Bibliothek gebaut und respektieren
 | Element | Umsetzung |
 | --- | --- |
 | Knotennetz im Kopfbereich | Canvas 2D, reagiert auf den Zeiger |
-| Drehendes Signet | Canvas 2D mit **selbst gerechneter 3D-Projektion** — Rotationsmatrix, perspektivische Teilung, Tiefensortierung über die Deckkraft |
+| Signet im Kopfbereich | Canvas 2D mit **selbst gerechneter 3D-Projektion** — Rotationsmatrix, perspektivische Teilung, Tiefensortierung über die Deckkraft. Beim Laden baut es sich auf: erst der Ring, dann das Schild, zuletzt zeichnet sich das W. Danach pendelt das Schild um die Frontalansicht, statt voll zu rotieren — so bleibt das W immer lesbar, während der Ring weiterdreht |
 | Karten | Neigen sich zum Zeiger (CSS-Perspektive), nur bei echtem Zeigegerät |
 | Hauptschaltflächen | Folgen dem Zeiger leicht, Lichtreflex beim Zeigen |
 | Abschnitte | Blenden beim Scrollen ein, mit Zeitschaltung als Sicherheitsnetz |
@@ -401,6 +401,19 @@ Vor der Übergabe wurde geprüft:
 Nicht geprüft: Darstellung in echten Browsern außer Chromium, Screenreader,
 Zustellbarkeit der E-Mails (hängt von der Serverumgebung ab) und die
 inhaltliche Richtigkeit der Rechtstexte.
+
+## Sprache
+
+Die Texte folgen drei Regeln, die beim Bearbeiten gelten sollten:
+
+1. **Kurze Sätze.** Ein Gedanke pro Satz. Wo ein Absatz über 28 Wörter geht,
+   lässt er sich fast immer teilen.
+2. **Paragraphen gehören in die Rechtstexte.** Auf den Marketingseiten steht,
+   was der Besucher davon hat — nicht, welche Vorschrift dahintersteht.
+   „Zugelassen und im Register geführt“ statt „Erlaubnis nach § 34d Abs. 1 GewO“.
+   Die Belege stehen kompakt in der Nachweisleiste am Seitenende.
+3. **Sagen, was passiert.** „Was kostet mich das?“ — „Nichts.“ Nicht:
+   „Die Vergütung erfolgt über die Versicherungsunternehmen.“
 
 ## Verkaufspsychologie — bewusst gesetzte Grenze
 

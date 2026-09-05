@@ -244,11 +244,20 @@
       return 0.22 + Math.max(0, Math.min(1, t)) * 0.78;
     }
 
+    var wProgress = 1;
+
     function drawFrame(geo, rx, ry, cxp, cyp, scale, baseAlpha, width) {
       var proj = geo.pts.map(function (p) { return project(rotate(p, rx, ry), cxp, cyp, scale); });
 
       ctx.lineCap = 'round';
-      geo.edges.forEach(function (e) {
+      geo.edges.forEach(function (e, ei) {
+        // Die letzten Kanten bilden das W — es erscheint zuletzt und zeichnet sich nach
+        var isW = geo === shield && ei >= geo.edges.length - (wPath.length - 1);
+        if (isW) {
+          var seg = (wPath.length - 1);
+          var mine = (ei - (geo.edges.length - seg)) / seg;
+          if (wProgress <= mine) return;
+        }
         var A = proj[e[0]], B = proj[e[1]];
         var depth = (A[2] + B[2]) / 2;              // vorn = größer
         var alpha = depthAlpha(depth) * baseAlpha;
@@ -267,6 +276,12 @@
       return proj;
     }
 
+    // Eröffnung: Ring zuerst, dann das Schild, zuletzt das W.
+    // Ohne die Sequenz wirkt das Signet wie ein statisches Bild, das sich dreht;
+    // mit ihr wie ein Zeichen, das gerade entsteht.
+    var INTRO = reduced.matches ? 0 : 2.6;
+    function ease(x) { return x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3); }
+
     function draw(t) {
       if (!size || size.w < 2 || size.h < 2) return;
       ctx.clearRect(0, 0, size.w, size.h);
@@ -277,15 +292,27 @@
       cur.x += (aim.x - cur.x) * 0.045;
       cur.y += (aim.y - cur.y) * 0.045;
 
-      var spin = reduced.matches ? 0.6 : t * 0.24;
-      var ry = spin + cur.x;
+      var intro = INTRO ? Math.min(1, t / INTRO) : 1;
+      var ringIn   = ease(intro / 0.42);
+      var shieldIn = ease((intro - 0.22) / 0.46);
+      var wIn      = ease((intro - 0.55) / 0.45);
+
+      // Das Schild pendelt um die Frontalansicht, statt voll durchzudrehen —
+      // sonst steht das W regelmäßig auf der Kante und ist unlesbar.
+      // Der Ring dreht weiter voll; der Gegensatz erzeugt die Tiefe.
+      var spin = reduced.matches ? 0.45 : t * 0.24;
+      var sway = reduced.matches ? 0.45 : Math.sin(t * 0.42) * 0.60 + (1 - ease(intro)) * 1.2;
+      var ry = sway + cur.x;
       var rx = -0.16 + cur.y;
+      scale *= 0.86 + 0.14 * ease(intro);
 
       // Ring liegt quer und dreht gegenläufig
-      drawFrame(ring, rx + 1.32, -spin * 0.7 + cur.x, cxp, cyp, scale, 0.72, 1.1);
+      if (ringIn > 0.01) drawFrame(ring, rx + 1.32, -spin * 0.7 + cur.x, cxp, cyp, scale, 0.72 * ringIn, 1.1);
 
       // Schild
-      var proj = drawFrame(shield, rx, ry, cxp, cyp, scale, 0.95, 1.5);
+      wProgress = wIn;
+      var proj = shieldIn > 0.01 ? drawFrame(shield, rx, ry, cxp, cyp, scale, 0.95 * shieldIn, 1.5) : [];
+      if (!proj.length) { drawMotes(rx, spin, cxp, cyp, scale, ringIn); return; }
 
       // Eckpunkte des Schildes hervorheben
       for (var i = 0; i < N * 2; i++) {
@@ -299,12 +326,15 @@
         ctx.shadowBlur = 0;
       }
 
-      // Schwebende Punkte
+      drawMotes(rx, spin, cxp, cyp, scale, 1);
+    }
+
+    function drawMotes(rx, spin, cxp, cyp, scale, alpha) {
       motes.forEach(function (mo, i) {
         var q = rotate(mo.p, rx * 0.5, spin * mo.sp + i);
         var Q = project(q, cxp, cyp, scale);
         if (Q[2] < 0.58) return;
-        ctx.fillStyle = 'rgba(212,167,60,' + (depthAlpha(Q[2]) * 0.55).toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(212,167,60,' + (depthAlpha(Q[2]) * 0.55 * alpha).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(Q[0], Q[1], 0.9 + 1.1 * Q[2], 0, Math.PI * 2);
         ctx.fill();
