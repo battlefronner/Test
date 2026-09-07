@@ -1,10 +1,12 @@
-/* Kontaktformular: progressive Verbesserung.
-   Ohne JS wird das Formular klassisch an api/kontakt.php gepostet,
-   das serverseitig validiert und auf eine Statusseite weiterleitet. */
+/* Formularversand: progressive Verbesserung.
+   Zuständig für jedes Formular mit dem Attribut data-remote — derzeit das
+   Kontaktformular und das Empfehlungsformular. Ohne JS wird klassisch an
+   api/kontakt.php gepostet, das serverseitig validiert und auf eine
+   Statusseite weiterleitet. */
 (function () {
   'use strict';
 
-  var form = document.getElementById('kontaktformular');
+  var form = document.querySelector('form[data-remote]');
   if (!form) return;
 
   var statusBox = document.getElementById('form-status');
@@ -116,6 +118,15 @@
       .then(function (result) {
         if (result.ok && result.json.status === 'ok') {
           form.hidden = true;
+          // Seiten mit eigener Bestätigung zeigen diese statt der Statuszeile
+          var done = document.querySelector('[data-form-done]');
+          if (done) {
+            done.hidden = false;
+            setStatus('', '');
+            var head = done.querySelector('h2');
+            if (head) { head.setAttribute('tabindex', '-1'); head.focus(); }
+            return;
+          }
           setStatus('ok', result.json.message || 'Vielen Dank. Ihre Nachricht ist eingegangen.');
           if (statusBox) statusBox.focus();
           return;

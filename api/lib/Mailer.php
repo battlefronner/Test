@@ -41,10 +41,20 @@ final class Mailer
             return false;
         }
 
+        $quelle = $data['quelle'] ?? '';
+        $marker = '';
+        if ($quelle === 'funnel') {
+            $marker = 'Termin · ';
+        } elseif ($quelle === 'empfehlung') {
+            // Empfehlungen im Posteingang sofort erkennbar machen — sie sind
+            // die wertvollsten Anfragen und sollten zuerst beantwortet werden.
+            $marker = 'EMPFEHLUNG · ';
+        }
+
         $subject = trim(sprintf(
             '%s %s%s — %s %s',
             (string) $this->config['subject_prefix'],
-            ($data['quelle'] ?? '') === 'funnel' ? 'Termin · ' : '',
+            $marker,
             $data['thema'] ?? 'Anfrage',
             $data['vorname'] ?? '',
             $data['nachname'] ?? ''
@@ -75,22 +85,39 @@ final class Mailer
     /** @param array<string,string> $data */
     private function buildBody(array $data, string $clientKey): string
     {
-        $lines = [
+        $quellen = [
+            'funnel'     => 'Erstgespräch-Assistent',
+            'empfehlung' => 'Empfehlungsseite',
+        ];
+        $quelle = $data['quelle'] ?? '';
+
+        $kopf = [];
+        if ($quelle === 'empfehlung') {
+            $ort = ($data['empfehler_ort'] ?? '') !== '' ? ' (' . $data['empfehler_ort'] . ')' : '';
+            $kopf = [
+                'EMPFOHLEN VON: ' . ($data['empfehler_name'] ?? '— nicht angegeben —') . $ort,
+                '',
+            ];
+        }
+
+        $lines = array_merge([
             'Neue Anfrage über das Kontaktformular der Website',
             str_repeat('=', 56),
             '',
+        ], $kopf, [
             'Name:      ' . ($data['vorname'] ?? '') . ' ' . ($data['nachname'] ?? ''),
             'E-Mail:    ' . ($data['email'] ?? ''),
             'Telefon:   ' . ($data['telefon'] ?? '— nicht angegeben —'),
             'Thema:     ' . ($data['thema'] ?? ''),
             'Rückruf:   ' . ($data['rueckruf'] ?? 'nein'),
-            'Quelle:    ' . (($data['quelle'] ?? '') === 'funnel' ? 'Erstgespräch-Assistent' : 'Kontaktformular'),
+            'Quelle:    ' . ($quellen[$quelle] ?? 'Kontaktformular'),
             'Kontaktweg: ' . ($data['kontaktweg'] ?? '—') . '   Zeitfenster: ' . ($data['zeitfenster'] ?? '—'),
+            'Wunschtag:  ' . ($data['wunschtag'] ?? '— keiner genannt —'),
             'Antworten:  ' . ($data['antworten'] ?? '—'),
             '',
             'Nachricht:',
             str_repeat('-', 56),
-            $data['nachricht'] ?? '',
+            ($data['nachricht'] ?? '') !== '' ? $data['nachricht'] : '— keine Nachricht hinterlassen —',
             str_repeat('-', 56),
             '',
             'Datenschutzhinweis bestätigt: ' . ($data['datenschutz'] ?? 'nein'),
@@ -100,7 +127,7 @@ final class Mailer
             'Hinweis: Die Absenderkennung ist ein nicht rückrechenbarer Hashwert',
             'und dient ausschließlich dem Spamschutz. Die IP-Adresse selbst wird',
             'nicht gespeichert.',
-        ];
+        ]);
 
         $body = implode("\r\n", $lines);
 

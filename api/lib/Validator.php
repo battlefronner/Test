@@ -44,20 +44,34 @@ final class Validator
         $this->errors = [];
         $this->clean  = [];
 
+        // Zusatzangaben der Assistenten — nur feste Werte. Die Herkunft steht
+        // bewusst am Anfang: sie entscheidet, welche Felder Pflicht sind.
+        $this->enum($input, 'quelle',      ['funnel', 'formular', 'empfehlung']);
+        $this->enum($input, 'kontaktweg',  ['telefon', 'video', 'vor-ort']);
+        $this->enum($input, 'zeitfenster', ['vormittag', 'nachmittag', 'abend']);
+
+        $empfehlung = ($this->clean['quelle'] ?? '') === 'empfehlung';
+
         $this->text($input, 'vorname',  'Vorname',  2, 60, true);
         $this->text($input, 'nachname', 'Nachname', 2, 60, true);
         $this->email($input);
         $this->phone($input);
         $this->choice($input);
-        $this->message($input);
+        // Auf der Empfehlungsseite ist die Nachricht freiwillig: Wer über eine
+        // Empfehlung kommt, will einen Termin, nicht einen Aufsatz schreiben.
+        $this->message($input, !$empfehlung);
         $this->consent($input);
 
         $this->clean['rueckruf'] = $this->flag($input, 'rueckruf') ? 'ja' : 'nein';
 
-        // Zusatzangaben des Erstgespräch-Assistenten — nur feste Werte
-        $this->enum($input, 'quelle',      ['funnel', 'formular']);
-        $this->enum($input, 'kontaktweg',  ['telefon', 'video', 'vor-ort']);
-        $this->enum($input, 'zeitfenster', ['vormittag', 'nachmittag', 'abend']);
+        if ($empfehlung) {
+            $this->text($input, 'empfehler_name', 'Der Name der empfehlenden Person', 2, 80, true);
+            $this->text($input, 'empfehler_ort',  'Ort oder Firma', 2, 80, false);
+            $this->requireChoice('kontaktweg',  'Bitte wählen Sie, wie wir Sie erreichen sollen.');
+            $this->requireChoice('zeitfenster', 'Bitte wählen Sie ein Zeitfenster.');
+            $this->wunschtag($input);
+        }
+
         $antworten = $this->normalize($input['antworten'] ?? '');
         if ($antworten !== '' && preg_match('/^[a-z+|-]{1,80}$/', $antworten) === 1) {
             $this->clean['antworten'] = $antworten;
@@ -174,11 +188,13 @@ final class Validator
     }
 
     /** @param array<string,mixed> $input */
-    private function message(array $input): void
+    private function message(array $input, bool $required = true): void
     {
         $raw = $input['nachricht'] ?? '';
         if (!is_string($raw)) {
-            $this->errors['nachricht'] = 'Die Nachricht wird benötigt.';
+            if ($required) {
+                $this->errors['nachricht'] = 'Die Nachricht wird benötigt.';
+            }
             return;
         }
 
@@ -187,12 +203,17 @@ final class Validator
         $value = str_replace(["\r\n", "\r"], "\n", $value);
 
         if ($value === '') {
-            $this->errors['nachricht'] = 'Die Nachricht wird benötigt.';
+            if ($required) {
+                $this->errors['nachricht'] = 'Die Nachricht wird benötigt.';
+            }
             return;
         }
+        // Als Pflichtfeld soll die Nachricht etwas hergeben. Wo sie freiwillig
+        // ist, darf auch „Kfz-Versicherung“ als Stichwort genügen.
         $length = mb_strlen($value, 'UTF-8');
-        if ($length < 20) {
-            $this->errors['nachricht'] = 'Bitte beschreiben Sie Ihr Anliegen in mindestens 20 Zeichen.';
+        $min = $required ? 20 : 2;
+        if ($length < $min) {
+            $this->errors['nachricht'] = 'Bitte beschreiben Sie Ihr Anliegen in mindestens ' . $min . ' Zeichen.';
             return;
         }
         if ($length > 3000) {
@@ -230,6 +251,55 @@ final class Validator
         if ($value !== '' && in_array($value, $allowed, true)) {
             $this->clean[$key] = $value;
         }
+    }
+
+    /**
+     * Erklärt ein zuvor per enum() geprüftes Auswahlfeld für diesen Vorgang zur
+     * Pflicht. Greift erst nach enum(), weil dort ungültige Werte verworfen
+     * werden — was hier fehlt, war entweder leer oder unzulässig.
+     */
+    private function requireChoice(string $key, string $message): void
+    {
+        if (!isset($this->clean[$key])) {
+            $this->errors[$key] = $message;
+        }
+    }
+
+    /**
+     * Wunschtermin: freiwillig, aber wenn angegeben, dann als Datum im Format
+     * JJJJ-MM-TT, frühestens morgen und höchstens vier Monate im Voraus.
+     * Dieselben Grenzen setzt das Formular clientseitig — verlassen wird sich
+     * ausschließlich auf diese Prüfung.
+     *
+     * @param array<string,mixed> $input
+     */
+    private function wunschtag(array $input): void
+    {
+        $value = $this->normalize($input['wunschtag'] ?? '');
+        if ($value === '') {
+            return;
+        }
+
+        $datum = DateTimeImmutable::createFromFormat('!Y-m-d', $value);
+        $fehler = DateTimeImmutable::getLastErrors();
+        $unsauber = is_array($fehler) && ($fehler['warning_count'] > 0 || $fehler['error_count'] > 0);
+
+        if ($datum === false || $unsauber) {
+            $this->errors['wunschtag'] = 'Bitte geben Sie ein gültiges Datum an.';
+            return;
+        }
+
+        $heute = new DateTimeImmutable('today');
+        if ($datum <= $heute) {
+            $this->errors['wunschtag'] = 'Bitte wählen Sie einen Tag ab morgen.';
+            return;
+        }
+        if ($datum > $heute->modify('+120 days')) {
+            $this->errors['wunschtag'] = 'Bitte wählen Sie einen Tag innerhalb der nächsten vier Monate.';
+            return;
+        }
+
+        $this->clean['wunschtag'] = $datum->format('d.m.Y');
     }
 
     /** @param array<string,mixed> $input */
