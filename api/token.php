@@ -24,4 +24,9 @@ if (!$security->originAllowed()) {
 
 $security->startSession();
 
+// Zeitpunkt der Formularausgabe serverseitig festhalten. Der Wert aus dem
+// Formular ist die Uhr des Besuchers: faelschbar, weglassbar und bei falsch
+// gestellter Uhr schlicht falsch.
+$security->markiereAusgabe();
+
 respond_json(200, ['token' => $security->csrfToken()]);

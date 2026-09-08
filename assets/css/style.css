@@ -138,12 +138,28 @@
 
   --wrap:        78rem;
   --wrap-narrow: 46rem;
+
   --gutter: clamp(1.25rem, 4vw, 3rem);
 
   --r-sm: 4px;
   --r:    10px;
   --r-lg: 18px;
   --r-pill: 999px;
+
+  /* Flächen, die es in beiden Modi gibt, aber nicht durch Invertieren */
+  --tint-gold:   #17150F;   /* gewählter Chip, gewählte Option */
+  --tint-gold-2: #1B1610;   /* Verlaufsansatz der Goldkarte */
+  --hero-top:    #10101A;   /* oberer Punkt des Bühnenverlaufs */
+  --chart-track: #726C62;   /* unbelegter Teil der Balken */
+
+  /* Primärknopf: Fläche und Schrift getrennt, damit beide Modi lesbar bleiben.
+     --grad-gold faerbt im Hellmodus Ueberschriften dunkel; als Knopffläche
+     waere das mit dunkler Schrift unlesbar. Der Knopf bleibt deshalb in
+     beiden Modi hell golden. */
+  --grad-gold-btn: var(--grad-gold);
+  --btn-gold-bg:   var(--gold-500);
+  --btn-gold-fg:   var(--ink-on-gold);
+  --btn-gold-line: transparent;
 
   --shadow:    0 18px 40px -20px rgba(0,0,0,.9);
   --shadow-lg: 0 40px 90px -30px rgba(0,0,0,.95);
@@ -153,6 +169,73 @@
   --dur-slow: 620ms;
   --ease: cubic-bezier(.22,.61,.36,1);
   --ease-out: cubic-bezier(.16,1,.3,1);
+}
+/* --------------------------------------------------------------------------
+   1b. Heller Modus
+
+   Die Marke bleibt dunkel: Ohne Auswahl sieht jeder Besucher die dunkle
+   Fassung. Wer umschaltet, bekommt diese Palette, und die Entscheidung
+   bleibt im Browser gespeichert.
+
+   Gold wird hier nicht heller, sondern dunkler. Helles Gold auf Weiss ist
+   kaum zu lesen (rund 2:1) und wirkt ausgewaschen; ein tiefes, antikes Gold
+   ist auf hellem Grund sowohl kontraststark als auch wertiger.
+   -------------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --void:        #FFFFFF;
+  --base:        #FAF8F4;
+  --surface:     #FFFFFF;
+  --surface-2:   #F3F0E9;
+  --surface-3:   #E7E3D9;
+
+  --gold-100:    #5E4406;
+  --gold-200:    #6C4E08;
+  --gold-300:    #7C5A0D;
+  --gold-400:    #8E6710;
+  --gold-500:    #8A6510;
+  --gold-600:    #7A5A10;
+  --gold-700:    #63480B;
+  --gold-900:    #3C2B05;
+
+  --ink:         #15130E;
+  --ink-2:       #55504A;
+  --ink-3:       #6B665B;
+  --ink-on-gold: #15130E;
+
+  --line:        #E2DED3;
+  --line-2:      #CFC9BB;
+  --line-field:  #857F71;
+  --line-gold:   rgba(152, 112, 15, .38);
+
+  --ok:          #1B6B47;
+  --ok-bg:       #E8F5EE;
+  --err:         #A32020;
+  --err-bg:      #FCEBEB;
+  --focus:       var(--gold-600);
+
+  --grad-gold: linear-gradient(135deg, #8E6710 0%, #7C5A0D 28%,
+                                       #63480B 58%, #98700F 82%, #5E4406 100%);
+  --grad-gold-line: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+
+  --tint-gold:   #FBF3DE;
+  --tint-gold-2: #FDF7E6;
+  --hero-top:    #FFFFFF;
+  --chart-track: #B4AC9C;
+
+  /* Der Knopf bleibt hell golden mit dunkler Schrift — das liest sich am
+     besten. Damit seine Kante auf hellem Grund nicht verschwindet
+     (WCAG 1.4.11), bekommt er eine dunkle Umrandung. */
+  --grad-gold-btn: linear-gradient(135deg, #F2DC9C 0%, #E5C060 30%,
+                                           #D9B14E 62%, #EFD489 100%);
+  --btn-gold-bg:   #D9B14E;
+  --btn-gold-fg:   #15130E;
+  --btn-gold-line: #8E6710;
+
+  --shadow:    0 14px 32px -18px rgba(30, 24, 8, .28);
+  --shadow-lg: 0 34px 70px -28px rgba(30, 24, 8, .30);
+  --glow-gold: 0 0 0 1px rgba(152,112,15,.30), 0 16px 44px -20px rgba(152,112,15,.32);
 }
 
 /* --------------------------------------------------------------------------
@@ -278,7 +361,7 @@ a:hover { color: var(--gold-100); }
 
 .skip-link {
   position: absolute; top: -100%; left: var(--s4); z-index: 999;
-  background: var(--gold-500); color: var(--ink-on-gold);
+  background: var(--grad-gold-btn); color: var(--btn-gold-fg); border: 1px solid var(--btn-gold-line);
   padding: var(--s3) var(--s5); border-radius: 0 0 var(--r) var(--r);
   text-decoration: none; font-weight: 600;
 }
@@ -395,12 +478,12 @@ a:hover { color: var(--gold-100); }
 
 /* Hauptaktion: massives Gold */
 .btn--gold {
-  background: var(--grad-gold);
-  color: var(--ink-on-gold);
-  border-color: transparent;
+  background: var(--grad-gold-btn);
+  color: var(--btn-gold-fg);
+  border-color: var(--btn-gold-line);
   font-weight: 700;
 }
-.btn--gold:hover { color: var(--ink-on-gold); box-shadow: var(--glow-gold); }
+.btn--gold:hover { color: var(--btn-gold-fg); box-shadow: var(--glow-gold); }
 
 /* Lichtreflex, der beim Zeigen über die Fläche wandert */
 .btn--gold::before {
@@ -493,6 +576,23 @@ a:hover { color: var(--gold-100); }
   transition: border-color var(--dur) var(--ease);
 }
 .nav__burger:hover { border-color: var(--gold-500); }
+
+/* Umschalter hell/dunkel — gleiche Groesse und Form wie der Menueknopf,
+   damit die Kopfzeile ruhig bleibt. */
+.theme-toggle {
+  display: grid; place-items: center; flex: none;
+  width: 2.5rem; height: 2.5rem;
+  background: transparent; color: var(--ink-2);
+  border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.theme-toggle:hover { color: var(--gold-500); border-color: var(--gold-500); }
+.theme-toggle svg { width: 1.15rem; height: 1.15rem; }
+/* Gezeigt wird, wohin der Klick fuehrt: im Dunkeln die Sonne, im Hellen der Mond. */
+.theme-toggle .i-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
 .nav__burger svg { width: 1.2rem; height: 1.2rem; }
 .nav__burger .i-close { display: none; }
 .nav__burger[aria-expanded="true"] .i-close { display: block; }
@@ -511,6 +611,7 @@ a:hover { color: var(--gold-100); }
   .nav__link { padding: .95rem .25rem; border-bottom: 1px solid var(--line); font-size: 1.05rem; }
   .nav__link::after { display: none; }
   .nav__menu .btn { margin-top: var(--s5); width: 100%; }
+  .nav__menu .theme-toggle { margin-top: var(--s5); }
 }
 @media (min-width: 62.0625rem) {
   .nav__menu { display: flex !important; align-items: center; gap: var(--s5); }
@@ -523,7 +624,7 @@ a:hover { color: var(--gold-100); }
   position: relative;
   padding-block: clamp(3.5rem, 8vw, 7rem) clamp(3.5rem, 8vw, 7rem);
   overflow: hidden;
-  background: radial-gradient(120% 80% at 50% -20%, #10101A 0%, var(--base) 46%, var(--void) 100%);
+  background: radial-gradient(120% 80% at 50% -20%, var(--hero-top) 0%, var(--base) 46%, var(--void) 100%);
 }
 .hero__canvas {
   position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%;
@@ -633,7 +734,7 @@ a:hover { color: var(--gold-100); }
   border: 1px solid var(--line-field); border-radius: 50%; vertical-align: -.1em;
   transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.check__opt:has(input:checked) { border-color: var(--gold-500); background: #17150F; }
+.check__opt:has(input:checked) { border-color: var(--gold-500); background: var(--tint-gold); }
 .check__opt:has(input:checked) span::before { background: var(--gold-400); border-color: var(--gold-400); box-shadow: 0 0 0 3px rgba(212,167,60,.18); }
 .check__opt:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
 
@@ -684,7 +785,7 @@ a:hover { color: var(--gold-100); }
   transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 .fopt:hover { border-color: var(--line-field); transform: translateY(-2px); }
-.fopt.is-on { border-color: var(--gold-500); background: #17150F; }
+.fopt.is-on { border-color: var(--gold-500); background: var(--tint-gold); }
 .fopt.is-on::before { background: var(--gold-400); border-color: var(--gold-400); box-shadow: 0 0 0 3px rgba(212,167,60,.18); }
 .fopt__t { line-height: 1.35; }
 
@@ -715,7 +816,7 @@ a:hover { color: var(--gold-100); }
    (--line-field: 3,75:1 auf der Karte). */
 /* Warmes Grau statt des bläulichen Feldrahmens — es steht neben Gold,
    nicht neben einem Formularfeld. 3,3:1 auf der Karte. */
-.prio__track { fill: #726C62; }
+.prio__track { fill: var(--chart-track); }
 .prio__bar   { fill: var(--gold-400); }
 .prio__value { font-family: var(--f-mono); font-size: 12px; fill: var(--ink-2); }
 
@@ -732,7 +833,7 @@ a:hover { color: var(--gold-100); }
   transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
 .fchip:hover span { border-color: var(--line-field); color: var(--ink); }
-.fchip input:checked + span { border-color: var(--gold-500); color: var(--ink); background: #17150F; }
+.fchip input:checked + span { border-color: var(--gold-500); color: var(--ink); background: var(--tint-gold); }
 .fchip input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 .funnel__foot { margin-top: var(--s6); padding-top: var(--s4); border-top: 1px solid var(--line); }
@@ -792,7 +893,7 @@ a:hover { color: var(--gold-100); }
 .tilt__inner { transform: translateZ(28px); }
 
 .card--gold {
-  background: linear-gradient(155deg, #1B1610, var(--surface) 62%);
+  background: linear-gradient(155deg, var(--tint-gold-2), var(--surface) 62%);
   border-color: var(--line-gold);
 }
 

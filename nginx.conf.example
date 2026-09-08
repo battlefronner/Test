@@ -58,6 +58,8 @@ server {
 
     # --- Zugriffsschutz -----------------------------------------------------
     location ~ ^/api/(lib|storage)/   { deny all; return 404; }
+    # Quell- und Werkzeugverzeichnisse; build/site.json enthaelt alle Stammdaten
+    location ~ ^/(build|tools)/       { deny all; return 404; }
     location = /api/bootstrap.php     { deny all; return 404; }
     location = /api/config.php        { deny all; return 404; }
     location = /api/config.example.php { deny all; return 404; }

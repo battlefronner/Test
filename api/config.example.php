@@ -66,8 +66,20 @@ return [
     // Anfragebegrenzung
     // ---------------------------------------------------------------------
 
-    /** Höchstzahl an Absendungen je Absender innerhalb des Zeitfensters. */
+    /**
+     * Höchstzahl an tatsächlich abgeschickten Anfragen je Absender im Zeitfenster.
+     * Gezählt wird erst, wenn die Eingaben gültig sind — Tippfehler kosten
+     * niemandem sein Kontingent.
+     */
     'rate_limit_per_ip'      => 3,
+
+    /**
+     * Höchstzahl an Versuchen je Absender im selben Zeitfenster, gültige wie
+     * ungültige. Fängt das Durchprobieren ab, ohne jemanden nach drei
+     * Tippfehlern auszusperren.
+     */
+    'rate_limit_attempts'    => 15,
+
     'rate_limit_window'      => 3600,   // 1 Stunde
 
     /** Notbremse über alle Absender hinweg (Schutz vor verteiltem Spam). */
@@ -90,9 +102,26 @@ return [
     /**
      * Zusätzliche Ablage jeder Anfrage als Datei, falls der Mailversand
      * ausfällt. Bei true unbedingt sicherstellen, dass das Verzeichnis
-     * nicht über das Web erreichbar ist.
+     * nicht über das Web erreichbar ist — am besten, indem 'storage_dir'
+     * ausserhalb des Webverzeichnisses liegt. Das Programm legt zusätzlich
+     * Sperrdateien an und schreibt eine Warnung ins Fehlerprotokoll, wenn das
+     * Verzeichnis im Webverzeichnis liegt.
      */
     'archive_submissions' => false,
+
+    /**
+     * Aufbewahrungsdauer der abgelegten Anfragen in Sekunden. Muss mit der
+     * Löschfrist in der Datenschutzerklärung übereinstimmen (dort:
+     * recht.anfragen_loeschfrist). Ältere Dateien werden automatisch gelöscht.
+     */
+    'archive_ttl' => 15552000,          // 180 Tage
+
+    /**
+     * Secure-Flag des Sitzungscookies erzwingen. null = automatisch erkennen.
+     * Hinter einem Reverse Proxy, der weder HTTPS noch X-Forwarded-Proto
+     * durchreicht, hier auf true setzen.
+     */
+    'cookie_secure' => null,
 
     /** Bei true werden technische Fehlerdetails ausgegeben. NUR für Tests. */
     'debug' => false,

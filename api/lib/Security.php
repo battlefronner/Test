@@ -17,6 +17,9 @@ final class Security
     /** @var array<string,mixed> */
     private array $config;
 
+    /** Selbst erzeugter Ersatzschluessel, falls keiner konfiguriert ist. */
+    private ?string $fallbackPepper = null;
+
     /** @param array<string,mixed> $config */
     public function __construct(array $config)
     {
@@ -42,7 +45,7 @@ final class Security
             'lifetime' => 0,
             'path'     => '/',
             'domain'   => '',
-            'secure'   => $this->isHttps(),
+            'secure'   => ($this->config['cookie_secure'] ?? null) ?? $this->isHttps(),
             'httponly' => true,
             'samesite' => 'Strict',
         ]);
@@ -113,8 +116,94 @@ final class Security
     public function clientKey(): string
     {
         $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+        return substr(hash_hmac('sha256', (string) $ip, $this->pepper()), 0, 40);
+    }
+
+    /**
+     * Der Schluessel, mit dem die IP-Adresse gehasht wird.
+     *
+     * Ohne ihn waere der gespeicherte Wert kein Pseudonym: der IPv4-Raum hat
+     * gut vier Milliarden Adressen und ist damit in Sekunden durchprobiert.
+     * Die Datenschutzerklaerung sagt ausdruecklich zu, dass der Wert nicht
+     * zurueckrechenbar ist — deshalb wird hier notfalls selbst einer erzeugt,
+     * statt sich auf eine vergessene Konfigurationszeile zu verlassen.
+     */
+    private function pepper(): string
+    {
+        if (!$this->pepperSchwach()) {
+            return (string) $this->config['ip_pepper'];
+        }
+
+        error_log('Kontaktformular: ip_pepper fehlt oder ist zu kurz. '
+            . 'Es wird ein selbst erzeugter Schluessel verwendet. '
+            . 'Bitte in api/config.php einen eigenen Wert eintragen: '
+            . 'php -r "echo bin2hex(random_bytes(32));"');
+
+        if ($this->fallbackPepper !== null) {
+            return $this->fallbackPepper;
+        }
+
+        $dir = $this->storageDir();
+        if ($dir === null) {
+            // Letzte Rueckfallebene: haelt nur fuer diese Anfrage, ist aber
+            // immer noch besser als ein leerer Schluessel.
+            return $this->fallbackPepper = bin2hex(random_bytes(32));
+        }
+
+        $datei = $dir . '/.pepper';
+        $vorhanden = @file_get_contents($datei);
+        if (is_string($vorhanden) && strlen(trim($vorhanden)) >= 32) {
+            return $this->fallbackPepper = trim($vorhanden);
+        }
+
+        $neu = bin2hex(random_bytes(32));
+        if (@file_put_contents($datei, $neu, LOCK_EX) !== false) {
+            @chmod($datei, 0600);
+        }
+        return $this->fallbackPepper = $neu;
+    }
+
+    /**
+     * Der Pepper ist die einzige Zutat, die den gespeicherten Wert davor
+     * schützt, auf die IP-Adresse zurückgerechnet zu werden. Der IPv4-Raum ist
+     * klein genug, dass ein Hash ohne Pepper in Sekunden aufgelöst wäre — und
+     * die Datenschutzerklärung sagt ausdrücklich das Gegenteil zu. Ein leerer
+     * oder unveränderter Beispielwert ist deshalb ein Fehler, kein Schönheitsfehler.
+     */
+    public function pepperSchwach(): bool
+    {
         $pepper = (string) ($this->config['ip_pepper'] ?? '');
-        return substr(hash_hmac('sha256', (string) $ip, $pepper), 0, 40);
+        if (strlen($pepper) < 32) {
+            return true;
+        }
+        return stripos($pepper, 'BITTE-ERSETZEN') !== false;
+    }
+
+    /** Erneuert die Sitzungskennung, ohne die Sitzungsdaten zu verlieren. */
+    public function rotateSession(): void
+    {
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            @session_regenerate_id(true);
+        }
+    }
+
+    /**
+     * Merkt sich serverseitig, wann das Formular ausgeliefert wurde.
+     * Der Wert aus dem Formular ist die Uhr des Besuchers und damit weder
+     * verlaesslich noch faelschungssicher.
+     */
+    public function markiereAusgabe(): void
+    {
+        if (empty($_SESSION['form_ts'])) {
+            $_SESSION['form_ts'] = time();
+        }
+    }
+
+    /** Liefert den serverseitigen Zeitstempel oder null, wenn keiner vorliegt. */
+    public function ausgabeZeit(): ?int
+    {
+        $t = $_SESSION['form_ts'] ?? null;
+        return is_int($t) ? $t : null;
     }
 
     /**
@@ -197,6 +286,33 @@ final class Security
                 @unlink($file);
             }
         }
+
+        // Abgelegte Anfragen unterliegen einer eigenen, längeren Frist. Ohne
+        // diesen Lauf blieben sie unbegrenzt liegen — die Datenschutzerklärung
+        // nennt aber eine Löschfrist, und Art. 5 Abs. 1 lit. e DSGVO verlangt
+        // ihre Einhaltung.
+        $archivTtl = (int) ($this->config['archive_ttl'] ?? 15552000); // 180 Tage
+        $archivCut = time() - $archivTtl;
+        foreach (glob($dir . '/anfragen/*.json') ?: [] as $file) {
+            $mtime = @filemtime($file);
+            if ($mtime !== false && $mtime < $archivCut) {
+                @unlink($file);
+            }
+        }
+    }
+
+    /**
+     * Meldet, ob ein Verzeichnis unterhalb des Webverzeichnisses liegt und
+     * damit grundsätzlich über eine URL erreichbar wäre.
+     */
+    public function inWebroot(string $dir): bool
+    {
+        $root = realpath((string) ($_SERVER['DOCUMENT_ROOT'] ?? ''));
+        $real = realpath($dir);
+        if ($root === false || $real === false || $root === '') {
+            return false; // Nicht feststellbar — dann keine Falschmeldung
+        }
+        return str_starts_with($real . DIRECTORY_SEPARATOR, $root . DIRECTORY_SEPARATOR);
     }
 
     // ------------------------------------------------------------------
@@ -231,7 +347,18 @@ final class Security
             return null;
         }
 
-        // Zusätzliche Absicherung, falls das Verzeichnis im Webroot liegt.
+        $this->guard($dir);
+
+        return $dir;
+    }
+
+    /**
+     * Legt Sperrdateien ab, falls das Verzeichnis im Webroot liegt.
+     * Wird für jedes Verzeichnis einzeln aufgerufen — eine Sperre im
+     * übergeordneten Verzeichnis wirkt nur bei Apache, nicht bei nginx.
+     */
+    public function guard(string $dir): void
+    {
         $guard = $dir . '/.htaccess';
         if (!file_exists($guard)) {
             @file_put_contents($guard, "Require all denied\n<IfModule !mod_authz_core.c>\nDeny from all\n</IfModule>\n");
@@ -240,7 +367,5 @@ final class Security
         if (!file_exists($index)) {
             @file_put_contents($index, '');
         }
-
-        return $dir;
     }
 }

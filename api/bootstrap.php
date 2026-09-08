@@ -18,6 +18,11 @@ ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 error_reporting(E_ALL);
 
+// Die PHP-Version gehoert nicht in die Antwort. In .htaccess und nginx.conf
+// steht dieselbe Anweisung noch einmal; hier greift sie auch dann, wenn dort
+// das noetige Modul fehlt.
+header_remove('X-Powered-By');
+
 $configFile = __DIR__ . '/config.php';
 if (!is_file($configFile)) {
     http_response_code(500);

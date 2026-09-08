@@ -96,6 +96,11 @@ ServerSignature Off
     RewriteRule ^api/storage/ - [F,L]
     RewriteRule ^api/bootstrap\.php$ - [F,L]
     RewriteRule (^|/)\.git - [F,L]
+    # Quell- und Werkzeugverzeichnisse. Sie gehoeren nicht auf den Server,
+    # landen beim Hochladen des ganzen Ordners aber regelmaessig doch dort:
+    # build/site.json enthaelt saemtliche Stammdaten an einer Stelle.
+    RewriteRule ^build/ - [F,L]
+    RewriteRule ^tools/ - [F,L]
 </IfModule>
 
 # Verzeichnisauflistung abschalten

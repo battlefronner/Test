@@ -10,6 +10,37 @@
 (function () {
   'use strict';
 
+  /* Farben der Bühne. Auf hellem Grund braucht es kräftigeres, dunkleres
+     Gold und mehr Deckkraft — helles Gold auf Weiß verschwindet.
+     Die Tafel wird bei jedem Wechsel neu gesetzt. */
+  var C = {};
+  function farbenSetzen() {
+    var hell = document.documentElement.getAttribute('data-theme') === 'light';
+    C = hell ? {
+      linie:      '152,112,15',
+      linieMax:   0.55,
+      knoten:     'rgba(140,102,12,.72)',
+      kanteGlanz: 'rgba(120,88,10,.45)',
+      kante:      '124,90,12',
+      eckeGlanz:  'rgba(152,112,15,.55)',
+      ecke:       '104,76,8',
+      staub:      '152,112,15',
+      staubMax:   0.62
+    } : {
+      linie:      '212,167,60',
+      linieMax:   0.30,
+      knoten:     'rgba(227,191,98,.62)',
+      kanteGlanz: 'rgba(212,167,60,.55)',
+      kante:      '240,208,124',
+      eckeGlanz:  'rgba(247,227,161,.8)',
+      ecke:       '250,236,190',
+      staub:      '212,167,60',
+      staubMax:   0.55
+    };
+  }
+  farbenSetzen();
+  window.addEventListener('fw:themechange', farbenSetzen);
+
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   /* Bereitet einen Canvas auf die Pixeldichte des Geräts vor.
@@ -136,8 +167,8 @@
           var ddx = p.x - q.x, ddy = p.y - q.y;
           var dist = Math.hypot(ddx, ddy);
           if (dist > LINK) continue;
-          var alpha = (1 - dist / LINK) * 0.3;
-          ctx.strokeStyle = 'rgba(212,167,60,' + alpha.toFixed(3) + ')';
+          var alpha = (1 - dist / LINK) * C.linieMax;
+          ctx.strokeStyle = 'rgba(' + C.linie + ',' + alpha.toFixed(3) + ')';
           ctx.lineWidth = 0.7;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
@@ -148,7 +179,7 @@
       // Knoten
       for (var k = 0; k < nodes.length; k++) {
         var m = nodes[k];
-        ctx.fillStyle = 'rgba(227,191,98,.62)';
+        ctx.fillStyle = C.knoten;
         ctx.beginPath();
         ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
         ctx.fill();
@@ -265,8 +296,8 @@
 
         // Vordere Kanten glimmen — gibt dem Drahtmodell Tiefe
         ctx.shadowBlur = 14 * Math.max(0, (depth - 0.68) * 3);
-        ctx.shadowColor = 'rgba(212,167,60,.55)';
-        ctx.strokeStyle = 'rgba(240,208,124,' + alpha.toFixed(3) + ')';
+        ctx.shadowColor = C.kanteGlanz;
+        ctx.strokeStyle = 'rgba(' + C.kante + ',' + alpha.toFixed(3) + ')';
         ctx.lineWidth = width * (0.55 + depth);
         ctx.beginPath();
         ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]);
@@ -326,8 +357,8 @@
       for (var i = 0; i < N * 2; i++) {
         var P = proj[i];
         if (P[2] < 0.66) continue;
-        ctx.shadowBlur = 10; ctx.shadowColor = 'rgba(247,227,161,.8)';
-        ctx.fillStyle = 'rgba(250,236,190,' + depthAlpha(P[2]).toFixed(3) + ')';
+        ctx.shadowBlur = 10; ctx.shadowColor = C.eckeGlanz;
+        ctx.fillStyle = 'rgba(' + C.ecke + ',' + depthAlpha(P[2]).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(P[0], P[1], 1.6 + 1.4 * P[2], 0, Math.PI * 2);
         ctx.fill();
@@ -342,7 +373,7 @@
         var q = rotate(mo.p, rx * 0.5, spin * mo.sp + i);
         var Q = project(q, cxp, cyp, scale);
         if (Q[2] < 0.58) return;
-        ctx.fillStyle = 'rgba(212,167,60,' + (depthAlpha(Q[2]) * 0.55 * alpha).toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(' + C.staub + ',' + (depthAlpha(Q[2]) * C.staubMax * alpha).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(Q[0], Q[1], 0.9 + 1.1 * Q[2], 0, Math.PI * 2);
         ctx.fill();
