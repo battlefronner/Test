@@ -822,6 +822,8 @@ a:hover { color: var(--gold-100); }
 }
 @media (min-width: 44rem) { .metrics { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 66rem) { .metrics { grid-template-columns: repeat(4, 1fr); } }
+/* Zwei Zahlen bekommen den ganzen Platz — weniger, dafür groesser. */
+@media (min-width: 66rem) { .metrics--duo { grid-template-columns: repeat(2, 1fr); } }
 
 .metric { background: var(--base); padding: clamp(1.75rem, 3vw, 2.75rem) clamp(1.25rem, 2.4vw, 2rem); }
 .metric__value {
