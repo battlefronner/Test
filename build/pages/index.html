@@ -41,7 +41,7 @@
           <ul class="proof reveal d4">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
-              Von der IHK zugelassen
+              {{?register.eigene_erlaubnis}}Von der IHK zugelassen{{/?}}{{!register.eigene_erlaubnis}}Im Vermittlerregister registriert{{/!}}
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg>
@@ -332,8 +332,8 @@
         <details>
           <summary>Muss ich meine Verträge kündigen?</summary>
           <div class="faq__body">
-            <p>Nein. Wir raten nur dann zum Wechsel, wenn der neue Schutz nachweislich
-               besser passt — und erst, wenn er steht.</p>
+            <p>Nein. Zu einem Wechsel raten wir nur, wenn der neue Schutz Ihre Lage
+               besser abdeckt als der alte — und erst, wenn er steht.</p>
             <p>Gerade bei alten Berufsunfähigkeits- und Lebensversicherungen schauen
                wir besonders genau hin. Die sind oft besser als ihr Ruf.</p>
           </div>
@@ -385,9 +385,9 @@
       <h2 id="belege-titel" class="visually-hidden">Nachweise</h2>
       <div class="credentials reveal">
         <div class="cred">
-          <span class="cred__k">Zulassung</span>
-          <span class="cred__v">§ 34d Abs. 1 GewO</span>
-          <span class="cred__n">erteilt von der {{ihk.name}}</span>
+          <span class="cred__k">{{?register.gebunden}}Status{{/?}}{{!register.gebunden}}Zulassung{{/!}}</span>
+          <span class="cred__v">{{?register.gebunden}}§ 34d Abs. 7 GewO{{/?}}{{!register.gebunden}}§ 34d Abs. 1 GewO{{/!}}</span>
+          <span class="cred__n">{{?register.gebunden}}gebundener Vertreter, Haftung beim Versicherer{{/?}}{{!register.gebunden}}erteilt von der {{ihk.name}}{{/!}}</span>
         </div>
         <div class="cred">
           <span class="cred__k">Register</span>

@@ -51,13 +51,15 @@
   "register": {
     "nummer": "",
     "_nummer": "Format z. B. D-XXXX-XXXXX-XX, steht im Vermittlerregister",
-    "status": "Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 GewO",
+    "grundlage": "",
+    "_grundlage": "ENTSCHEIDET DEN GESAMTEN RECHTSTEIL. Genau einen der beiden Sätze eintragen — welcher zutrifft, steht in Ihrem Registereintrag bzw. Erlaubnisbescheid. A) Bei Ausschließlichkeit für einen Versicherer, der die Haftung übernimmt: „gebundener Versicherungsvertreter nach § 34d Abs. 7 Nr. 1 GewO“ — dann keine eigene Erlaubnis und keine eigene Berufshaftpflicht. B) Bei eigener IHK-Erlaubnis: „Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 GewO“. Eine falsche Angabe ist abmahnfähig und verschiebt die Haftungsfrage.",
     "vertretung": "",
-    "_vertretung": "Pflichtangabe § 15 VersVermV: entweder „gebundener Vertreter für [Versicherer]“ oder „Mehrfachvertreter für [Liste aller Versicherer mit Sitz]“",
+    "_vertretung": "Pflichtangabe nach § 15 VersVermV und § 60 Abs. 2 VVG: der Versicherer muss namentlich genannt werden, mit Rechtsform und Sitz. Bei Ausschließlichkeit z. B. „WWK Lebensversicherung a. G., Marsstraße 37, 80335 München“. Diese Angabe steht in der Erstinformation und im Impressum — sie lässt sich nicht weglassen.",
     "beteiligungen": "Wir halten keine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an einem Versicherungsunternehmen. Ebenso hält kein Versicherungsunternehmen oder dessen Mutterunternehmen eine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an unserem Unternehmen.",
     "_beteiligungen": "Standardtext – nur ändern, falls Beteiligungen bestehen",
     "haftpflicht_versicherer": "",
-    "haftpflicht_gebiet": "Europäischer Wirtschaftsraum"
+    "haftpflicht_gebiet": "Europäischer Wirtschaftsraum",
+    "_haftpflicht_versicherer": "Nur bei eigener Erlaubnis (Variante B) nötig. Als gebundener Vertreter (Variante A) leer lassen — die Haftung trägt der Versicherer."
   },
   "ihk": {
     "name": "Industrie- und Handelskammer Nord Westfalen",
@@ -84,8 +86,8 @@
     "_weitere_auftragsverarbeiter": "z. B. Maklerverwaltungsprogramm, E-Mail-Dienstleister – oder „keine“",
     "drittland": "Eine Übermittlung personenbezogener Daten in Länder außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums findet nicht statt.",
     "empfehlung_verguetung": "",
-  "_empfehlung_verguetung": "Antwort auf der Empfehlungsseite (/empfehlung.html) auf die Frage, ob die empfehlende Person eine Gegenleistung bekommt. Muss der Wirklichkeit entsprechen — eine bezahlte Empfehlung ohne Kennzeichnung ist nach § 5a Abs. 4 UWG unzulässig. Ohne Prämie z. B.: „Nein. Wir bedanken uns persönlich, mehr nicht. Wer uns empfiehlt, tut das, weil er zufrieden ist — nicht, weil er dafür bezahlt wird.“ Mit Prämie den Vorteil konkret benennen.",
-  "spamschutz_frist": "24 Stunden",
+    "_empfehlung_verguetung": "Antwort auf der Empfehlungsseite (/empfehlung.html) auf die Frage, ob die empfehlende Person eine Gegenleistung bekommt. Muss der Wirklichkeit entsprechen — eine bezahlte Empfehlung ohne Kennzeichnung ist nach § 5a Abs. 4 UWG unzulässig. Ohne Prämie z. B.: „Nein. Wir bedanken uns persönlich, mehr nicht. Wer uns empfiehlt, tut das, weil er zufrieden ist — nicht, weil er dafür bezahlt wird.“ Mit Prämie den Vorteil konkret benennen.",
+    "spamschutz_frist": "24 Stunden",
     "anfragen_loeschfrist": "6 Monaten",
     "beschwerde_frist": "zwei Wochen",
     "stand": "",

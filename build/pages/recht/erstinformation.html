@@ -50,27 +50,39 @@
 
         <h2>2. Status als Vermittler</h2>
         <p>
-          Wir sind <strong>Versicherungsvertreter</strong> mit Erlaubnis nach
-          <strong>§ 34d Abs. 1 der Gewerbeordnung (GewO)</strong>.
+          Wir sind <strong>{{register.grundlage}}</strong>.
         </p>
+        {{?register.gebunden}}<p>
+          Das bedeutet: Wir vermitteln ausschließlich Versicherungsprodukte des unten
+          genannten Versicherungsunternehmens. Dieses Unternehmen hat die uneingeschränkte
+          Haftung für unsere Vermittlungstätigkeit übernommen und veranlasst unsere
+          Eintragung im Vermittlerregister. Eine eigene Erlaubnis der Industrie- und
+          Handelskammer ist dafür nicht erforderlich (§ 34d Abs. 7 Nr. 1 GewO).
+        </p>{{/?}}
         <!--editor--><p class="small">
-          Bearbeitungshinweis: Diese Angabe gilt für Vertreter mit <em>eigener</em>
-          Erlaubnis der IHK. Sind Sie dagegen als gebundener Versicherungsvertreter
-          nach § 34d Abs. 7 GewO ausschließlich für ein Versicherungsunternehmen
-          tätig, das die Haftung übernimmt, besteht keine eigene Erlaubnis und
-          keine eigene Berufshaftpflicht — dann sind die Ziffern 2, 3 und 7 sowie das
-          Impressum entsprechend anzupassen. Ihr Erlaubnisbescheid beziehungsweise
-          Ihre Registereintragung gibt darüber Auskunft.
+          Bearbeitungshinweis: Dieser Abschnitt richtet sich automatisch nach dem Feld
+          <code>register.grundlage</code> in <code>build/site.json</code>. Steht dort ein
+          Satz, der mit „gebundener“ beginnt, entfallen überall die Angaben zu eigener
+          Erlaubnis und eigener Berufshaftpflicht. Bitte genau den Wortlaut eintragen,
+          der zu Ihrem Registereintrag passt.
         </p><!--/editor-->
         <p>
-          Als Versicherungsvertreter werden wir im Auftrag eines oder mehrerer
-          Versicherungsunternehmen tätig und vermitteln deren Versicherungsprodukte.
-          Wir beraten Sie dabei auf Grundlage Ihrer Angaben zu Wünschen und Bedürfnissen
-          und dokumentieren unseren Rat nach § 61 VVG.
+          Als Versicherungsvertreter werden wir im Auftrag
+          {{?register.gebunden}}des unten genannten Versicherungsunternehmens{{/?}}{{!register.gebunden}}eines
+          oder mehrerer Versicherungsunternehmen{{/!}} tätig und vermitteln dessen
+          Versicherungsprodukte. Wir beraten Sie dabei auf Grundlage Ihrer Angaben zu
+          Wünschen und Bedürfnissen und dokumentieren unseren Rat nach § 61 VVG.
         </p>
         <p>
-          <strong>Wir sind tätig als:</strong>
+          <strong>Für dieses Versicherungsunternehmen sind wir tätig</strong>
+          (Angabe nach § 15 VersVermV und § 60 Abs. 2 VVG):
           {{register.vertretung|Vertretungsverhältnis}}
+        </p>
+        <p>
+          Unsere Beratung stützt sich damit auf das Produktangebot dieses Unternehmens.
+          Einen Vergleich sämtlicher am Markt angebotenen Versicherungsverträge nehmen
+          wir nicht vor. Wenn Sie einen solchen Marktvergleich wünschen, steht Ihnen der
+          Weg über einen Versicherungsmakler oder einen Versicherungsberater offen.
         </p>
 
         <h2>3. Registereintrag und Überprüfung</h2>
@@ -78,9 +90,12 @@
           <dt>Registrierungsnummer</dt>
           <dd>{{register.nummer|Registrierungsnummer}}</dd>
 
-          <dt>Erlaubnis erteilt durch</dt>
-          <dd>Industrie- und Handelskammer
-              {{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>
+          {{!register.gebunden}}<dt>Erlaubnis erteilt durch</dt>
+          <dd>{{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>{{/!}}
+          {{?register.gebunden}}<dt>Eintragung veranlasst durch</dt>
+          <dd>Das Versicherungsunternehmen, für das wir ausschließlich tätig sind
+              (siehe Nummer 2). Es trägt die Verantwortung für unsere Qualifikation
+              und haftet für unsere Vermittlungstätigkeit.</dd>{{/?}}
 
           <dt>Registerführende Stelle</dt>
           <dd>
@@ -138,8 +153,14 @@
           Ihnen daher, nicht zu verzichten.
         </p>
 
-        <h2>7. Berufshaftpflichtversicherung</h2>
-        <p>
+        <h2>7. Haftung und Berufshaftpflichtversicherung</h2>
+        {{?register.gebunden}}<p>
+          Als gebundener Versicherungsvertreter unterhalten wir keine eigene
+          Berufshaftpflichtversicherung. Das Versicherungsunternehmen, für das wir tätig
+          sind, hat nach § 34d Abs. 7 Nr. 1 GewO die uneingeschränkte Haftung für unsere
+          Vermittlungstätigkeit übernommen. Ansprüche aus einer Falschberatung können Sie
+          daher unmittelbar gegen dieses Unternehmen richten.
+        </p>{{/?}}{{!register.gebunden}}<p>
           Nach § 34d Abs. 5 GewO unterhalten wir eine Berufshaftpflichtversicherung.
         </p>
         <dl>
@@ -147,7 +168,7 @@
           <dd>{{register.haftpflicht_versicherer|Berufshaftpflichtversicherer}}</dd>
           <dt>Räumlicher Geltungsbereich</dt>
           <dd>{{register.haftpflicht_gebiet}}</dd>
-        </dl>
+        </dl>{{/!}}
 
         <h2>8. Beschwerden und außergerichtliche Streitbeilegung</h2>
         <p>

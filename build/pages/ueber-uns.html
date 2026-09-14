@@ -119,10 +119,11 @@
       <div class="legal reveal d1">
         <dl>
           <dt>Tätigkeit</dt>
-          <dd>Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 der Gewerbeordnung (GewO)</dd>
+          <dd>{{register.grundlage}}</dd>
 
-          <dt>Erlaubnisbehörde</dt>
-          <dd>{{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>
+          <dt>{{?register.gebunden}}Registerführung{{/?}}{{!register.gebunden}}Erlaubnisbehörde{{/!}}</dt>
+          <dd>{{?register.gebunden}}Die Eintragung veranlasst das Versicherungsunternehmen, für das
+              wir tätig sind. Es übernimmt die Haftung für unsere Vermittlungstätigkeit.{{/?}}{{!register.gebunden}}{{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}{{/!}}</dd>
 
           <dt>Registrierung</dt>
           <dd>Eingetragen im Vermittlerregister unter der Registrierungsnummer
@@ -131,11 +132,14 @@
               <a href="https://www.vermittlerregister.info" rel="noopener noreferrer external" target="_blank">www.vermittlerregister.info</a></dd>
 
           <dt>Berufshaftpflichtversicherung</dt>
-          <dd>Nach § 34d Abs. 5 GewO besteht eine Berufshaftpflichtversicherung.
-              Versicherer: {{register.haftpflicht_versicherer|Berufshaftpflichtversicherer}}</dd>
+          <dd>{{?register.gebunden}}Eine eigene Berufshaftpflichtversicherung ist für gebundene
+              Versicherungsvertreter nicht erforderlich. Die Haftung übernimmt das
+              Versicherungsunternehmen, für das wir tätig sind.{{/?}}{{!register.gebunden}}Nach
+              § 34d Abs. 5 GewO besteht eine Berufshaftpflichtversicherung.
+              Versicherer: {{register.haftpflicht_versicherer|Berufshaftpflichtversicherer}}{{/!}}</dd>
 
           <dt>Aufsicht</dt>
-          <dd>Die gewerberechtliche Aufsicht führt die oben genannte Industrie- und Handelskammer.</dd>
+          <dd>Die gewerberechtliche Aufsicht führt die {{ihk.name}}.</dd>
         </dl>
         <p>
           Alle Pflichtangaben stehen in der

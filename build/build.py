@@ -53,6 +53,14 @@ def hint_for(path):
         return parent.get('_' + parts[-1])
     return None
 
+# --- Abgeleitete Angaben ----------------------------------------------------
+# Die Rechtsgrundlage der Vermittlertaetigkeit entscheidet ueber mehrere
+# Abschnitte in Impressum und Erstinformation. Damit sie nur an EINER Stelle
+# gepflegt werden muss, wird der Schalter hier aus dem Satz abgeleitet.
+_g = (site.get('register', {}).get('grundlage') or '').strip().lower()
+site.setdefault('register', {})['gebunden'] = True if _g.startswith('gebunden') else ''
+site['register']['eigene_erlaubnis'] = True if (_g and not _g.startswith('gebunden')) else ''
+
 missing = []
 
 def placeholder(path, label):

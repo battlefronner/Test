@@ -11,5 +11,6 @@
   <url><loc>https://www.finanzwaechter.de/recht/datenschutz.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://www.finanzwaechter.de/recht/erstinformation.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.finanzwaechter.de/recht/impressum.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.finanzwaechter.de/strategie.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://www.finanzwaechter.de/ueber-uns.html</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
 </urlset>

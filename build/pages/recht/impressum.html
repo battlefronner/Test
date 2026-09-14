@@ -30,10 +30,18 @@
           <li><a href="#register">Register und Umsatzsteuer</a></li>
           <li><a href="#berufsrecht">Berufsrechtliche Angaben</a></li>
           <li><a href="#aufsicht">Aufsichts- und Registerbehörden</a></li>
+          <li><a href="#kammer">Kammerzugehörigkeit</a></li>
           <li><a href="#verantwortlich">Redaktionelle Verantwortung</a></li>
+          <li><a href="#verguetung">Vergütung und Interessenkonflikte</a></li>
+          <li><a href="#inhalte">Einordnung der Inhalte dieser Website</a></li>
           <li><a href="#schlichtung">Verbraucherstreitbeilegung</a></li>
           <li><a href="#haftung">Haftung für Inhalte und Links</a></li>
-          <li><a href="#urheberrecht">Urheberrecht</a></li>
+          <li><a href="#urheberrecht">Urheberrecht und Nutzungsrechte</a></li>
+          <li><a href="#medien">Schriften und Mediennachweise</a></li>
+          <li><a href="#vertretung">Vertretungsverhältnis und Beratungsgrundlage</a></li>
+          <li><a href="#recht">Anwendbares Recht</a></li>
+          <li><a href="#weitere">Weitere Pflichtinformationen</a></li>
+          <li><a href="#stand">Stand und Änderungen</a></li>
         </ol>
       </nav>
 
@@ -92,12 +100,15 @@
         <p>Angaben gemäß § 5 Abs. 1 Nr. 5 DDG:</p>
         <dl>
           <dt>Gesetzliche Berufsbezeichnung</dt>
-          <dd>Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 der Gewerbeordnung (GewO),
-              verliehen in der Bundesrepublik Deutschland</dd>
+          <dd>{{register.grundlage}}, verliehen in der Bundesrepublik Deutschland</dd>
 
-          <dt>Erlaubnis erteilt durch</dt>
-          <dd>Industrie- und Handelskammer
-              {{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>
+          {{!register.gebunden}}<dt>Erlaubnis erteilt durch</dt>
+          <dd>{{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>{{/!}}
+          {{?register.gebunden}}<dt>Grundlage der Tätigkeit</dt>
+          <dd>Die Tätigkeit erfolgt nach § 34d Abs. 7 Nr. 1 GewO ohne eigene Erlaubnis.
+              Das Versicherungsunternehmen, für das wir tätig sind, hat die uneingeschränkte
+              Haftung übernommen und veranlasst die Eintragung im Vermittlerregister.
+              Näheres unter Ziffer 14.</dd>{{/?}}
 
           <dt>Registrierungsnummer im Vermittlerregister</dt>
           <dd>{{register.nummer|Registrierungsnummer}}</dd>
@@ -125,22 +136,43 @@
 
           <dt>Berufshaftpflichtversicherung</dt>
           <dd>
-            Nach § 34d Abs. 5 GewO besteht eine Berufshaftpflichtversicherung.<br>
+            {{?register.gebunden}}Eine eigene Berufshaftpflichtversicherung ist für gebundene
+            Versicherungsvertreter nicht vorgeschrieben. Die Haftung für die
+            Vermittlungstätigkeit trägt das Versicherungsunternehmen, für das wir tätig
+            sind (Ziffer 14).{{/?}}{{!register.gebunden}}Nach § 34d Abs. 5 GewO besteht eine
+            Berufshaftpflichtversicherung.<br>
             Versicherer: {{register.haftpflicht_versicherer|Berufshaftpflichtversicherer}}<br>
-            Räumlicher Geltungsbereich: {{register.haftpflicht_gebiet}}
+            Räumlicher Geltungsbereich: {{register.haftpflicht_gebiet}}{{/!}}
           </dd>
         </dl>
 
         <h2 id="aufsicht">5. Aufsichts- und Registerbehörden</h2>
         <p>
-          Zuständig für die Erlaubnis und die Gewerbeaufsicht ist die unter Ziffer 4
-          genannte Industrie- und Handelskammer. Die Eintragung im Vermittlerregister
-          kann jederzeit unter
+          {{?register.gebunden}}Die gewerberechtliche Aufsicht führt die {{ihk.name}}.{{/?}}{{!register.gebunden}}Zuständig
+          für die Erlaubnis und die Gewerbeaufsicht ist die unter Ziffer 4 genannte
+          Industrie- und Handelskammer.{{/!}} Die Eintragung im Vermittlerregister kann
+          jederzeit unter
           <a href="https://www.vermittlerregister.info" rel="noopener noreferrer external" target="_blank">www.vermittlerregister.info</a>
           anhand der Registrierungsnummer überprüft werden.
         </p>
+        <dl>
+          <dt>Gewerbeaufsicht</dt>
+          <dd>{{ihk.name}}<br>{{ihk.strasse}}<br>{{ihk.plz}} {{ihk.ort}}</dd>
+          <dt>Registerführende Stelle</dt>
+          <dd>{{behoerden.dihk.name}}<br>{{behoerden.dihk.strasse}}, {{behoerden.dihk.plz}} {{behoerden.dihk.ort}}</dd>
+          <dt>Aufsicht über die Versicherungsunternehmen</dt>
+          <dd>{{behoerden.bafin.name}}<br>{{behoerden.bafin.strasse}}<br>{{behoerden.bafin.plz}} {{behoerden.bafin.ort}}</dd>
+        </dl>
 
-        <h2 id="verantwortlich">6. Redaktionelle Verantwortung</h2>
+        <h2 id="kammer">6. Kammerzugehörigkeit</h2>
+        <p>
+          Als Gewerbetreibende sind wir nach § 2 Abs. 1 des Gesetzes zur vorläufigen
+          Regelung des Rechts der Industrie- und Handelskammern (IHKG) kraft Gesetzes
+          Mitglied der {{ihk.name}}. Eine Wahl der Kammer besteht nicht; die
+          Mitgliedschaft folgt aus dem Sitz des Betriebs.
+        </p>
+
+        <h2 id="verantwortlich">7. Redaktionelle Verantwortung</h2>
         <p>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:</p>
         <address>
           {{firma.inhaber}}<br>
@@ -154,7 +186,67 @@
           entfallen; sie schadet jedoch nicht.
         </p><!--/editor-->
 
-        <h2 id="schlichtung">7. Verbraucherstreitbeilegung</h2>
+        <h2 id="verguetung">8. Vergütung und Interessenkonflikte</h2>
+        <p>
+          Für unsere Vermittlungstätigkeit erhalten wir eine Vergütung vom
+          Versicherungsunternehmen. Sie ist in der Prämie des vermittelten Vertrags
+          enthalten; ein gesondertes Honorar berechnen wir Ihnen nicht. Eine Vergütung
+          nach § 34d Abs. 1 Satz 4 GewO in Form eines Honorars vom Kunden vereinbaren wir
+          nicht.
+        </p>
+        <p>
+          Auf Verlangen legen wir Ihnen die Höhe der Vergütung im konkreten Fall offen.
+          Über die Art der Vergütung informieren wir Sie zusätzlich vor Abgabe Ihrer
+          Vertragserklärung nach § 15 VersVermV in unserer
+          <a href="/recht/erstinformation.html">Erstinformation</a>.
+        </p>
+        <p>
+          <strong>Interessenkonflikte.</strong> Weil unsere Vergütung an den Abschluss
+          eines Vertrags geknüpft ist, besteht ein struktureller Interessenkonflikt. Wir
+          gehen damit so um: Wir dokumentieren unseren Rat nach § 61 VVG, benennen zu
+          jeder Empfehlung mindestens eine Handlungsalternative — einschließlich der
+          Möglichkeit, nichts zu verändern — und legen die Grundlage unserer Beratung
+          offen (Ziffer 14).
+        </p>
+        <p>
+          Angaben zu Beteiligungen nach § 15 Abs. 1 Nr. 5 und 6 VersVermV:
+          {{register.beteiligungen}}
+        </p>
+
+        <h2 id="inhalte">9. Einordnung der Inhalte dieser Website</h2>
+        <p>
+          Die Inhalte dieser Website dienen der allgemeinen Information über unsere
+          Tätigkeit. Sie stellen weder ein Angebot noch eine Aufforderung zum Erwerb
+          eines Finanzprodukts dar und ersetzen keine auf Ihre persönliche Situation
+          bezogene Beratung.
+        </p>
+        <dl>
+          <dt>Keine Anlageberatung, keine Anlagevermittlung</dt>
+          <dd>Soweit auf dieser Website Anlagestrategien, Fondskonzepte oder
+              Musterportfolios beschrieben werden, handelt es sich um allgemeine
+              Darstellungen ohne Bezug auf Ihre persönlichen Verhältnisse. Eine
+              Anlageberatung oder Anlagevermittlung im Sinne des
+              Wertpapierinstitutsgesetzes (WpIG) findet über diese Website nicht statt.
+              Interaktive Hilfen auf dieser Website — etwa der Bedarfs-Check oder die
+              Strategie-Einordnung — liefern eine Orientierung, keine Empfehlung und keine
+              Geeignetheitsprüfung.</dd>
+          <dt>Keine Steuer- oder Rechtsberatung</dt>
+          <dd>Steuerliche und rechtliche Ausführungen sind allgemeiner Natur. Eine
+              Beratung im Einzelfall bleibt Angehörigen der steuerberatenden und
+              rechtsberatenden Berufe vorbehalten.</dd>
+          <dt>Wertentwicklung</dt>
+          <dd>Frühere Wertentwicklungen sind kein verlässlicher Hinweis auf künftige
+              Ergebnisse. Fondsgebundene Verträge unterliegen Kursschwankungen; Verluste
+              bis zum Totalverlust des angelegten Kapitals sind möglich. Maßgeblich sind
+              allein die jeweiligen Vertragsunterlagen, Versicherungsbedingungen und
+              vorvertraglichen Informationen.</dd>
+          <dt>Maßgeblichkeit der Vertragsunterlagen</dt>
+          <dd>Für Inhalt und Umfang des Versicherungsschutzes sind ausschließlich der
+              Versicherungsschein und die zugrunde liegenden Bedingungen maßgeblich.
+              Darstellungen auf dieser Website begründen keine Ansprüche.</dd>
+        </dl>
+
+        <h2 id="schlichtung">10. Verbraucherstreitbeilegung</h2>
         <p>
           Für Streitigkeiten aus der Versicherungsvermittlung stehen anerkannte
           Verbraucherschlichtungsstellen nach § 214 VVG zur Verfügung. Die zuständigen
@@ -172,7 +264,7 @@
           steht hier bewusst keiner.
         </p><!--/editor-->
 
-        <h2 id="haftung">8. Haftung für Inhalte und Links</h2>
+        <h2 id="haftung">11. Haftung für Inhalte und Links</h2>
         <h3>Inhalte dieser Website</h3>
         <p>
           Die Inhalte dieser Website wurden mit Sorgfalt erstellt. Für die Richtigkeit,
@@ -199,7 +291,7 @@
           Rechtsverletzungen entfernen wir derartige Links umgehend.
         </p>
 
-        <h2 id="urheberrecht">9. Urheberrecht</h2>
+        <h2 id="urheberrecht">12. Urheberrecht und Nutzungsrechte</h2>
         <p>
           Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
           unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
@@ -215,6 +307,84 @@
           einen entsprechenden Hinweis.
         </p>
 
+        <h2 id="medien">13. Schriften und Mediennachweise</h2>
+        <p>
+          Diese Website lädt keine Inhalte von fremden Servern. Die verwendeten
+          Schriftarten liegen auf unserem eigenen Server:
+        </p>
+        <ul>
+          <li><strong>Sora</strong> — SIL Open Font License 1.1</li>
+          <li><strong>IBM Plex Sans</strong> und <strong>IBM Plex Mono</strong> — SIL Open Font License 1.1</li>
+        </ul>
+        <p>
+          Alle Grafiken, Symbole und Animationen dieser Website sind eigene Erzeugnisse
+          oder wurden für diesen Zweck erstellt. Es werden keine Bildagentur-Motive
+          eingebunden, die eine gesonderte Urhebernennung erfordern.
+        </p>
+
+        <h2 id="vertretung">14. Vertretungsverhältnis und Beratungsgrundlage</h2>
+        <p>
+          Angabe nach § 15 Abs. 1 Nr. 2 VersVermV und § 60 Abs. 2 VVG:
+        </p>
+        <dl>
+          <dt>Rechtsstellung</dt>
+          <dd>{{register.grundlage}}</dd>
+
+          <dt>Tätig für</dt>
+          <dd>{{register.vertretung|Vertretungsverhältnis}}</dd>
+
+          <dt>Grundlage der Beratung</dt>
+          <dd>Unsere Beratung stützt sich auf das Produktangebot des vorgenannten
+              Unternehmens. Einen Vergleich sämtlicher am Markt angebotener
+              Versicherungsverträge legen wir unserer Beratung nicht zugrunde. Wünschen
+              Sie einen marktweiten Vergleich, können Sie sich an einen
+              Versicherungsmakler oder einen Versicherungsberater wenden.</dd>
+
+          {{?register.gebunden}}<dt>Haftung</dt>
+          <dd>Das vorgenannte Unternehmen hat nach § 34d Abs. 7 Nr. 1 GewO die
+              uneingeschränkte Haftung für unsere Vermittlungstätigkeit übernommen.
+              Ansprüche wegen fehlerhafter Beratung oder Vermittlung können Sie unmittelbar
+              gegen dieses Unternehmen richten.</dd>{{/?}}
+        </dl>
+        <p>
+          Diese Angaben erhalten Sie zusätzlich in Textform vor Abgabe Ihrer
+          Vertragserklärung — zusammengefasst in unserer
+          <a href="/recht/erstinformation.html">Erstinformation</a>.
+        </p>
+
+        <h2 id="recht">15. Anwendbares Recht</h2>
+        <p>
+          Für die Nutzung dieser Website und für vertragliche Beziehungen, die über sie
+          angebahnt werden, gilt deutsches Recht. Zwingende verbraucherschützende
+          Vorschriften des Staates, in dem ein Verbraucher seinen gewöhnlichen Aufenthalt
+          hat, bleiben unberührt.
+        </p>
+        <p>
+          Sollten einzelne Bestimmungen dieser Angaben unwirksam sein oder werden, bleibt
+          die Wirksamkeit der übrigen Bestimmungen davon unberührt.
+        </p>
+
+        <h2 id="weitere">16. Weitere Pflichtinformationen</h2>
+        <p>
+          Die folgenden Angaben ergänzen dieses Impressum und sind gesondert abrufbar:
+        </p>
+        <ul>
+          <li><a href="/recht/erstinformation.html">Erstinformation nach § 15 VersVermV</a> —
+              Status, Registereintrag, Vergütung, Beschwerdewege</li>
+          <li><a href="/recht/datenschutz.html">Datenschutzerklärung</a> —
+              Verarbeitung personenbezogener Daten nach Art. 13 und 14 DSGVO</li>
+          <li><a href="/recht/beschwerde.html">Beschwerde und Schlichtung</a> —
+              Beschwerdeverfahren und anerkannte Verbraucherschlichtungsstellen</li>
+          <li><a href="/recht/barrierefreiheit.html">Erklärung zur Barrierefreiheit</a></li>
+        </ul>
+
+        <h2 id="stand">17. Stand und Änderungen</h2>
+        <p>
+          Wir halten diese Angaben aktuell. Ändern sich Anschrift, Rechtsform,
+          Registereintrag, Aufsicht oder das Vertretungsverhältnis, passen wir das
+          Impressum unverzüglich an. Eine Pflicht, Nutzer über Änderungen gesondert zu
+          unterrichten, besteht nicht.
+        </p>
         <p class="small muted mt-8">
           Stand dieser Angaben: {{recht.stand|Stand}}
         </p>
