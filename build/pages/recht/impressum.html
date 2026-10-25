@@ -148,7 +148,7 @@
 
         <h2 id="aufsicht">5. Aufsichts- und Registerbehörden</h2>
         <p>
-          {{?register.gebunden}}Die gewerberechtliche Aufsicht führt die {{ihk.name}}.{{/?}}{{!register.gebunden}}Zuständig
+          {{?register.gebunden}}Für die Eintragung im Vermittlerregister ist die für unseren Sitz zuständige {{ihk.name}} als Registerbehörde zuständig (§ 11a GewO). Eine Erlaubnisbehörde gibt es für gebundene Versicherungsvertreter nicht: Das Versicherungsunternehmen, für das wir tätig sind, ist für unsere Zuverlässigkeit und Qualifikation verantwortlich und unterliegt selbst der Aufsicht der {{behoerden.bafin.name}}.{{/?}}{{!register.gebunden}}Zuständig
           für die Erlaubnis und die Gewerbeaufsicht ist die unter Ziffer 4 genannte
           Industrie- und Handelskammer.{{/!}} Die Eintragung im Vermittlerregister kann
           jederzeit unter
@@ -156,7 +156,7 @@
           anhand der Registrierungsnummer überprüft werden.
         </p>
         <dl>
-          <dt>Gewerbeaufsicht</dt>
+          <dt>{{?register.gebunden}}Registerbehörde{{/?}}{{!register.gebunden}}Gewerbeaufsicht{{/!}}</dt>
           <dd>{{ihk.name}}<br>{{ihk.strasse}}<br>{{ihk.plz}} {{ihk.ort}}</dd>
           <dt>Registerführende Stelle</dt>
           <dd>{{behoerden.dihk.name}}<br>{{behoerden.dihk.strasse}}, {{behoerden.dihk.plz}} {{behoerden.dihk.ort}}</dd>
@@ -190,9 +190,8 @@
         <p>
           Für unsere Vermittlungstätigkeit erhalten wir eine Vergütung vom
           Versicherungsunternehmen. Sie ist in der Prämie des vermittelten Vertrags
-          enthalten; ein gesondertes Honorar berechnen wir Ihnen nicht. Eine Vergütung
-          nach § 34d Abs. 1 Satz 4 GewO in Form eines Honorars vom Kunden vereinbaren wir
-          nicht.
+          enthalten; ein gesondertes Honorar berechnen wir Ihnen nicht und vereinbaren
+          es auch nicht.
         </p>
         <p>
           Auf Verlangen legen wir Ihnen die Höhe der Vergütung im konkreten Fall offen.
@@ -209,7 +208,7 @@
           offen (Ziffer 14).
         </p>
         <p>
-          Angaben zu Beteiligungen nach § 15 Abs. 1 Nr. 5 und 6 VersVermV:
+          Angaben zu Beteiligungen nach § 15 VersVermV:
           {{register.beteiligungen}}
         </p>
 
@@ -324,7 +323,7 @@
 
         <h2 id="vertretung">14. Vertretungsverhältnis und Beratungsgrundlage</h2>
         <p>
-          Angabe nach § 15 Abs. 1 Nr. 2 VersVermV und § 60 Abs. 2 VVG:
+          Angabe nach § 15 VersVermV und § 60 Abs. 2 VVG:
         </p>
         <dl>
           <dt>Rechtsstellung</dt>

@@ -114,7 +114,7 @@
         </p>
 
         <h2>4. Beteiligungen</h2>
-        <p>Angaben nach § 15 Abs. 1 Nr. 4 und 5 VersVermV:</p>
+        <p>Angaben nach § 15 VersVermV:</p>
         <p>
           {{register.beteiligungen}}
         </p>
@@ -180,11 +180,17 @@
         </p>
 
         <h2>9. Zuständige Aufsicht</h2>
+        {{?register.gebunden}}<p>
+          Für die Eintragung im Vermittlerregister ist die für unseren Sitz zuständige {{ihk.name}} als Registerbehörde zuständig (§ 11a GewO). Eine Erlaubnisbehörde gibt es für gebundene Versicherungsvertreter nicht: Das Versicherungsunternehmen, für das wir tätig sind, ist für unsere Zuverlässigkeit und Qualifikation verantwortlich und unterliegt selbst der Aufsicht der {{behoerden.bafin.name}}.
+        </p>
         <p>
+          Beschwerden über unsere Vermittlung können Sie an uns, an das
+          Versicherungsunternehmen oder an die unter Ziffer 8 genannten Stellen richten.
+        </p>{{/?}}{{!register.gebunden}}<p>
           Die gewerberechtliche Aufsicht über unsere Tätigkeit führt die unter
           Ziffer 3 genannte Industrie- und Handelskammer. Beschwerden können auch
           dorthin gerichtet werden.
-        </p>
+        </p>{{/!}}
 
         <p class="small muted mt-8">
           Stand: {{recht.stand|Stand}} &middot;

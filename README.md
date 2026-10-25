@@ -110,7 +110,8 @@ gewerberechtliche Folgen haben.
 Aktuellen Stand jederzeit prüfen mit:
 
 ```bash
-tools/pruefen.sh
+tools/pruefen.sh     # zeigt, was noch fehlt
+tools/paket.sh       # baut das Upload-Paket — bricht ab, solange etwas fehlt
 ```
 
 ---
@@ -150,80 +151,133 @@ tools/pruefen.sh
 
 ---
 
-## Inbetriebnahme
+## Livegang — die Seite auf die eigene Domain bringen
 
-### 1. Konfiguration anlegen
+Zehn Schritte. Die ersten fünf erledigen Sie einmal, danach genügt für jede
+Änderung Schritt 8.
+
+### Vorher klären
+
+- **Freigabe durch den Versicherer.** Als gebundener Vertreter haftet das
+  Versicherungsunternehmen für Ihre Vermittlung. Viele Vertreterverträge
+  verlangen deshalb, dass eigene Websites und Werbung vorab freigegeben
+  werden. Bitte im Vertrag nachsehen oder bei der Vertriebsdirektion fragen,
+  bevor die Seite öffentlich geht.
+- **Anwaltliche Prüfung** von Impressum, Datenschutzerklärung und
+  Erstinformation. Die Texte sind sorgfältig erstellte Vorlagen, keine
+  Rechtsberatung.
+
+### 1. Hoster wählen
+
+Gebraucht wird ein Webhosting-Paket mit:
+
+| Anforderung | Warum |
+| --- | --- |
+| **PHP 8.1 oder neuer** | für das Kontaktformular |
+| **Apache mit `.htaccess`** (mod_rewrite, mod_headers) | Sicherheits-Header, Sperren, HTTPS-Umleitung |
+| **kostenloses SSL-Zertifikat** (Let's Encrypt) | HTTPS ist Pflicht |
+| **E-Mail-Postfach unter der eigenen Domain** | Absender der Formular-Mails |
+| **Serverstandort in Deutschland oder der EU** | Datenschutz |
+| **Auftragsverarbeitungsvertrag (AVV)** nach Art. 28 DSGVO | Pflicht, meist im Kundenmenü abschließbar |
+
+Übliche deutsche Anbieter erfüllen das schon in kleinen Paketen. Ein reines
+„Homepage-Baukasten"-Paket ohne PHP reicht **nicht**.
+
+### 2. Domain verbinden
+
+- Domain beim Hoster mitbestellen — dann ist nichts weiter zu tun.
+- Liegt die Domain woanders: beim bisherigen Anbieter entweder die
+  Nameserver des neuen Hosters eintragen oder die A-/AAAA-Einträge auf die
+  IP-Adresse des Hosters setzen. Die Umstellung braucht bis zu 24 Stunden.
+- Im Hoster-Menü der Domain ein **SSL-Zertifikat** zuweisen und
+  „HTTPS erzwingen" einschalten, sofern angeboten.
+
+### 3. E-Mail einrichten
+
+Ein Postfach für Anfragen anlegen (z. B. `anfragen@ihre-domain.de`) und eine
+Absenderadresse (z. B. `website@ihre-domain.de`). Beim Hoster **SPF, DKIM und
+DMARC** aktivieren — sonst landen die Formular-Mails im Spam. Bei den meisten
+Hostern ist das ein Schalter.
+
+### 4. Angaben eintragen
+
+Alle Angaben stehen in **`build/site.json`**. Zu jedem Feld steht direkt
+darunter ein Hinweis (`"_feldname"`), was hineingehört. Mindestens:
+
+- `web.domain` — Ihre Domain mit `https://`
+- `firma.*`, `kontakt.*` — Firmierung, Telefon, E-Mail
+- `register.nummer`, `register.vertretung` — aus Ihrem Registereintrag
+- `recht.hoster`, `recht.logfile_tage`, `recht.weitere_auftragsverarbeiter`
+  — aus dem Vertrag mit dem Hoster
+- `recht.vsbg`, `recht.stand`, `recht.bf_status`, `recht.bf_datum`,
+  `recht.empfehlung_verguetung`
+
+Außerdem von Hand anpassen: die Sitemap-Zeile in `robots.txt` und — wenn
+die Seite ohne „www" erreichbar sein soll — den Umleitungsblock oben in
+`.htaccess`.
+
+### 5. Kontaktformular einrichten
 
 ```bash
 cp api/config.example.php api/config.php
-php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"   # Wert für ip_pepper
+php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"   # ergibt den Wert für ip_pepper
 ```
 
-In `api/config.php` einzutragen:
+In `api/config.php` eintragen: `recipient` (Ihr Anfragen-Postfach), `from`
+(Absender unter Ihrer Domain), `allowed_hosts` (Ihre Domain mit und ohne
+„www"), `ip_pepper` (der eben erzeugte Wert). Die Datei enthält Zugangsdaten
+und wird nie ins Repository übernommen.
 
-| Feld | Bedeutung |
-| --- | --- |
-| `recipient` | Postfach, das die Anfragen erhält |
-| `from` | Absenderadresse — **muss** zur eigenen Domain gehören, sonst scheitert SPF/DMARC |
-| `allowed_hosts` | Alle Hostnamen, unter denen die Seite erreichbar ist |
-| `ip_pepper` | Der eben erzeugte Zufallswert |
-| `storage_ttl` | Löschfrist der Spamschutz-Daten — muss mit der Datenschutzerklärung übereinstimmen |
-
-`api/config.php` steht in `.gitignore` und gehört nicht ins Repository.
-
-### 2. Angaben eintragen
-
-Alle Angaben stehen in `build/site.json`. Nach dem Ausfüllen:
+### 6. Paket bauen
 
 ```bash
-python3 build/build.py --live
+tools/paket.sh
 ```
 
-Der Bau nennt jedes Feld, das noch leer ist, und bricht ab, solange
-Pflichtangaben fehlen.
+Das Skript baut alle Seiten im Livegang-Modus und **bricht ab**, solange
+ein Pflichtfeld leer ist, ein Platzhalter oder Redaktionshinweis übrig ist
+oder die Formular-Konfiguration noch Beispielwerte enthält. Ergebnis:
+`dist/finanzwaechter/` und dieselben Dateien als ZIP. Quellen, Werkzeuge
+und diese Anleitung kommen nicht mit.
 
-### 3. Domain eintragen
+### 7. Hochladen
 
-`web.domain` in `build/site.json` setzen und bauen — Canonical-Links, Datenblock
-und Sitemap folgen daraus. Zusätzlich von Hand:
+Den **Inhalt** von `dist/finanzwaechter/` per SFTP (z. B. mit FileZilla) in
+das Webverzeichnis der Domain laden — je nach Hoster `htdocs`,
+`public_html` oder ein Ordner mit dem Domainnamen. Alternativ das ZIP über
+den Dateimanager des Hosters hochladen und dort entpacken.
 
-- `robots.txt` (Sitemap-Zeile)
-- `allowed_hosts` in `api/config.php`
-- der auskommentierte Umleitungsblock in `.htaccess`
+- **Die Datei `.htaccess` muss mit.** Viele Programme blenden Dateien mit
+  Punkt am Anfang aus; in FileZilla: Server → Anzeige versteckter Dateien
+  erzwingen.
+- Der Ordner `api/storage` braucht Schreibrechte für den Webserver
+  (Rechte 750 oder, falls der Hoster es verlangt, 770).
 
-### 4. Serverkonfiguration
+### 8. Prüfen
 
-**Apache:** `.htaccess` wird automatisch gelesen, sofern `AllowOverride All`
-gesetzt ist. Nach dem Livegang die Header prüfen:
+1. `https://ihre-domain.de` aufrufen — Schloss in der Adresszeile?
+2. `http://` aufrufen — wird auf `https://` umgeleitet?
+3. `https://ihre-domain.de/api/config.php` muss **„nicht gefunden"** zeigen.
+4. `https://ihre-domain.de/build/site.json` muss ebenfalls gesperrt sein.
+5. Eine Testanfrage über das Formular senden — kommt die Mail an, nicht im Spam?
+6. Kopfzeilen prüfen, z. B. auf securityheaders.com — Ziel: Note A.
 
-```bash
-curl -sI https://IHRE-DOMAIN.de | grep -i -E 'content-security|x-frame|strict-transport'
-```
+### 9. HSTS einschalten (nach einer Woche)
 
-**nginx:** `nginx.conf.example` als Vorlage verwenden. Die dortige
-Anfragebegrenzung benötigt zusätzlich im `http`-Block:
+Läuft HTTPS stabil, in `.htaccess` die Zeile `Strict-Transport-Security`
+einkommentieren. Nicht vorher: Fällt das Zertifikat bei aktivem HSTS aus,
+ist die Seite für Besucher bis zum Ablauf der Frist unerreichbar.
 
-```nginx
-limit_req_zone $binary_remote_addr zone=formular:10m rate=10r/m;
-```
+### 10. Änderungen später
 
-**HSTS** ist in beiden Konfigurationen auskommentiert. Erst aktivieren, wenn
-HTTPS dauerhaft und für alle Subdomains steht — ein voreiliges Aktivieren
-macht die Domain für die angegebene Dauer unerreichbar, falls das Zertifikat
-ausfällt.
+Text oder Angabe ändern → `tools/paket.sh` → die geänderten Dateien (oder
+das ganze Paket) erneut hochladen. Nach einer Änderung am JSON-LD-Block der
+Startseite rechnet `build/build.py` den CSP-Hash in `.htaccess` automatisch
+neu; dann `.htaccess` mit hochladen.
 
-### 5. Schreibrechte
-
-```bash
-chmod 750 api/storage
-chown www-data:www-data api/storage    # Benutzer je nach Hoster anpassen
-```
-
-### 6. Abschlussprüfung
-
-```bash
-tools/pruefen.sh
-```
+**nginx statt Apache:** `nginx.conf.example` als Vorlage verwenden; im
+`http`-Block zusätzlich
+`limit_req_zone $binary_remote_addr zone=formular:10m rate=10r/m;` setzen.
 
 ---
 

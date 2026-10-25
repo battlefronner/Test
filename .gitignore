@@ -17,3 +17,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Upload-Paket (tools/paket.sh) — kann api/config.php enthalten
+/dist/

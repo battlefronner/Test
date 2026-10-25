@@ -51,10 +51,10 @@
   "register": {
     "nummer": "",
     "_nummer": "Format z. B. D-XXXX-XXXXX-XX, steht im Vermittlerregister",
-    "grundlage": "",
+    "grundlage": "gebundener Versicherungsvertreter nach § 34d Abs. 7 Nr. 1 GewO",
     "_grundlage": "ENTSCHEIDET DEN GESAMTEN RECHTSTEIL. Genau einen der beiden Sätze eintragen — welcher zutrifft, steht in Ihrem Registereintrag bzw. Erlaubnisbescheid. A) Bei Ausschließlichkeit für einen Versicherer, der die Haftung übernimmt: „gebundener Versicherungsvertreter nach § 34d Abs. 7 Nr. 1 GewO“ — dann keine eigene Erlaubnis und keine eigene Berufshaftpflicht. B) Bei eigener IHK-Erlaubnis: „Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 GewO“. Eine falsche Angabe ist abmahnfähig und verschiebt die Haftungsfrage.",
     "vertretung": "",
-    "_vertretung": "Pflichtangabe nach § 15 VersVermV und § 60 Abs. 2 VVG: der Versicherer muss namentlich genannt werden, mit Rechtsform und Sitz. Bei Ausschließlichkeit z. B. „WWK Lebensversicherung a. G., Marsstraße 37, 80335 München“. Diese Angabe steht in der Erstinformation und im Impressum — sie lässt sich nicht weglassen.",
+    "_vertretung": "Pflichtangabe nach § 15 VersVermV und § 60 Abs. 2 VVG: jedes Versicherungsunternehmen, für das Sie laut Registereintrag tätig sind, mit vollständiger Firma und Sitz — genau so, wie es im Vermittlerregister steht. Gehören zur Bindung mehrere Gesellschaften derselben Gruppe (etwa Leben und Sach), alle nennen. Diese Angabe erscheint nur in der Erstinformation und in Ziffer 14 des Impressums.",
     "beteiligungen": "Wir halten keine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an einem Versicherungsunternehmen. Ebenso hält kein Versicherungsunternehmen oder dessen Mutterunternehmen eine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an unserem Unternehmen.",
     "_beteiligungen": "Standardtext – nur ändern, falls Beteiligungen bestehen",
     "haftpflicht_versicherer": "",
