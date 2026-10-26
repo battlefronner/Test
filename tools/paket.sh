@@ -60,6 +60,11 @@ mkdir -p "$ZIEL/api/lib" "$ZIEL/api/storage"
 cp api/bootstrap.php api/kontakt.php api/token.php "$ZIEL/api/"
 cp api/lib/*.php "$ZIEL/api/lib/"
 cp api/storage/.htaccess "$ZIEL/api/storage/"
+# Verwaltung: Oberflaeche und die Quellen, aus denen sie die Seiten baut.
+# build/build.py bleibt draussen — auf dem Server baut die PHP-Fassung.
+mkdir -p "$ZIEL/verwaltung" "$ZIEL/build" "$ZIEL/assets/img/team"
+cp verwaltung/index.php verwaltung/*.css verwaltung/*.js "$ZIEL/verwaltung/"
+cp -r build/site.json build/pages build/partials build/extra "$ZIEL/build/"
 : > "$ZIEL/api/storage/index.html"
 [ "$MIT_CONFIG" -eq 1 ] && cp api/config.php "$ZIEL/api/"
 

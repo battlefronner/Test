@@ -33,8 +33,8 @@ auf „Über uns“. Die Marke selbst trägt ihn nicht: Kopf- und Fußbereich ze
 Namen arbeiten. Ein weiterer Standort oder Partner übernimmt damit die Marke,
 ohne dass Texte umgeschrieben werden müssen.
 
-**Neuen Standort anlegen:** In `site.json` unter `standorte` ein weiteres
-Objekt anhängen, bauen — er erscheint in der Fußzeile und auf der Seite
+**Neuen Standort anlegen:** In der Verwaltung unter „Standorte“ — oder in
+`site.json` unter `standorte` ein weiteres Objekt anhängen, bauen — er erscheint in der Fußzeile und auf der Seite
 „Über uns“. Der Eintrag mit `"hauptsitz": true` liefert die Anschrift für
 Impressum, Erstinformation und Datenblock.
 
@@ -44,6 +44,53 @@ im Wurzelverzeichnis werden überschrieben — dort nicht von Hand ändern.
 **Bearbeitungshinweise** (rote Kästen wie „Vor dem Livegang prüfen“) stehen in
 den Quellen zwischen `<!--editor-->` und `<!--/editor-->`. Im Entwurf sind sie
 sichtbar, `--live` entfernt sie. So kann niemand vergessen, sie zu löschen.
+
+## Verwaltung
+
+Unter **`https://www.ihre-domain.de/verwaltung/`** lässt sich die Website ohne
+Programmierkenntnisse pflegen — auch vom Handy:
+
+| Bereich | Was sich ändern lässt |
+| --- | --- |
+| Kontakt & Recht | Telefon, E-Mail, Status als Vermittler, Registernummer, Angaben für Impressum, Datenschutz und Barrierefreiheit. Fehlende Pflichtangaben sind rot markiert. |
+| Texte | Überschriften und Absätze aller Seiten außer den Rechtstexten, dazu Titel und Beschreibung für Google. Ort, Telefonnummer und Links erscheinen als graue Bausteine und bleiben automatisch richtig. |
+| Team & Fotos | Personen auf „Über uns“, mit Foto. Das Foto wird automatisch zugeschnitten (4 : 5), verkleinert und ohne Metadaten gespeichert. |
+| Standorte | Anschriften; ein Standort ist der Hauptsitz für Impressum und Erstinformation. |
+| Sicherungen | Frühere Stände zurückholen, Änderungen verwerfen. |
+
+**So arbeitet sie:** Jede Änderung wird sofort gespeichert, auf der Website
+erscheint sie aber erst nach **Veröffentlichen**. Vorher zeigt „Vorschau“ die
+Seite genau so, wie sie dann aussieht. Veröffentlichen ist gesperrt, solange
+eine Pflichtangabe fehlt — die Übersicht nennt dann jede einzelne. Vor jeder
+Veröffentlichung entsteht eine Sicherung.
+
+Gebaut werden die Seiten auf dem Server von `api/lib/Baukasten.php`, der
+PHP-Fassung von `build/build.py`. Beide erzeugen dieselben Dateien Byte für
+Byte; `tools/baukasten-vergleich.sh` prüft das.
+
+### Einrichten (einmalig)
+
+1. `api/config.php` muss vorhanden sein (siehe „Kontaktformular“).
+2. `/verwaltung/` im Browser öffnen. Die Seite erzeugt aus einem Passwort
+   (mindestens 12 Zeichen) eine Zeile `'verwaltung_passwort_hash' => '…',`.
+   Diese in `api/config.php` einsetzen. Das Passwort selbst wird nirgends gespeichert.
+3. **Schreibrechte:** Der Webserver muss diese Dateien ändern dürfen: die
+   `.html`-Dateien im Hauptordner und in `recht/`, `sitemap.xml`, `.htaccess`,
+   den Ordner `build/` mit Inhalt, `assets/img/` und `api/storage/`. Bei den
+   meisten Hostern ist das ohne weiteres so; sonst zeigt die Übersicht der
+   Verwaltung, welche Datei fehlt.
+
+### Sicherheit
+
+- Nur über HTTPS, Sitzungscookie `HttpOnly`, `Secure`, `SameSite=Strict`, nur für `/verwaltung/` gültig
+- Abmeldung nach 30 Minuten ohne Aktion, spätestens nach 12 Stunden; ein neues Passwort beendet alle Sitzungen
+- 5 Anmeldeversuche je 15 Minuten und Absender, 30 je Stunde insgesamt
+- Jede Änderung mit CSRF-Token und Herkunftsprüfung (`allowed_hosts`)
+- Eingaben: kein HTML, keine Platzhalter-Klammern; Texte aus dem Editor werden
+  auf Fett, Kursiv, Gold und Zeilenumbruch reduziert
+- Fotos werden vollständig neu kodiert und unter Zufallsnamen gespeichert
+- Rechtstexte selbst sind nicht frei bearbeitbar — sie entstehen aus den geprüften Vorlagen
+- Ein Protokoll (Anmeldung, Veröffentlichen, Wiederherstellen) liegt in `api/storage/verwaltung.log`
 
 ## Gestaltung
 
@@ -270,8 +317,16 @@ ist die Seite für Besucher bis zum Ablauf der Frist unerreichbar.
 
 ### 10. Änderungen später
 
-Text oder Angabe ändern → `tools/paket.sh` → die geänderten Dateien (oder
-das ganze Paket) erneut hochladen. Nach einer Änderung am JSON-LD-Block der
+Am einfachsten über die **Verwaltung** (`/verwaltung/`, siehe oben) — dann
+muss nichts hochgeladen werden.
+
+**Achtung beim erneuten Hochladen eines Pakets:** Es enthält `build/` mit
+`site.json` und den Seitenvorlagen. Wer in der Verwaltung etwas geändert hat,
+überschreibt diese Änderungen damit. Vorher den Ordner `build/` vom Server
+herunterladen und ins Projekt übernehmen — oder `build/` beim Hochladen auslassen.
+
+Ohne Verwaltung: Text oder Angabe ändern → `tools/paket.sh` → die geänderten
+Dateien (oder das ganze Paket) erneut hochladen. Nach einer Änderung am JSON-LD-Block der
 Startseite rechnet `build/build.py` den CSP-Hash in `.htaccess` automatisch
 neu; dann `.htaccess` mit hochladen.
 

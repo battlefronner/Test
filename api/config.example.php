@@ -125,4 +125,21 @@ return [
 
     /** Bei true werden technische Fehlerdetails ausgegeben. NUR für Tests. */
     'debug' => false,
+
+    // ---------------------------------------------------------------------
+    // Verwaltung (https://www.ihre-domain.de/verwaltung/)
+    // ---------------------------------------------------------------------
+
+    /**
+     * Passwort der Verwaltung als Hash — niemals das Passwort selbst.
+     * Leer lassen und /verwaltung/ aufrufen: die Seite erzeugt die fertige
+     * Zeile zum Einsetzen. Solange das Feld leer ist, ist keine Anmeldung möglich.
+     */
+    'verwaltung_passwort_hash' => '',
+
+    /** Nach so vielen Minuten ohne Aktion wird abgemeldet. */
+    'verwaltung_sitzung_minuten' => 30,
+
+    /** Anmeldung nur über HTTPS. Nur für Tests auf dem eigenen Rechner abschalten. */
+    'verwaltung_https_pflicht' => true,
 ];

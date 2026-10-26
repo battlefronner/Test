@@ -37,16 +37,15 @@
         </div>
 
         <div class="stack reveal d1">
-          <div class="card card--gold bracket">
-            <p class="eyebrow">Gründer</p>
-            <h3 class="mt-3">{{firma.inhaber}}</h3>
-            <p class="mono small mono-gold">
-              {{firma.funktion|Funktion}}
-            </p>
-            <p class="muted">
-              {{firma.kurzprofil|Kurzprofil}}
-            </p>
-          </div>
+          {{#team}}<div class="card card--gold bracket person">
+            {{?.foto}}<figure class="person__foto"><img src="/{{@.foto}}" alt="{{@.name}}" width="600" height="750" loading="lazy" decoding="async"></figure>{{/?}}
+            <div class="person__text">
+              <p class="eyebrow">{{.rolle|Rolle}}</p>
+              <h3 class="mt-3">{{.name|Name}}</h3>
+              <p class="mono small mono-gold">{{.funktion|Funktion}}</p>
+              {{?.text}}<p class="muted">{{.text}}</p>{{/?}}
+            </div>
+          </div>{{/team}}
           <!--editor--><div class="note note--warn">
             <p><strong>Hinweis zur Bearbeitung:</strong> Berufsbezeichnungen wie
                „Versicherungsfachmann (IHK)“ oder „Fachwirt für Versicherungen und
@@ -103,7 +102,7 @@
           <p class="eyebrow">{{.titel}}</p>
           <h3>{{.name}}</h3>
           <address class="site__addr">{{.strasse}}<br>{{.plz}} {{.ort}}</address>
-          <p class="small faint">{{.region}}</p>
+          {{?.region}}<p class="small faint">{{.region}}</p>{{/?}}
           <p class="mt-4"><a class="link-arrow" href="https://www.openstreetmap.org/search?query={{.strasse}}%2C%20{{.plz}}%20{{.ort}}" rel="noopener noreferrer external" target="_blank">Auf der Karte</a></p>
         </div></article>{{/standorte}}
       </div>

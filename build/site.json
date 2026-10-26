@@ -11,10 +11,6 @@
     "firmierung": "Finanzwächter – Florian Wächter",
     "_firmierung": "Vollständige Firmierung inkl. Rechtsform, z. B. „Finanzwächter Florian Wächter e. K.“ oder „Finanzwächter GmbH“",
     "inhaber": "Florian Wächter",
-    "funktion": "Gründer und Inhaber",
-    "_funktion": "z. B. „Gründer und Inhaber“ – geschützte Titel wie „Versicherungsfachmann (IHK)“ nur mit Nachweis",
-    "kurzprofil": "",
-    "_kurzprofil": "Drei bis vier Sätze zu Werdegang, Qualifikation und Schwerpunkt",
     "gruendungsjahr": "",
     "_inhaber": "Vertretungsberechtigte Person. Erscheint ausschließlich dort, wo das Gesetz sie verlangt (Impressum nach § 5 DDG, Erstinformation nach § 15 VersVermV) sowie im Team-Bereich auf „Über uns“ — nicht in der Marke."
   },
@@ -45,6 +41,16 @@
     }
   ],
   "_standorte": "Weitere Standorte als zusätzliche Objekte anhängen. Der erste Eintrag mit hauptsitz=true liefert die Adresse für Impressum und Erstinformation.",
+  "team": [
+    {
+      "name": "Florian Wächter",
+      "rolle": "Gründer",
+      "funktion": "Gründer und Inhaber",
+      "text": "",
+      "foto": ""
+    }
+  ],
+  "_team": "Personen im Team-Bereich auf „Über uns“. Text und Foto sind freiwillig. Berufsbezeichnungen wie „Versicherungsfachmann (IHK)“ nur mit abgelegter Prüfung.",
   "einzugsgebiet": [
     "Marl",
     "Kreis Recklinghausen",

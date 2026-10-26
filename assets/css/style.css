@@ -1243,3 +1243,26 @@ a:hover { color: var(--gold-100); }
   a[href^="#"]::after { content: ""; }
   .ph { border: 1px solid #000; background: none; color: #000; }
 }
+
+/* --------------------------------------------------------------------------
+   Team-Karten auf „Über uns“ — Foto neben dem Text, schmal darüber
+   -------------------------------------------------------------------------- */
+.person { container-type: inline-size; }
+.person:has(.person__foto) { display: grid; gap: var(--s5); }
+.person > .person__text { margin-top: 0; }
+.person__text > * + * { margin-top: var(--s3); }
+.person__foto {
+  position: relative; margin: 0; max-width: 260px;
+  border-radius: calc(var(--r) - 4px); overflow: hidden;
+  border: 1px solid var(--line-gold);
+  background: var(--line);
+}
+.person__foto img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.person__foto::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 62%, rgba(11, 11, 15, .35));
+}
+@container (min-width: 440px) {
+  .person:has(.person__foto) { grid-template-columns: minmax(150px, 40%) 1fr; align-items: center; }
+  .person__foto { max-width: none; }
+}

@@ -1,0 +1,8 @@
+/* Hinweisleiste in der Vorschau der Verwaltung */
+.fw-vorschau {
+  position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 9999;
+  width: max-content; max-width: calc(100% - 24px); padding: .55rem .9rem; border-radius: 10px;
+  background: #D4A73C; color: #07070A; font: 500 .85rem/1.35 'IBM Plex Sans', system-ui, sans-serif;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .45); text-align: center;
+}
+.fw-vorschau a { color: inherit; font-weight: 600; }

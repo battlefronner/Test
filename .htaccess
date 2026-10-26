@@ -101,10 +101,16 @@ ServerSignature Off
     # build/site.json enthaelt saemtliche Stammdaten an einer Stelle.
     RewriteRule ^build/ - [F,L]
     RewriteRule ^tools/ - [F,L]
+    # In der Verwaltung ist nur die Startdatei ausführbar
+    RewriteRule ^verwaltung/(?!index\.php$)[^/]*\.php$ - [F,L]
+    # Hochgeladene Fotos sind Bilder, nie Programme
+    RewriteRule ^assets/img/team/.*\.(php\d?|phtml|phar|html?)$ - [F,L]
 </IfModule>
 
 # Verzeichnisauflistung abschalten
 Options -Indexes -MultiViews
+# /verwaltung/ startet index.php
+DirectoryIndex index.html index.php
 
 # -----------------------------------------------------------------------------
 # 4. Fehlerseiten
@@ -138,6 +144,7 @@ ErrorDocument 404 /404.html
     ExpiresByType image/svg+xml           "access plus 1 month"
     ExpiresByType font/woff2              "access plus 1 year"
     ExpiresByType image/jpeg              "access plus 1 month"
+    ExpiresByType image/webp              "access plus 1 month"
     ExpiresByType application/manifest+json "access plus 1 week"
 </IfModule>
 
@@ -153,4 +160,5 @@ AddDefaultCharset UTF-8
     AddType image/svg+xml               .svg
     AddType application/manifest+json   .webmanifest
     AddType font/woff2                  .woff2
+    AddType image/webp                  .webp
 </IfModule>
