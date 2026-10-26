@@ -6,7 +6,17 @@
 (function () {
   'use strict';
 
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Bewegung folgt der Geräteeinstellung „Bewegung reduzieren", lässt sich
+     aber über den Schalter in der Kopfzeile in beide Richtungen übersteuern
+     (data-motion auf <html>, gesetzt von boot.js und main.js). */
+  var systemRuhig = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function aus() {
+    var w = document.documentElement.getAttribute('data-motion');
+    if (w === 'off') return true;
+    if (w === 'on') return false;
+    return systemRuhig.matches;
+  }
+  var reduced = aus();   // Zustand beim Laden — entscheidet über das Einblenden
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* --- Einblenden beim Scrollen ---------------------------------------- */
@@ -54,14 +64,15 @@
   var stage = document.querySelector('.hero__stage');
   var wide = window.matchMedia('(min-width: 64rem)');
 
-  if (stage && !reduced) {
+  if (stage) {
     var pRaf = false;
 
     function parallax() {
       if (pRaf) return; pRaf = true;
       requestAnimationFrame(function () {
         var y = window.scrollY;
-        if (y < window.innerHeight * 1.2) {
+        if (aus()) { stage.style.transform = ''; }
+        else if (y < window.innerHeight * 1.2) {
           stage.style.transform = 'translate3d(0,' + (y * 0.16).toFixed(1) + 'px,0)';
         }
         pRaf = false;
@@ -85,10 +96,10 @@
   /* --- Lichtkegel folgt dem Zeiger über der Bühne ------------------------ */
   var hero = document.querySelector('.hero');
   var light = document.querySelector('.hero__light');
-  if (hero && light && finePointer && !reduced) {
+  if (hero && light && finePointer) {
     var lRaf = 0;
     hero.addEventListener('pointermove', function (e) {
-      if (lRaf) return;
+      if (lRaf || aus()) return;
       lRaf = requestAnimationFrame(function () {
         var r = hero.getBoundingClientRect();
         light.style.setProperty('--lx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
@@ -142,7 +153,7 @@
       var prefix = el.getAttribute('data-prefix') || '';
       var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
 
-      if (reduced || isNaN(target)) {
+      if (aus() || isNaN(target)) {
         el.textContent = prefix + target.toLocaleString('de-DE', {
           minimumFractionDigits: decimals, maximumFractionDigits: decimals
         }) + suffix;
@@ -177,12 +188,12 @@
   /* --- Karten kippen leicht in Richtung Zeiger --------------------------- */
   // Nur auf Geräten mit echtem Zeiger; auf Touch wäre das nur störend.
 
-  if (finePointer && !reduced) {
+  if (finePointer) {
     document.querySelectorAll('.tilt').forEach(function (card) {
       var raf = 0;
 
       card.addEventListener('pointermove', function (e) {
-        if (raf) return;
+        if (raf || aus()) return;
         raf = requestAnimationFrame(function () {
           var r = card.getBoundingClientRect();
           var px = (e.clientX - r.left) / r.width  - 0.5;
@@ -202,11 +213,11 @@
   }
 
   /* --- Hauptschaltflächen folgen dem Zeiger leicht ----------------------- */
-  if (finePointer && !reduced) {
+  if (finePointer) {
     document.querySelectorAll('[data-magnetic]').forEach(function (btn) {
       var raf = 0;
       btn.addEventListener('pointermove', function (e) {
-        if (raf) return;
+        if (raf || aus()) return;
         raf = requestAnimationFrame(function () {
           var r = btn.getBoundingClientRect();
           var dx = (e.clientX - (r.left + r.width  / 2)) * 0.16;
@@ -221,4 +232,11 @@
       });
     });
   }
+  /* --- Schalter in der Kopfzeile: beim Anhalten alles zurück in Ruhe ---- */
+  window.addEventListener('fw:motionchange', function () {
+    if (!aus()) return;
+    if (stage) stage.style.transform = '';
+    document.querySelectorAll('.tilt, [data-magnetic]').forEach(function (el) { el.style.transform = ''; });
+    targets.forEach(function (el) { el.classList.add('shown'); });
+  });
 })();

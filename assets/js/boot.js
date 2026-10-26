@@ -21,4 +21,11 @@
   if (wahl === 'light' || wahl === 'dark') {
     wurzel.setAttribute('data-theme', wahl);
   }
+
+  // Bewegung: ohne Wahl gilt die Geräteeinstellung „Bewegung reduzieren".
+  var bewegung = null;
+  try { bewegung = window.localStorage.getItem('fw-motion'); } catch (e) {}
+  if (bewegung === 'on' || bewegung === 'off') {
+    wurzel.setAttribute('data-motion', bewegung);
+  }
 })();

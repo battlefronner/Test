@@ -41,7 +41,17 @@
   farbenSetzen();
   window.addEventListener('fw:themechange', farbenSetzen);
 
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  /* Bewegung folgt der Geräteeinstellung „Bewegung reduzieren", lässt sich
+     aber über den Schalter in der Kopfzeile in beide Richtungen übersteuern
+     (data-motion auf <html>, gesetzt von boot.js und main.js). */
+  var systemRuhig = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function aus() {
+    var w = document.documentElement.getAttribute('data-motion');
+    if (w === 'off') return true;
+    if (w === 'on') return false;
+    return systemRuhig.matches;
+  }
+  var reduced = { get matches() { return aus(); } };
 
   /* Bereitet einen Canvas auf die Pixeldichte des Geräts vor.
      onChange wird immer dann gerufen, wenn sich die Größe ändert — auch wenn
@@ -75,20 +85,24 @@
 
   /* Führt eine Zeichenschleife, die nur läuft, solange das Element sichtbar
      ist — im Hintergrund liegende Seiten kosten so keine Rechenzeit. */
-  function loop(canvas, draw) {
-    var running = false, raf = 0, t0 = performance.now();
+  function loop(canvas, draw, still) {
+    var running = false, raf = 0, t0 = performance.now(), sichtbar = true;
 
     function frame(now) {
       if (!running) return;
       draw((now - t0) / 1000);
       raf = requestAnimationFrame(frame);
     }
-    function start() { if (running) return; running = true; raf = requestAnimationFrame(frame); }
+    function start() {
+      if (running || reduced.matches || !sichtbar || document.hidden) return;
+      running = true; raf = requestAnimationFrame(frame);
+    }
     function stop()  { running = false; cancelAnimationFrame(raf); }
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
-        es[0].isIntersecting ? start() : stop();
+        sichtbar = es[0].isIntersecting;
+        sichtbar ? start() : stop();
       }, { threshold: 0 }).observe(canvas);
     } else {
       start();
@@ -96,6 +110,13 @@
     document.addEventListener('visibilitychange', function () {
       document.hidden ? stop() : start();
     });
+    // Schalter in der Kopfzeile: aus = ruhiges, vollständiges Bild;
+    // an = von vorn, damit der Aufbau des Signets noch einmal zu sehen ist.
+    window.addEventListener('fw:motionchange', function () {
+      if (reduced.matches) { stop(); still(); }
+      else { t0 = performance.now(); start(); }
+    });
+    if (reduced.matches) still();
     return { start: start, stop: stop };
   }
 
@@ -106,7 +127,7 @@
     var nodes = [];
     var pointer = { x: -9999, y: -9999, active: false };
     var size;
-    var s = setup(canvas, function (dim) { size = dim; build(); });
+    var s = setup(canvas, function (dim) { size = dim; build(); if (reduced.matches) draw(); });
     var ctx = s.ctx;
     size = s.resize();
 
@@ -186,8 +207,7 @@
       }
     }
 
-    if (reduced.matches) { draw(); return; }
-    loop(canvas, draw);
+    loop(canvas, draw, function () { draw(); });
   }
 
   /* ---------------------------------------------------------------------
@@ -195,7 +215,7 @@
      --------------------------------------------------------------------- */
   function object3d(canvas) {
     var size;
-    var s = setup(canvas, function (dim) { size = dim; });
+    var s = setup(canvas, function (dim) { size = dim; if (reduced.matches) draw(0); });
     var ctx = s.ctx;
     size = s.resize();
 
@@ -310,7 +330,7 @@
     // Eröffnung: Ring zuerst, dann das Schild, zuletzt das W.
     // Ohne die Sequenz wirkt das Signet wie ein statisches Bild, das sich dreht;
     // mit ihr wie ein Zeichen, das gerade entsteht.
-    var INTRO = reduced.matches ? 0 : 2.6;
+    var INTRO = 2.6;
     function ease(x) { return x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3); }
 
     function draw(t) {
@@ -323,7 +343,7 @@
       cur.x += (aim.x - cur.x) * 0.045;
       cur.y += (aim.y - cur.y) * 0.045;
 
-      var intro = INTRO ? Math.min(1, t / INTRO) : 1;
+      var intro = reduced.matches ? 1 : Math.min(1, t / INTRO);
       var ringIn   = ease(intro / 0.42);
       var shieldIn = ease((intro - 0.22) / 0.46);
       var wIn      = ease((intro - 0.55) / 0.45);
@@ -380,8 +400,7 @@
       });
     }
 
-    if (reduced.matches) { draw(0); return; }
-    loop(canvas, draw);
+    loop(canvas, draw, function () { draw(0); });
   }
 
   /* --- Start ------------------------------------------------------------ */

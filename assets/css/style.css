@@ -593,6 +593,10 @@ a:hover { color: var(--gold-100); }
 .theme-toggle .i-moon { display: none; }
 :root[data-theme="light"] .theme-toggle .i-sun { display: none; }
 :root[data-theme="light"] .theme-toggle .i-moon { display: block; }
+/* Bewegung: im Lauf das Pausenzeichen, angehalten das Abspielzeichen */
+.theme-toggle .i-play { display: none; }
+[data-motion-toggle][data-paused="true"] .i-pause { display: none; }
+[data-motion-toggle][data-paused="true"] .i-play { display: block; }
 .nav__burger svg { width: 1.2rem; height: 1.2rem; }
 .nav__burger .i-close { display: none; }
 .nav__burger[aria-expanded="true"] .i-close { display: block; }
@@ -611,7 +615,7 @@ a:hover { color: var(--gold-100); }
   .nav__link { padding: .95rem .25rem; border-bottom: 1px solid var(--line); font-size: 1.05rem; }
   .nav__link::after { display: none; }
   .nav__menu .btn { margin-top: var(--s5); width: 100%; }
-  .nav__menu .theme-toggle { margin-top: var(--s5); }
+  .nav__menu .theme-toggle { display: inline-grid; margin-top: var(--s5); margin-right: var(--s2); }
 }
 @media (min-width: 62.0625rem) {
   .nav__menu { display: flex !important; align-items: center; gap: var(--s5); }
@@ -1206,15 +1210,25 @@ a:hover { color: var(--gold-100); }
 .js .line-in.l2 > span { transition-delay: 110ms; }
 .js .line-in.l3 > span { transition-delay: 220ms; }
 
+/* Ruhe: bei der Geräteeinstellung „Bewegung reduzieren" — außer der Besucher
+   hat Animationen über den Schalter ausdrücklich eingeschaltet — und immer,
+   wenn er sie angehalten hat. */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  :root:not([data-motion="on"]) { scroll-behavior: auto; }
+  :root:not([data-motion="on"]) *, :root:not([data-motion="on"]) *::before, :root:not([data-motion="on"]) *::after {
     animation-duration: .01ms !important; animation-iteration-count: 1 !important;
     transition-duration: .01ms !important; scroll-behavior: auto !important;
   }
-  .js .reveal { opacity: 1; transform: none; }
-  .js .line-in > span { transform: none; }
+  :root:not([data-motion="on"]).js .reveal { opacity: 1; transform: none; }
+  :root:not([data-motion="on"]).js .line-in > span { transform: none; }
 }
+:root[data-motion="off"] { scroll-behavior: auto; }
+:root[data-motion="off"] *, :root[data-motion="off"] *::before, :root[data-motion="off"] *::after {
+  animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important; scroll-behavior: auto !important;
+}
+:root[data-motion="off"].js .reveal { opacity: 1; transform: none; }
+:root[data-motion="off"].js .line-in > span { transform: none; }
 
 /* --------------------------------------------------------------------------
    20. Druck

@@ -92,4 +92,37 @@
       window.dispatchEvent(new CustomEvent('fw:themechange'));
     });
   }
+
+  /* --- Schalter für Bewegung ---------------------------------------------
+     Ohne Wahl gilt die Geräteeinstellung „Bewegung reduzieren". Der Schalter
+     übersteuert sie in beide Richtungen und ist zugleich die Möglichkeit,
+     laufende Animationen anzuhalten (WCAG 2.2.2). */
+  var bewegung = document.querySelector('[data-motion-toggle]');
+  if (bewegung) {
+    var systemRuhig = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var wurzel2 = document.documentElement;
+    function bewegungAus() {
+      var w = wurzel2.getAttribute('data-motion');
+      if (w === 'off') return true;
+      if (w === 'on') return false;
+      return systemRuhig.matches;
+    }
+    function anzeigen() {
+      var angehalten = bewegungAus();
+      bewegung.setAttribute('aria-pressed', angehalten ? 'true' : 'false');
+      bewegung.setAttribute('aria-label', angehalten ? 'Animationen abspielen' : 'Animationen anhalten');
+      bewegung.setAttribute('data-paused', angehalten ? 'true' : 'false');
+    }
+    anzeigen();
+    bewegung.addEventListener('click', function () {
+      var neu = bewegungAus() ? 'on' : 'off';
+      wurzel2.setAttribute('data-motion', neu);
+      try { window.localStorage.setItem('fw-motion', neu); } catch (e) {}
+      anzeigen();
+      window.dispatchEvent(new CustomEvent('fw:motionchange'));
+    });
+    systemRuhig.addEventListener('change', function () {
+      if (!wurzel2.getAttribute('data-motion')) { anzeigen(); window.dispatchEvent(new CustomEvent('fw:motionchange')); }
+    });
+  }
 })();
