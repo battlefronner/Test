@@ -25,10 +25,25 @@
 
     targets.forEach(function (el) { io.observe(el); });
 
-    // Sicherheitsnetz: Inhalt darf nie dauerhaft unsichtbar bleiben.
+    // Sicherheitsnetz: Inhalt darf nie dauerhaft unsichtbar bleiben — etwa wenn
+    // der Beobachter in einem eingebetteten Rahmen nicht auslöst. Eingeblendet
+    // wird dabei nur, was der Besucher bereits erreicht hat. Früher schaltete
+    // das Netz nach 2,6 Sekunden ALLES sichtbar; beim Scrollen bewegte sich
+    // danach nichts mehr, weil alles längst eingeblendet war.
     window.setTimeout(function () {
-      targets.forEach(function (el) { el.classList.add('shown'); });
+      var unten = window.innerHeight || document.documentElement.clientHeight;
+      targets.forEach(function (el) {
+        if (el.classList.contains('shown')) return;
+        var r = el.getBoundingClientRect();
+        if (r.width === 0 && r.height === 0) return;   // gerade nicht angezeigt
+        if (r.top < unten) { el.classList.add('shown'); io.unobserve(el); }
+      });
     }, 2600);
+
+    // Gedruckt wird immer alles
+    window.addEventListener('beforeprint', function () {
+      targets.forEach(function (el) { el.classList.add('shown'); });
+    });
   }
 
   /* --- Signet läuft beim Scrollen langsamer als die Seite ----------------

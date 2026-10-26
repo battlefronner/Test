@@ -672,6 +672,22 @@ a:hover { color: var(--gold-100); }
 .hero__stage { position: relative; display: grid; place-items: center; min-height: clamp(20rem, 42vw, 32rem); }
 .hero__object { width: 100%; max-width: 38rem; aspect-ratio: 1; }
 
+/* Schmale Schirme: Das Signet steht über der Überschrift statt darunter.
+   Unter dem Text lag es außerhalb des ersten Bildschirms — die Animation lief
+   erst nach dem Scrollen an, und genau sie ist das Markenzeichen. Kleiner
+   gehalten, damit der Terminknopf trotzdem im ersten Bild bleibt. */
+@media (max-width: 63.99rem) {
+  .hero__layout { gap: var(--s4); }
+  .hero__stage { order: -1; min-height: 0; }
+  .hero__object { max-width: min(14rem, 58vw); }
+}
+/* Niedrige Schirme (iPhone SE und ähnliche): etwas kleiner, weniger Luft oben,
+   damit der Terminknopf im ersten Bild bleibt. */
+@media (max-width: 63.99rem) and (max-height: 700px) {
+  .hero { padding-top: var(--s4); }
+  .hero__object { max-width: min(9.5rem, 42vw); }
+}
+
 /* --------------------------------------------------------------------------
    9. Die vier Säulen
    -------------------------------------------------------------------------- */
