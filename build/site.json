@@ -8,10 +8,10 @@
     "_zusatz": "Zeile unter dem Schriftzug in Kopf- und Fußbereich. Bewusst ohne Personennamen, damit weitere Standorte oder Partner dieselbe Marke tragen können."
   },
   "firma": {
-    "firmierung": "",
+    "firmierung": "Finanzwächter – Florian Wächter",
     "_firmierung": "Vollständige Firmierung inkl. Rechtsform, z. B. „Finanzwächter Florian Wächter e. K.“ oder „Finanzwächter GmbH“",
     "inhaber": "Florian Wächter",
-    "funktion": "",
+    "funktion": "Gründer und Inhaber",
     "_funktion": "z. B. „Gründer und Inhaber“ – geschützte Titel wie „Versicherungsfachmann (IHK)“ nur mit Nachweis",
     "kurzprofil": "",
     "_kurzprofil": "Drei bis vier Sätze zu Werdegang, Qualifikation und Schwerpunkt",
@@ -19,10 +19,14 @@
     "_inhaber": "Vertretungsberechtigte Person. Erscheint ausschließlich dort, wo das Gesetz sie verlangt (Impressum nach § 5 DDG, Erstinformation nach § 15 VersVermV) sowie im Team-Bereich auf „Über uns“ — nicht in der Marke."
   },
   "kontakt": {
-    "telefon": "",
-    "telefon_link": "",
+    "telefon": "+49 2365 2024303",
+    "telefon_link": "+4923652024303",
     "_telefon_link": "Internationales Format ohne Leerzeichen, z. B. +49236512345",
-    "email": "",
+    "mobil": "+49 1516 8517747",
+    "_mobil": "Mobilnummer, erscheint im Impressum und in der Erstinformation. Leer lassen, wenn nicht gewünscht.",
+    "mobil_link": "+4915168517747",
+    "_mobil_link": "Dieselbe Nummer ohne Leerzeichen, mit +49, für tel:-Links",
+    "email": "florian.waechter@wwk.de",
     "beschwerde_email": "",
     "sprechzeiten": "Mo–Fr 09:00–18:00 Uhr"
   },
@@ -49,11 +53,11 @@
     "Nordrhein-Westfalen"
   ],
   "register": {
-    "nummer": "",
+    "nummer": "D-DA0S-YEH7R-71",
     "_nummer": "Format z. B. D-XXXX-XXXXX-XX, steht im Vermittlerregister",
-    "grundlage": "gebundener Versicherungsvertreter nach § 34d Abs. 7 Nr. 1 GewO",
+    "grundlage": "gebundener Versicherungsvertreter nach § 34d Abs. 7 Satz 1 Nr. 1 GewO",
     "_grundlage": "ENTSCHEIDET DEN GESAMTEN RECHTSTEIL. Genau einen der beiden Sätze eintragen — welcher zutrifft, steht in Ihrem Registereintrag bzw. Erlaubnisbescheid. A) Bei Ausschließlichkeit für einen Versicherer, der die Haftung übernimmt: „gebundener Versicherungsvertreter nach § 34d Abs. 7 Nr. 1 GewO“ — dann keine eigene Erlaubnis und keine eigene Berufshaftpflicht. B) Bei eigener IHK-Erlaubnis: „Versicherungsvertreter mit Erlaubnis nach § 34d Abs. 1 GewO“. Eine falsche Angabe ist abmahnfähig und verschiebt die Haftungsfrage.",
-    "vertretung": "",
+    "vertretung": "WWK Lebensversicherung a. G., München",
     "_vertretung": "Pflichtangabe nach § 15 VersVermV und § 60 Abs. 2 VVG: jedes Versicherungsunternehmen, für das Sie laut Registereintrag tätig sind, mit vollständiger Firma und Sitz — genau so, wie es im Vermittlerregister steht. Gehören zur Bindung mehrere Gesellschaften derselben Gruppe (etwa Leben und Sach), alle nennen. Diese Angabe erscheint nur in der Erstinformation und in Ziffer 14 des Impressums.",
     "beteiligungen": "Wir halten keine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an einem Versicherungsunternehmen. Ebenso hält kein Versicherungsunternehmen oder dessen Mutterunternehmen eine unmittelbare oder mittelbare Beteiligung von mehr als 10 Prozent der Stimmrechte oder des Kapitals an unserem Unternehmen.",
     "_beteiligungen": "Standardtext – nur ändern, falls Beteiligungen bestehen",
@@ -109,7 +113,7 @@
       "plz": "10178",
       "ort": "Berlin",
       "telefon": "0180 6 00 58 50",
-      "telefon_hinweis": "0,20 € je Anruf aus dem deutschen Festnetz, Mobilfunk abweichend",
+      "telefon_hinweis": "0,20 € je Anruf aus dem deutschen Festnetz, höchstens 0,60 € je Anruf aus Mobilfunknetzen",
       "web": "https://www.vermittlerregister.info"
     },
     "ombudsmann": {

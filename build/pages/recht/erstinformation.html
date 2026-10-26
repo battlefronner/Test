@@ -45,6 +45,7 @@
           {{hauptsitz.plz}} {{hauptsitz.ort}}<br>
           Deutschland<br><br>
           Telefon: {{kontakt.telefon|Telefon}}<br>
+          {{?kontakt.mobil}}Mobil: {{kontakt.mobil}}<br>{{/?}}
           E-Mail: {{kontakt.email|E-Mail}}
         </address>
 
@@ -57,7 +58,7 @@
           genannten Versicherungsunternehmens. Dieses Unternehmen hat die uneingeschränkte
           Haftung für unsere Vermittlungstätigkeit übernommen und veranlasst unsere
           Eintragung im Vermittlerregister. Eine eigene Erlaubnis der Industrie- und
-          Handelskammer ist dafür nicht erforderlich (§ 34d Abs. 7 Nr. 1 GewO).
+          Handelskammer ist dafür nicht erforderlich (§ 34d Abs. 7 Satz 1 Nr. 1 GewO).
         </p>{{/?}}
         <!--editor--><p class="small">
           Bearbeitungshinweis: Dieser Abschnitt richtet sich automatisch nach dem Feld
@@ -121,10 +122,17 @@
 
         <h2>5. Art der Vergütung</h2>
         <p>
-          Wir werden für unsere Vermittlungstätigkeit ausschließlich vom
-          Versicherungsunternehmen vergütet. Die Vergütung (Provision bzw. Courtage)
-          ist bereits im Versicherungsbeitrag enthalten. Ein gesondertes Honorar
-          stellen wir Ihnen nicht in Rechnung.
+          Im Zusammenhang mit der Versicherungsvermittlung erhalten wir eine
+          Vergütung, die als Provision und als sonstige Vergütung in der
+          Versicherungsprämie enthalten ist. Andere Zuwendungen erhalten wir als
+          Vergütung nicht. Unsere Vergütung besteht auch nicht aus einer Kombination
+          von Provision beziehungsweise sonstiger Vergütung und anderen Zuwendungen.
+          Ein gesondertes Honorar stellen wir Ihnen nicht in Rechnung.
+        </p>
+        <p>
+          Die Vergütung für die Vermittlung von Versicherungsprodukten ist nicht davon
+          beeinflusst, ob das empfohlene Versicherungsanlageprodukt
+          Nachhaltigkeitsrisiken berücksichtigt oder nicht.
         </p>
         <p>
           Auf Ihren Wunsch legen wir Ihnen Art und Höhe unserer Vergütung im
@@ -139,6 +147,10 @@
         </p><!--/editor-->
 
         <h2>6. Beratung und Dokumentation</h2>
+        <p>
+          Im Rahmen unserer Tätigkeit für das unter Ziffer 2 genannte
+          Versicherungsunternehmen bieten wir Ihnen eine Beratung an.
+        </p>
         <p>
           Vor Abschluss eines Versicherungsvertrages fragen wir Ihre Wünsche und
           Bedürfnisse ab, beraten Sie und begründen unseren Rat. Diese Angaben
@@ -157,7 +169,7 @@
         {{?register.gebunden}}<p>
           Als gebundener Versicherungsvertreter unterhalten wir keine eigene
           Berufshaftpflichtversicherung. Das Versicherungsunternehmen, für das wir tätig
-          sind, hat nach § 34d Abs. 7 Nr. 1 GewO die uneingeschränkte Haftung für unsere
+          sind, hat nach § 34d Abs. 7 Satz 1 Nr. 1 GewO die uneingeschränkte Haftung für unsere
           Vermittlungstätigkeit übernommen. Ansprüche aus einer Falschberatung können Sie
           daher unmittelbar gegen dieses Unternehmen richten.
         </p>{{/?}}{{!register.gebunden}}<p>
@@ -191,6 +203,27 @@
           Ziffer 3 genannte Industrie- und Handelskammer. Beschwerden können auch
           dorthin gerichtet werden.
         </p>{{/!}}
+
+        <h2>10. Angaben zur Nachhaltigkeit</h2>
+        <p>Angaben nach der Verordnung (EU) 2019/2088 (Offenlegungsverordnung):</p>
+        <dl>
+          <dt>Umgang mit Nachhaltigkeitsrisiken</dt>
+          <dd>Derzeit wird keine eigenständige Strategie im Umgang mit
+              Nachhaltigkeitsrisiken verfolgt; es werden ausschließlich
+              Versicherungsanlageprodukte des unter Ziffer 2 genannten
+              Versicherungsunternehmens angeboten. Über die jeweilige Berücksichtigung
+              von Nachhaltigkeitsrisiken bei Investitionsentscheidungen informiert das
+              Versicherungsunternehmen in seinen vorvertraglichen Informationen und auf
+              seiner Website.</dd>
+          <dt>Wichtigste nachteilige Auswirkungen auf Nachhaltigkeitsfaktoren</dt>
+          <dd>Die Berücksichtigung der wesentlichen nachteiligen Auswirkungen von
+              Investitionsentscheidungen auf Nachhaltigkeitsfaktoren erfolgt bei der
+              Versicherungsberatung auf Basis der vom Versicherungsunternehmen zur
+              Verfügung gestellten Informationen.</dd>
+          <dt>Vergütung</dt>
+          <dd>Siehe Ziffer 5: Die Vergütung ist nicht davon beeinflusst, ob ein
+              Versicherungsanlageprodukt Nachhaltigkeitsrisiken berücksichtigt.</dd>
+        </dl>
 
         <p class="small muted mt-8">
           Stand: {{recht.stand|Stand}} &middot;

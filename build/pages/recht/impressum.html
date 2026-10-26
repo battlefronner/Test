@@ -55,7 +55,7 @@
           Deutschland
         </address>
         <p>
-          <strong>Vertreten durch:</strong> {{firma.inhaber}}
+          <strong>Inhaber:</strong> {{firma.inhaber}}
         </p>
         <!--editor--><p class="small">
           Hinweis zur Rechtsform: Bei einer GmbH, UG oder GmbH &amp; Co. KG sind zusätzlich
@@ -68,6 +68,8 @@
         <dl>
           <dt>Telefon</dt>
           <dd>{{kontakt.telefon|Telefon}}</dd>
+          {{?kontakt.mobil}}<dt>Mobil</dt>
+          <dd>{{kontakt.mobil}}</dd>{{/?}}
           <dt>E-Mail</dt>
           <dd>{{kontakt.email|E-Mail}}</dd>
           <dt>Website</dt>
@@ -105,7 +107,7 @@
           {{!register.gebunden}}<dt>Erlaubnis erteilt durch</dt>
           <dd>{{ihk.name}}, {{ihk.strasse}}, {{ihk.plz}} {{ihk.ort}}</dd>{{/!}}
           {{?register.gebunden}}<dt>Grundlage der Tätigkeit</dt>
-          <dd>Die Tätigkeit erfolgt nach § 34d Abs. 7 Nr. 1 GewO ohne eigene Erlaubnis.
+          <dd>Die Tätigkeit erfolgt nach § 34d Abs. 7 Satz 1 Nr. 1 GewO ohne eigene Erlaubnis.
               Das Versicherungsunternehmen, für das wir tätig sind, hat die uneingeschränkte
               Haftung übernommen und veranlasst die Eintragung im Vermittlerregister.
               Näheres unter Ziffer 14.</dd>{{/?}}
@@ -127,6 +129,7 @@
             <ul>
               <li>§ 34d Gewerbeordnung (GewO)</li>
               <li>§§ 59 bis 68 Versicherungsvertragsgesetz (VVG)</li>
+              <li>§ 48b Versicherungsaufsichtsgesetz (VAG)</li>
               <li>Verordnung über die Versicherungsvermittlung und -beratung (VersVermV)</li>
             </ul>
             <p class="small">Die genannten Regelungen sind über das Portal des Bundesministeriums
@@ -340,7 +343,7 @@
               Versicherungsmakler oder einen Versicherungsberater wenden.</dd>
 
           {{?register.gebunden}}<dt>Haftung</dt>
-          <dd>Das vorgenannte Unternehmen hat nach § 34d Abs. 7 Nr. 1 GewO die
+          <dd>Das vorgenannte Unternehmen hat nach § 34d Abs. 7 Satz 1 Nr. 1 GewO die
               uneingeschränkte Haftung für unsere Vermittlungstätigkeit übernommen.
               Ansprüche wegen fehlerhafter Beratung oder Vermittlung können Sie unmittelbar
               gegen dieses Unternehmen richten.</dd>{{/?}}
@@ -369,7 +372,7 @@
         </p>
         <ul>
           <li><a href="/recht/erstinformation.html">Erstinformation nach § 15 VersVermV</a> —
-              Status, Registereintrag, Vergütung, Beschwerdewege</li>
+              Status, Registereintrag, Vergütung, Beschwerdewege, Angaben zur Nachhaltigkeit</li>
           <li><a href="/recht/datenschutz.html">Datenschutzerklärung</a> —
               Verarbeitung personenbezogener Daten nach Art. 13 und 14 DSGVO</li>
           <li><a href="/recht/beschwerde.html">Beschwerde und Schlichtung</a> —
